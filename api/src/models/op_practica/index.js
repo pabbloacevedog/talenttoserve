@@ -39,18 +39,18 @@ const  index =  {
     ]
 }
 export default (sequelize) => {
-	class Op_practica extends Model {
+	class OpPractica extends Model {
 		static associate() {
 
 		}
 	}
-	Op_practica.init(schema, {
+	OpPractica.init(schema, {
         timestamps: true,
         createdAt: 'fecha_creacion',
         updatedAt: 'fecha_actualizacion',
         tableName: 'op_practica',
         sequelize,
 	}, index);
-	return Op_practica;
+	return OpPractica;
 };
 

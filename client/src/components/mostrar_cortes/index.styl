@@ -1,0 +1,170 @@
+@import '../../css/quasar.variables.styl';
+    
+#panelDiv
+    float: left;
+
+.linea {
+    margin: 0px 2.5% 5px 0px;
+    width: 100%;
+    border-top: 1px solid #4aff00;
+    position: relative;
+    top: 10px;
+    float: left;
+}
+.linea_mob{
+    width: 107%;
+    border-top: 1px solid #4aff00;
+    position: relative;
+    top: 10px;
+    float: left;
+}
+.linea_abajo{
+    margin: 25% 15px 2% 0px;
+    width: 1px;
+    background-color: #4aff00;
+    height: 102%;
+    float: right;
+}
+.linea_abajo_mob{
+    margin: 65% 10px 0% 0px;
+    width: 1px;
+    background-color: #4aff00;
+    height: 112%;
+    float: right;
+}
+.leyenda {
+    font-weight: bold;
+    float: left;
+    color: #4aff00;
+    position: absolute;
+    top: 0;
+    left: 45%;
+    margin-top: 1.5%;
+    width: 50px;
+    background: $secondary;
+}
+.leyenda_mobile {
+    font-weight:bold;
+    float:left;
+    color: #4aff00;
+    font-size: 10px;
+    position: absolute;
+    top: 0;
+    left: 45%;
+    margin-top: 1.5%;
+    width: 50px;
+    background: $secondary;
+}
+.leyenda_abajo {
+    position: absolute;
+    font-weight: bold;
+    color: #4aff00;
+    float: right;
+    width: 3%;
+    left: 25px;
+    background: $secondary;
+}
+.leyenda_abajo_mobile {
+    font-weight: bold;
+    color: #4aff00;
+    float: left;
+    font-size: 10px;
+    left: 0;
+    background: $secondary;
+    margin-top: 35%;
+    position: absolute;
+}
+.titulo_report {
+    color: #00b2ff !important;
+    font-family: comfortaa_b;
+    font-size: 1vw;
+    
+}
+.texto_report {
+    color: $text !important;
+    font-family: comfortaa_b;
+    font-size: 1vw;
+    padding: 1%;
+}
+.fondo_canvas
+
+.card_datos_corte
+    background: $primary;
+    border-radius: 20px;
+    padding: 2%;
+    height: 94%;
+.fondo_datos
+    background: $primary;
+
+.tabla_grafico_cortes
+    background: $secondary;
+
+.tabla_grafico_cortes .q-table__middle .q-table thead tr th
+    font-size: 1vw !important;
+
+.tabla_grafico_cortes .q-table__middle .q-table tbody tr td
+    font-size: 0.8vw !important;
+
+.tabla_grafico_cortes .q-table__middle .q-table thead tr
+    height: 30px !important;
+
+.tabla_grafico_cortes .q-table__middle .q-table tbody tr td
+    height: 30px !important;
+
+.tabla_grafico_cortes .q-table__middle .q-table th, .q-table td {
+    padding: 0px 12px !important;
+    background-color: inherit;
+}
+#contenedor{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+#infoDisplay2
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+#btn_iz
+    position: absolute;
+    left: 0;
+    // margin-top: 60px;
+    z-index :100;
+    bottom: 0;
+    margin-bottom: 50%;
+    margin-left: 2%;
+
+#btn_der
+    position: absolute;
+    // margin-top: 60px;
+    bottom: 0;
+    right: 0;
+    z-index :100;
+    margin-bottom: 50%;
+    margin-right: 2%;
+
+.tabla_grafico_cortes .q-table__bottom .q-table__control 
+   max-height: 24px;
+
+.tabla_grafico_cortes .q-table__bottom
+    min-height: 30px !important;
+    padding: 0px 14px 0px 16px;
+    font-size: 13px;
+    color: $text;
+.default
+    width: 100%;
+
+
+th {
+    font-family: quicksand_b;
+}
+canvas {
+    // image-rendering: optimizeSpeed;             /* Older versions of FF          */
+    // image-rendering: -moz-crisp-edges;          /* FF 6.0+                       */
+    // image-rendering: -webkit-optimize-contrast; /* Safari                        */
+    // image-rendering: -o-crisp-edges;            /* OS X & Windows Opera (12.02+) */
+    // image-rendering: pixelated;                 /* Awesome future-browsers       */
+    // -ms-interpolation-mode: nearest-neighbor;   /* IE                            */
+}

@@ -10,7 +10,6 @@ export const Usuarios = {
     type: new GraphQLList(UsuarioType),
     resolve: traer_todos
 }
-
 // usuario By ID
 export const DatosUsuario = {
     type: UsuarioType,
@@ -33,7 +32,7 @@ export const BuscarUsuarioUsuario = {
 export const BuscarUsuarioCorreo = {
     type: UsuarioType,
     args: {
-        correo: {
+        email: {
             type: GraphQLString
         }
     },

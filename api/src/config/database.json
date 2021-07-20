@@ -1,16 +1,16 @@
 {
-    "development": {
-        "username": "root",
-        "password": "",
-        "database": "tts_bd",
-        "host": "127.0.0.1",
-        "dialect": "mysql"
-    },
-    "production": {
-        "username": "root",
-        "password": "",
-        "database": "tts_bd",
-        "host": "127.0.0.1",
-        "dialect": "mysql"
-    }
+  "development": {
+    "username": "root",
+    "password": "",
+    "database": "tts_bd",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": "",
+    "database": "tts_bd",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
 }

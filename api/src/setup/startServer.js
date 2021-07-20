@@ -1,18 +1,29 @@
 // App Imports
 
-import models from '../models/index.js'
+import models from '../models/index'
+import config from '../config/config.json'
 
-export default function (server, config) {
+import { PubSub } from 'apollo-server';
+const pubsub = new PubSub();
+const MESSAGE_CREATED = 'MESSAGE_CREATED';
+// import schema from '../schema'
+// import { execute, subscribe } from 'graphql';
+// import { SubscriptionServer } from 'subscriptions-transport-ws';
+// Sincronizando tablas de la base de datos e iniciar servidor
+export default function (server) {
 	console.info('SETUP - Sincronizando tablas de la base de datos...')
-	models.sequelize.sync({ alter: true }).then(() => {
+
+	// Crear tablas
+	models.sequelize.sync({}).then(() => {
 		console.info('INFO  - Base de datos sincronizada correctamente.')
+
 		console.info('SETUP - Iniciando servidor...')
-        server.listen({ port: config.port }, (error) => {
+        // Inciar Servidor web
+        server.listen({ port: config.port,bodyParserOptions: { limit: "10mb", type: "application/json" } }, (error) => {
             if (error) {
 				console.error('ERROR - Incapaz de iniciar el servidor.' + error)
 			} else {
                 console.info(`INFO  - Apollo Server corriendo en el puerto ${ config.port }.`)
-                console.log('\x1b[36m%s\x1b[0m', 'SHOT  - ¡API SHOT funcionando correctamente!'); 
 			}
         });
 	})

@@ -1,0 +1,66 @@
+@import '../../css/quasar.variables.styl';
+
+.separation
+    border-top: 1px solid $secondary;
+
+.add_comment
+    padding-top: 3%;
+    bottom: 0;
+    padding-bottom: 3%;
+    padding-left: 1%;
+    
+.input_comment
+    padding-left: 2%;
+    border-radius: 20px
+    // min-width: 70%;
+    
+.btn_comment
+    width: 90%; 
+    height 35px;
+    
+.centrar
+    padding-top: 2px;
+    
+.in 
+    color:$text;    
+
+.in .q-field--lebeled
+    border: none;
+
+::placeholder {
+    color: $text;    
+}
+.tamano_min_av
+    min-width: 12% !important;
+    
+.tamano_min_in
+    min-width: 70%;
+
+.in .q-field__inner .q-field__control
+    padding: 0 12px;
+    border-radius: 20px
+    color: $text
+// .in .q-field__inner .q-field__control .q-field__control-container input 
+//     height 35px;
+
+.in .q-field__control:before 
+    border: none;
+
+.q-field--focused
+    .q-field__control
+    &:before
+        opacity: 1
+        background: rgba(0,0,0,.12)
+    &:after
+        transform: scale3d(1, 1, 1)
+
+.input_comment.q-field__native, .q-field__prefix, .q-field__suffix, .q-field__input
+    background-color: $secondary 
+    border-radius: 20px
+
+
+
+.add_me .q-field__inner .q-field__control{
+    height: 45px;
+    padding-left: 3%;
+}

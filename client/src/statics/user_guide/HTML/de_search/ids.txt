@@ -1,0 +1,183 @@
+1
+ Página principal
+ index.htm
+2
+ Gestores
+ gestores.htm
+3
+ Gestor de Cargas
+ gestor_de_cargas.htm
+4
+ Importar Archivo
+ importar_archivo.htm
+5
+ Gestor de Atraques
+ gestor_de_atraques.htm
+6
+ Publicar
+ publicar.htm
+7
+ Excluir
+ excluir.htm
+8
+ Ver Detalle
+ ver_detalle.htm
+9
+ Muestreo Atraque 
+ muestreo_atraque_.htm
+10
+ Nuevo Muestreo
+ nuevo_muestreo.htm
+11
+ Gestor TNT
+ gestor_tnt.htm
+12
+ Reportes
+ reportes.htm
+13
+ Reporte de Atraques
+ reporte_de_atraques.htm
+14
+ Reporte estadístico frente de atraque
+ reporte_estadistico_frente_de_atraque.htm
+15
+ Reporte de naves excluidas
+ reporte_de_naves_excluidas.htm
+16
+ Reporte de toneladas por producto y sitio
+ reporte_de_toneladas_por_producto_y_sitio.htm
+17
+ Log de Eventos
+ log_de_eventos.htm
+18
+ Acciones del listado
+ acciones_del_listado_1.htm
+19
+ Visualizar
+ visualizar.htm
+20
+ Archivos Maestros
+ archivos_maestros.htm
+21
+ Mantenedores
+ mantenedores.htm
+22
+ Nave
+ nave.htm
+23
+ Nueva Nave
+ nueva_nave.htm
+24
+ Acciones del listado
+ acciones_del_listado_2.htm
+25
+ Editar Nave
+ editar_nave.htm
+26
+ Eliminar
+ eliminar_1.htm
+27
+ Puerto
+ puerto.htm
+28
+ Nuevo Puerto
+ nuevo_puerto.htm
+29
+ Acciones del listado
+ acciones_del_listado_3.htm
+30
+ Editar Puerto
+ editar_puerto.htm
+31
+ Eliminar
+ eliminar_2.htm
+32
+ Productos
+ productos.htm
+33
+ Nuevo Producto
+ nuevo_producto.htm
+34
+ Acciones del listado
+ acciones_del_listado_4.htm
+35
+ Editar Producto
+ editar_producto.htm
+36
+ Eliminar
+ eliminar_3.htm
+37
+ Sitios
+ sitios.htm
+38
+ Nuevo Sitio
+ nuevo_sitio.htm
+39
+ Acciones del listado
+ acciones_del_listado_5.htm
+40
+ Editar Sitio
+ editar_sitio.htm
+41
+ Eliminar
+ eliminar_4.htm
+42
+ Motivo Exclusión
+ motivo_exclusion.htm
+43
+ Nuevo Motivo
+ nuevo_motivo.htm
+44
+ Acciones del listado
+ acciones_del_listado_6.htm
+45
+ Editar Motivo
+ editar_motivo.htm
+46
+ Eliminar
+ eliminar_5.htm
+47
+ Sistema
+ sistema.htm
+48
+ Constantes
+ constantes.htm
+49
+ Acciones del listado
+ acciones_del_listado_7.htm
+50
+ Editar Constante
+ editar_constante.htm
+51
+ Deshabilitar/Habilitar
+ deshabilitar_habilitar_1.htm
+52
+ Perfiles
+ perfiles.htm
+53
+ Nuevo Perfil
+ nuevo_perfil.htm
+54
+ Acciones del listado
+ acciones_del_listado_8.htm
+55
+ Editar Perfil
+ editar_perfil.htm
+56
+ Eliminar
+ eliminar_6.htm
+57
+ Usuario
+ usuario.htm
+58
+ Nuevo Usuario
+ nuevo_usuario.htm
+59
+ Acciones del listado
+ acciones_del_listado_9.htm
+60
+ Editar Usuario
+ editar_usuario.htm
+61
+ Deshabilitar/Habilitar
+ deshabilitar_habilitar_2.htm

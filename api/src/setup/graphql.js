@@ -1,33 +1,25 @@
 // Imports
 import config from '../config/config.json'
-import models from '../models/index.js'
-import depthLimit from 'graphql-depth-limit'
-import { createComplexityLimitRule } from 'graphql-validation-complexity';
-import { ApolloServer, PubSub} from 'apollo-server-express'
-// import { PubSub } from 'apollo-server';
+import { ApolloServer} from 'apollo-server-express'
+import { PubSub } from 'apollo-server';
 import fs ,{ createWriteStream, unlink } from 'fs'
+import { SubscriptionServer } from 'subscriptions-transport-ws';
+import { execute, subscribe } from 'graphql';
+// import { PubSub } from 'apollo-server-express';
 let pubsub = new PubSub();
 import mkdirp from 'mkdirp'
-import decode from 'jwt-decode'
-const UPLOAD_DIR = './public/banner';
+const UPLOAD_DIR = './public/posts';
+const MESSAGE_DIR = './public/messages';
+const AVATAR_DIR = './public/profile/avatar';
 // App Imports
-import schema from '../schema/index.js'
-import plugins from './plugins.js'
-// const ApolloServerOperationRegistry =
-//   require('apollo-server-plugin-operation-registry');
+import schema from '../schema'
 // Ensure upload directory exists.
 
 if (!fs.existsSync(UPLOAD_DIR)){
 	mkdirp.sync(UPLOAD_DIR);
 }
 
-const ComplexityLimitRule = createComplexityLimitRule(config.limite_complejidad_querys, {
-    createError(cost, documentNode) {
-        const error = new GraphQLError('Error: ha excedido la complejidad configurada para la query.', [documentNode]);
-        error.meta = { cost };
-        return error;
-    },
-});
+
 const storeUpload = async (upload) => {
 	try{
 		const { createReadStream, filename, mimetype } = await upload.file;
@@ -78,102 +70,195 @@ const storeUpload = async (upload) => {
 	
 
 };
+const messageUpload = async (upload) => {
+	try{
+		const { createReadStream, filename, mimetype } = await upload.file;
+		var uuid_user = upload.uuid_user
+		var id_message = upload.id_message
+		var name = upload.name
+		const stream = createReadStream();
+		const carpet = `${MESSAGE_DIR}/${uuid_user}`;
+		const carpetMessage = `${MESSAGE_DIR}/${uuid_user}/${id_message}`;
+		if (!fs.existsSync(carpet)){
+			mkdirp.sync(carpet);
+		}
+		if (!fs.existsSync(carpetMessage)){
+			mkdirp.sync(carpetMessage);
+		}
+
+		const path = `${carpetMessage}/${name}`;
+		// Store the file in the filesystem.
+		await new Promise((resolve, reject) => {
+		// Create a stream to which the upload will be written.
+		const writeStream = createWriteStream(path);
+
+			// When the upload is fully written, resolve the promise.
+			writeStream.on('finish', resolve);
+
+			// If there's an error writing the file, remove the partially written file
+			// and reject the promise.
+			writeStream.on('error', (error) => {
+				unlink(path, () => {
+				reject(error);
+				});
+			});
+			// In node <= 13, errors are not automatically propagated between piped
+			// streams. If there is an error receiving the upload, destroy the write
+			// stream with the corresponding error.
+			stream.on('error', (error) => writeStream.destroy(error));
+			// Pipe the upload into the write stream.
+			stream.pipe(writeStream);
+		});
+		return filename;
+	}
+	catch (error) {
+		console.error(error);
+		// expected output: ReferenceError: nonExistentFunction is not defined
+		// Note - error messages will vary depending on browser
+		return error;
+	}
+	
+
+};
+const avatarUpload = async (upload) => {
+	try{
+		const { createReadStream, filename, mimetype } = await upload.file;
+		var uuid_user = upload.uuid_user
+		var name = upload.name
+		const stream = createReadStream();
+        const carpet = `${AVATAR_DIR}/${uuid_user}`;
+        
+		if (!fs.existsSync(carpet)){
+			mkdirp.sync(carpet);
+		}
+
+		const path = `${carpet}/${name}`;
+		// Store the file in the filesystem.
+		await new Promise((resolve, reject) => {
+		// Create a stream to which the upload will be written.
+		const writeStream = createWriteStream(path);
+
+			// When the upload is fully written, resolve the promise.
+			writeStream.on('finish', resolve);
+
+			// If there's an error writing the file, remove the partially written file
+			// and reject the promise.
+			writeStream.on('error', (error) => {
+				unlink(path, () => {
+				reject(error);
+				});
+			});
+			// In node <= 13, errors are not automatically propagated between piped
+			// streams. If there is an error receiving the upload, destroy the write
+			// stream with the corresponding error.
+			stream.on('error', (error) => writeStream.destroy(error));
+			// Pipe the upload into the write stream.
+			stream.pipe(writeStream);
+		});
+		return filename;
+	}
+	catch (error) {
+		console.error(error);
+		// expected output: ReferenceError: nonExistentFunction is not defined
+		// Note - error messages will vary depending on browser
+		return error;
+	}
+
+
+};
+const autoCall = async (fn, ...context) =>{
+    if (typeof fn === 'function') {
+        return fn(...context)
+    }
+    return fn
+}
 // Setup GraphQL
 export default function (server, httpServer) {
     console.info('SETUP - GraphQL...')
     const graphQLServer = new ApolloServer({
         uploads: {
-			maxFileSize: 10000000, // 10 MB
-			maxFiles: 20,
+			// Limits here should be stricter than config for surrounding
+			// infrastructure such as Nginx so errors can be handled elegantly by
+			// graphql-upload:
+			// https://github.com/jaydenseric/graphql-upload#type-processrequestoptions
+			maxFileSize: 5000000000, // 10 MB
+            maxFieldSize: 5000000000,
+			// maxFiles: 20,
 		},
-        debug: true,
         schema,
-        tracing: true,
-        validationRules: [ 
-            depthLimit(config.limite_profundidad_querys) ,
-            ComplexityLimitRule
-            // costAnalysis({
-            //     variables: req.body.variables,
-            //     maximumCost: 1000,
-            // }),
-        ],
-        context: ({ req }) => {
-            let cliente = req.headers.origin
-            console.log('ip',ip_cliente)
-            if(req.headers.authorization){
-                const token = req.headers.authorization || '';
-                const usuario = decode(token)
-                let auth = true
-                return { cliente, auth, usuario, storeUpload, pubsub, models }
-            }
-            else{
-                let auth = false
-                return { cliente, auth ,storeUpload, pubsub, models }
-            }
-        },
-        plugins: [
-            /* This plugin is imported in-place. */
-            plugins,
-            /* This plugin is defined in-line. */
-            {
-                serverWillStart() {
-                    console.log('\x1b[36m%s\x1b[0m', 'SHOT  - API SHOT partiendo...'); 
-                },
-                serverWillStop() {
-                    console.log('\x1b[36m%s\x1b[0m', 'SHOT  - API SHOT se detuvo'); 
-                },
-                requestDidStart(requestContext) {
-                    console.log('\x1b[36m%s\x1b[0m', 'SHOT  - API SHOT recibe consulta graphql',requestContext.request.query); 
-                    /* Within this returned object, define functions that respond
-                    to request-specific lifecycle events. */
-                    return {
-            
-                        /* The `parsingDidStart` request lifecycle event fires
-                            when parsing begins. The event is scoped within an
-                            associated `requestDidStart` server lifecycle event. */
-                        parsingDidStart(requestContext) {
-                            console.log('\x1b[36m%s\x1b[0m', 'SHOT  - API SHOT analiza la consulta'); 
-                        },
-                    }
-                },
-                didEncounterErrors() {
-                    console.log('\x1b[36m%s\x1b[0m', 'SHOT  - API SHOT ERROR!'); 
-                },
-                generateClientInfo: ({request}) => {
-                    const headers = request.http && request.http.headers;
-                    if(headers) {
-                        return {
-                            clientName: headers['apollographql-client-name'],
-                            clientVersion: headers['apollographql-client-version'],
-                        };
-                    } else {
-                        return {
-                            clientName: "Unknown Client",
-                            clientVersion: "Unversioned",
-                        };
-                    }
-                },
-                
-            }
-        ],
-        onHealthCheck: () => {
-            return new Promise((resolve, reject) => {
-                // responde con 200 a los check del cliente
-                if (true) {
-                    resolve();
-                } else {
-                    reject();
-                }
-            });
-        },
+        context: { storeUpload, avatarUpload, messageUpload, pubsub },
+        // playground: {
+        //     endpoint: '/graphql',
+        //     subscriptionEndpoint: `ws://localhost:${config.port}/subscriptions`,
+        //     settings: {
+        //         'editor.theme': 'dark',
+        //     },
+        // },
     });
+	// const graphQLServer = new ApolloServer({
+	// 	uploads: {
+	// 		// Limits here should be stricter than config for surrounding
+	// 		// infrastructure such as Nginx so errors can be handled elegantly by
+	// 		// graphql-upload:
+	// 		// https://github.com/jaydenseric/graphql-upload#type-processrequestoptions
+	// 		maxFileSize: 10000000, // 10 MB
+	// 		maxFiles: 20,
+	// 	},
+    //     schema,
+    //     context: { storeUpload, avatarUpload },
+    //     subscriptions: {
+    //         path:'/subscriptions',
+    //         onConnect: async (connectionParams, webSocket) => {
+    //             console.log('connectionParams',connectionParams)
+    //             console.log('ws',webSocket)
+    //             let contextData = {}
+    //             try {
+    //                 contextData = await autoCall(context, {
+    //                     connectionParams,
+    //                     websocket,
+    //                 })
+    //                 contextData = Object.assign({}, contextData, { pubsub })
+    //             } catch (e) {
+    //                 console.error(e)
+    //                 throw new Error('Error WS: '+e);
+    //             }
+    //             return contextData
+    //         },
+    //     },
+        
+    //     playground: {
+    //         endpoint: '/graphql',
+    //         subscriptionEndpoint: `ws://localhost:${config.port}/subscriptions`,
+    //         subscriptions: {
+    //             path:'/subscriptions',
+    //             onConnect: async (connectionParams, webSocket) => {
+    //                 console.log('connectionParams',connectionParams)
+    //                 console.log('ws',webSocket)
+    //                 let contextData = {}
+    //                 try {
+    //                     contextData = await autoCall(context, {
+    //                         connectionParams,
+    //                         websocket,
+    //                     })
+    //                     contextData = Object.assign({}, contextData, { pubsub })
+    //                 } catch (e) {
+    //                     console.error(e)
+    //                     throw new Error('Error WS: '+e);
+    //                 }
+    //                 return contextData
+    //             },
+    //         },
+    //         settings: {
+    //             'editor.theme': 'dark',
+    //         },
+    //     },
+	// });
 	graphQLServer.applyMiddleware({
 		app: server,
 		path: '/graphql',
 		cors: {
 			// origin: config.client,
-            origin: '*',
-			credentials: true,
+			// credentials: true,
 			methods: ['POST'],
 			allowedHeaders: [
 				'X-Requested-With',
@@ -184,6 +269,9 @@ export default function (server, httpServer) {
 				'Access-Control-Allow-Origin',
 			],
         },
+        bodyParserConfig: {
+            limit:"50mb"
+        }
     });		
     graphQLServer.installSubscriptionHandlers(httpServer);
 }

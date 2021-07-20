@@ -1,11 +1,10 @@
 {
+    "port": 4600,
     "secret": "desktop deflate judgingly engaging",
     "passphrase": "connected private spectator blunt",
-    "client": "http://localhost:8085",
-    "BASE_URL" : "http://localhost:4600/",
+
+    "client": "http://192.168.43.145:8085",
     "saltRounds": 10,
-    "limite_profundidad_querys": 5,
-    "limite_complejidad_querys": 100,
     "graphql": {
         "endpoint": "/",
         "ide": true,
@@ -13,16 +12,5 @@
     },
     "upload": {
         "endpoint": "/upload"
-    },	
-    "production": { 
-        "ssl": true, 
-        "port": 443, 
-        "client": "pagoshot.com" 
-    },
-    "development": { 
-        "ssl": false, 
-        "port": 4600, 
-        "client": "localhost" 
     }
 }
-

@@ -2,7 +2,7 @@
 import seq from 'sequelize';
 const { Model } = seq;
 const schema = {
-	codigo:{
+	id_perfil:{
 		type: seq.INTEGER,
 		primaryKey: true,
         autoIncrement: true
@@ -13,7 +13,7 @@ const schema = {
     descripcion: {
 		type: seq.STRING(5000)
 	},
-    admin: {
+    estado: {
 		type: seq.INTEGER(1)
 	},
 };
@@ -26,15 +26,15 @@ const  index =  {
     ]
 }
 export default (sequelize) => {
-	class Publicar_pro extends Model {
+	class Perfil extends Model {
 		static associate() {
 
 		}
 	}
-	Publicar_pro.init(schema, {
-        tableName: 'publicar_pro',
+	Perfil.init(schema, {
+        tableName: 'perfil',
         sequelize,
 	}, index);
-	return Publicar_pro;
+	return Perfil;
 };
 

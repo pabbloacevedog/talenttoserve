@@ -1,5 +1,5 @@
 // Imports
-import {GraphQLObjectType, GraphQLString ,GraphQLNonNull} from 'graphql'
+import {GraphQLObjectType, GraphQLString ,GraphQLInt,GraphQLBoolean,GraphQLList} from 'graphql'
 
 // UsuarioType
 const UsuarioType = new GraphQLObjectType({
@@ -9,66 +9,73 @@ const UsuarioType = new GraphQLObjectType({
         usuario_id:{
             type: GraphQLString
         },
-        empresa_id: {
-            type: GraphQLString
-        },
-        rut_usuario: {
-            type: GraphQLString
-        },
-        nombre: {
-            type: GraphQLString
-        },
-        usuario: {
+        email: {
             type: GraphQLString
         },
         password: {
             type: GraphQLString
         },
-        email: {
+        password_new: {
+            type: GraphQLString
+        },
+        passphrase: {
+            type: GraphQLString
+        },
+        avatar: {
+			type: GraphQLString
+		},
+        id_perfil: {
+            type: GraphQLInt
+        },
+        nombre: {
             type: GraphQLString
         },
         telefono: {
             type: GraphQLString
         },
-        avatar: {
+        id_pais: {
+            type: GraphQLInt
+        },
+        nombre_empresa: {
             type: GraphQLString
         },
-        ruta_avatar: {
+        cargo: {
             type: GraphQLString
         },
-        verificado: {
+        producto_empresa: {
             type: GraphQLString
         },
-        facebook: {
+        universidad: {
             type: GraphQLString
         },
-        whatsapp: {
+        carrera: {
             type: GraphQLString
         },
+        suscrito_mail: {
+            type: GraphQLBoolean
+        },
+
         fecha_creacion: {
             type: GraphQLString
         },
         fecha_actualizacion	: {
             type: GraphQLString
         },
-        estado	: {
-            type: GraphQLString
+        estado: {
+            type: GraphQLBoolean
+        },        
+        creado:{
+			type: GraphQLBoolean
         },
-        empresa_id: {
-            type: GraphQLString
+        editado:{
+			type: GraphQLBoolean
         },
-        nombre_empresa: {
-            type: GraphQLString
+        eliminado:{
+			type: GraphQLBoolean
         },
-        descripcion_empresa: {
-            type: GraphQLString
-        },
-        logo_empresa: {
-            type: GraphQLString
-        },
-        ruta_logo_empresa: {
-            type:  GraphQLString
-        },
+        codigo:{
+            type: new GraphQLList(GraphQLString)
+        }
 	})
 })
 

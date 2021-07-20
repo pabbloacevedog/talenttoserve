@@ -1,17 +1,16 @@
 // App Imports
 import bcrypt from 'bcrypt'
-import jwt from 'jsonwebtoken'
 // import { QueryTypes } from 'sequelize';
 import seq from 'sequelize';
 const { QueryTypes } = seq;
 import CryptoJS from 'crypto-js'
 import config from '../../config/config.json'
-
+import models from '../../models/index.js'
 // Get usuarios by ID
-export async function buscar_por_usuario(parent, {usuario},{models}) {
+export async function buscar_por_usuario(parent, {usuario}) {
 	return await models.Usuario.findOne({ where: { usuario } })
 }
-export async function buscar_por_email(parent, {email},{models}) {
+export async function buscar_por_email(parent, {email}) {
 	return await models.Usuario.findOne({where: {email}})
 }
 export async function buscar_usuario(parent, {usuario, word}, ) {
@@ -24,7 +23,7 @@ export async function buscar_usuario(parent, {usuario, word}, ) {
         "       us.avatar, "  +
         "       us.ruta_avatar "  +
         "   FROM "  +
-        "       shot_usuario us "  +
+        "       TTS_usuario us "  +
         "   WHERE "  +
         "       us.nombre LIKE :u || us.usuario LIKE :u LIKE :u "  ,
         {
@@ -57,9 +56,9 @@ export async function datos_usuario(parent, {usuario_id}, {models, usuario}, inf
         "       lo.ruta_logo  as ruta_logo_empresa, " +
         "       lo.descripcion_empresa " +
         "   FROM    " +
-        "       shot_usuario us    " +
+        "       TTS_usuario us    " +
         "        " +
-        "   LEFT JOIN shot_empresa lo ON us.empresa_id = lo.empresa_id     " +
+        "   LEFT JOIN TTS_empresa lo ON us.empresa_id = lo.empresa_id     " +
         "   WHERE    " +
         "       us.usuario_id = :usuario_id   " ,
         {
@@ -70,11 +69,22 @@ export async function datos_usuario(parent, {usuario_id}, {models, usuario}, inf
 	return usuario[0]
 }
 // Get all usuarios
+// export async function traer_todos() {
+// 	return await models.Usuario.findAll()
+// }
 export async function traer_todos() {
-	return await models.Usuario.findAll()
+    return await models.sequelize.query(" SELECT * FROM usuario "  ,
+        {
+            type: QueryTypes.SELECT
+        }
+    )
+	// return await models.Usuario.findAll({
+    //     where: {
+    //         password_new: null
+    //     }
+    //   })
 }
-
-export async function existe_usuario(parent, {usuario}, {models}) {
+export async function existe_usuario(parent, {usuario}) {
 	var exists = false
 	var usuario = await models.Usuario.findOne({ where: { usuario } })
 	if (usuario) {
@@ -88,7 +98,7 @@ export async function remover_usuario(parent, {usuario_id}) {
 }
 
 // Create usuario
-export async function crear_usuario(parent,{ nombre, email, password  },{models}) {
+export async function crear_usuario(parent,{ nombre, email, password  }) {
 	// Usuarios exists with same email check
     var creado = false
 	var usuario = await models.Usuario.findOne({ where: { email } })
@@ -136,5 +146,62 @@ export async function actualizar_usuario(parent,{ usuario_id, rut_usuario, nombr
 	}
 	else{
 		throw new Error(`Error al actualizar usuario ` + error)
+	}
+}
+export async function remove_more(parentValue,{ codigo  }) {
+    var eliminado = true
+    var error = ''
+
+    codigo.forEach(element => {
+        console.log(element.codigo)
+        models.Usuario.destroy({where: {usuario_id : element.codigo}})
+        // .then(act => {
+        //     eliminado = true
+        // }).catch(err => {
+        //     console.log(err)
+        //     error = err
+        // })
+    });
+	if(eliminado){
+		return { eliminado: eliminado }
+	}
+	else{
+		throw new Error(`Error al eliminar el Usuario ` + error)
+	}
+}
+export async function update_users(parentValue,{ users  }) {
+    var update = true
+    var error = ''
+
+    for (const element of users) {
+        var usuario_id = element.usuario_id
+        var passphrase =  element.password
+        var password_new =  element.password_new
+        
+        var pass = config.passphrase;
+
+        console.log('passphrase', passphrase)
+
+        const passwordHashed = await bcrypt.hash(password_new, config.saltRounds)
+        // console.log('passwordHashed', passwordHashed)
+        password_new = passwordHashed
+        var editar = {
+            passphrase, password_new
+        }
+        console.log('editar', editar)
+        await models.Usuario.update(editar, { where: { usuario_id } }).then(act => {
+            update = true
+        }).catch(err => {
+            console.log(err)
+            error = err
+        })
+        console.log('actualizado ', editar)
+
+    }
+	if(update){
+		return { editado: update }
+	}
+	else{
+		throw new Error(`Error al eliminar el Usuario ` + error)
 	}
 }

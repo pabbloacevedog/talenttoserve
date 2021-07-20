@@ -2,16 +2,19 @@
 import {
 	GraphQLString,
 	GraphQLInt,
-    GraphQLBoolean
+    GraphQLBoolean,
+    GraphQLList
 } from 'graphql'
 
 // App Imports
 import UsuarioType from '../../usuario/type.js'
 import UsuarioLoginType from '../type.js'
+import UsuarioList from '../inputType'
 import {
     crear_usuario,
     remover_usuario,
-    actualizar_usuario
+    actualizar_usuario,
+    update_users
 } from '../resolvers.js'
 // Usuario Register
 export const CrearUsuario = {
@@ -109,4 +112,24 @@ export const RemoverUsuario = {
 		}
 	},
 	resolve: remover_usuario
+}
+// export const removeUsuarios = {
+//     type: UsuarioType,
+//     args: {
+// 		codigo: {
+//             name: 'codigo',
+// 			type: GraphQLList(UsuarioList)
+// 		}
+// 	},
+// 	resolve: remove_more
+// }
+export const updateUsers = {
+    type: UsuarioType,
+    args: {
+		users: {
+            name: 'users',
+			type: GraphQLList(UsuarioList)
+		}
+	},
+	resolve: update_users
 }

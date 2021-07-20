@@ -45,17 +45,17 @@ const  index =  {
     ]
 }
 export default (sequelize) => {
-	class Op_trabajo extends Model {
+	class OpTrabajo extends Model {
 		static associate() {
 
 		}
 	}
-	Op_trabajo.init(schema, {
+	OpTrabajo.init(schema, {
         timestamps: true,
         createdAt: 'fecha_creacion',
         updatedAt: 'fecha_actualizacion',
         tableName: 'op_trabajo',
         sequelize,
 	}, index);
-	return Op_trabajo;
+	return OpTrabajo;
 };

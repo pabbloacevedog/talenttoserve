@@ -5,7 +5,7 @@ import bodyParser from 'body-parser'
 import cookieParser from 'cookie-parser'
 import morgan from 'morgan'
 import config from '../config/config.json'
-import helmet from 'helmet'
+const helmet = require('helmet');
 
 // Load express modules
 export default function (server) {
@@ -21,12 +21,16 @@ export default function (server) {
 		ieNoOpen: false,
 	}));
 	// Request body parser
-	server.use(bodyParser.json())
+	// server.use(bodyParser.json())
+    server.use(bodyParser.json ({limit: '50mb'}));
 	server.use(bodyParser.urlencoded({
-		extended: false
+		extended: false,
+        limit: '50mb'
 	}))
+
 	// Request body cookie parser
 	server.use(cookieParser())
+
 	// HTTP logger
 	server.use(morgan('tiny'))
 }

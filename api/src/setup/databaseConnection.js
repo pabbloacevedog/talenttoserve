@@ -2,7 +2,7 @@
 import {Sequelize} from 'sequelize'
 
 // App Imports
-import env from '../config/env.js'
+import env from '../config/env'
 import databaseConfig from '../config/database.json'
 
 // Load database config

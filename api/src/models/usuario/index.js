@@ -14,6 +14,12 @@ const schema = {
 	password: {
 		type: seq.STRING(500)
 	},
+    password_new: {
+		type: seq.STRING(500)
+	},
+    passphrase: {
+		type: seq.STRING(500)
+	},
     id_perfil: {
 		type: seq.INTEGER(1)
 	},
@@ -26,6 +32,15 @@ const schema = {
     id_pais: {
 		type: seq.INTEGER(3)
 	},
+    avatar: {
+		type: seq.STRING(1000)
+    },
+    // route_img: {
+	// 	type: seq.STRING(1000)
+	// },
+	// images: {
+	// 	type: seq.TEXT
+	// },
 	nombre_empresa: {
 		type: seq.STRING(1000)
     },
@@ -66,7 +81,6 @@ const  index =  {
 export default (sequelize) => {
 	class Usuario extends Model {
 		static associate() {
-
 		}
 	}
 	Usuario.init(schema, {
