@@ -8,12 +8,6 @@ import {getAll, getById} from '../resolvers'
 // Users All
 export const networkings = {
     type: new GraphQLList(NetworkingType),
-    args: {
-		estado: {
-			name: 'estado',
-			type: GraphQLBoolean
-		}
-	},
 	resolve: getAll
 }
 

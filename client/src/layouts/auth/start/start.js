@@ -11,7 +11,9 @@ export default Vue.component('Login', {
 			error_: '',
 			username:'',
 			isPwd: true,
-			avatar_default: '../statics/user.png',
+			avatar_default: '../statics/image55.png',
+            avatar_clean: '../statics/icono.png',
+            src_cocinero: '../statics/fondoLogin.png',
 			lorem: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
         }
 	},

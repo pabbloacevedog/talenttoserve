@@ -1,11 +1,9 @@
 // Imports
-import { GraphQLUpload } from 'apollo-server-koa'
 import {
 	GraphQLString,
     GraphQLInt,
     GraphQLBoolean,
-    GraphQLList,
-    GraphQLObjectType
+    GraphQLList
 } from 'graphql'
 
 // App Imports
@@ -72,8 +70,8 @@ export const NetworkingRemove = {
 export const removeNetworking = {
     type: NetworkingType,
     args: {
-		codigo: {
-            name: 'codigo',
+		id: {
+            name: 'id',
 			type: GraphQLList(NetworkingList)
 		}
 	},

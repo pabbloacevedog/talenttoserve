@@ -3,13 +3,17 @@
 	width: 100%
 	max-width: 500px
 	padding-top: 1%;
-	background-color: $primary;
 	box-shadow: none !important;
-	color: #4c4c4c !important;
 .contenedor_todo
-	height:100vh;
-	width:100vw;
-	background-color: $primary;
+{
+    background-image: url("/statics/bg6.jpg");
+    position: absolute;
+    background-size: cover !important;
+    background-position: inherit !important;
+    height:100vh;
+    width: 100%;
+}
+
 .login
 	min-width : 400px !important;
 	min-height: 450px !important;
@@ -27,7 +31,7 @@
 	min-width: 100px !important;
 
 .fondo
-	background-image: url('/statics/login.jpg');
+	// background-image: url('/statics/login.jpg');
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
@@ -78,3 +82,45 @@
 	background-color: #fff;
 	border-radius: 50%;
 
+.bloq_iz {
+    backdrop-filter: blur(15px) !important;
+    background: #c7c7c79e
+    border-radius: 25px 0px 0px 25px;
+    padding: 1%;
+}
+
+.bloq_iz:before{
+    background: #c7c7c79e
+}
+.bloq_der {
+    backdrop-filter: blur(15px) !important;
+    background: #c7c7c79e;
+    border-radius: 0px 15px 15px 0px;
+}
+
+.bloq_der:before{
+    background: #c7c7c79e
+}
+.sin_fondo{
+    background: #c7c7c700 !important;
+    box-shadow: 0px 0px 0px 0px !important;
+}
+.contenedor_login_iz
+{
+    background-image: url("/statics/fondoLogin.png");
+    background-size: cover !important;
+    background-position: inherit !important;
+    height:100% !important;
+    border-radius: 25px;
+    padding: 2%;
+}
+.center {
+    margin: auto;
+    display: block;
+    height:100% !important;
+}
+.center-img {
+    bottom: 5%;
+    right: 32%;
+    position:absolute;
+}

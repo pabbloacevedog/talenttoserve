@@ -24,7 +24,7 @@ const AsesoriaList = new GraphQLInputObjectType ({
 		estado:{
 			type: GraphQLBoolean
         },
-        codigo:{
+        id:{
             type: AsesoriaList
         }
 	})

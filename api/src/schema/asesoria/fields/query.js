@@ -8,12 +8,6 @@ import {getAll, getById} from '../resolvers'
 // Users All
 export const asesorias = {
     type: new GraphQLList(AsesoriaType),
-    args: {
-		estado: {
-			name: 'estado',
-			type: GraphQLBoolean
-		}
-	},
 	resolve: getAll
 }
 

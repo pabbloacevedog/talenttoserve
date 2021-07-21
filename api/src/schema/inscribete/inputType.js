@@ -33,7 +33,7 @@ const InscribeteList = new GraphQLInputObjectType ({
 		estado:{
 			type: GraphQLBoolean
         },
-        codigo:{
+        id:{
             type: InscribeteList
         }
 	})

@@ -6,17 +6,13 @@
 				<q-btn style="margin-left: 12px;" flat round class="q-mr-sm">
 					<img style="max-height: 40px;" :src="src_logo" @click="ir_home"/>
 				</q-btn>
+                <div class="titulo_bar">Talent to serve</div>
 				<q-toolbar-title v-if="$q.platform.is.desktop" class="row justify-center">
 				</q-toolbar-title>
                 <div class="n_usuario" style="right: 0;position: absolute;">
-                    <q-chip color="accent" text-color="white">
+                    <q-chip removable v-model="nombre" @remove="logout" color="red" text-color="white" style="padding: 16px;">
                         {{nombre}}
                     </q-chip>
-                    <q-btn icon="close" color="red" dark flat round @click="logout">
-                        <q-tooltip content-class="tooltip-menu" :offset="[10, 10]">
-                            Salir
-                        </q-tooltip>
-                    </q-btn>
                 </div>
                 <div class="espacio-derecho-menu">
                     <!-- <q-btn icon="close" color="red" dark flat round @click="logout">

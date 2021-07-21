@@ -1,8 +1,8 @@
 {
-  "name": "egis-app",
+  "name": "tts",
   "version": "0.0.1",
   "description": "A Quasar Framework app",
-  "productName": "Gestor de cortes",
+  "productName": "Talent to Serve",
   "cordovaId": "org.cordova.quasar.app",
   "author": "Pablo Acevedo <pablo.acevedo.g@gmail.com>",
   "private": true,

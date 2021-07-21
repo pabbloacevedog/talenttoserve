@@ -1,11 +1,9 @@
 // Imports
-import { GraphQLUpload } from 'apollo-server-koa'
 import {
 	GraphQLString,
     GraphQLInt,
     GraphQLBoolean,
     GraphQLList,
-    GraphQLObjectType
 } from 'graphql'
 
 // App Imports
@@ -96,8 +94,8 @@ export const InscribeteRemove = {
 export const removeInscribete = {
     type: InscribeteType,
     args: {
-		codigo: {
-            name: 'codigo',
+		id: {
+            name: 'id',
 			type: GraphQLList(InscribeteList)
 		}
 	},

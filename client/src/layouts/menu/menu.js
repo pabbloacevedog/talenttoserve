@@ -11,7 +11,7 @@ export default Vue.component('Menu', {
 		return {
 			leftDrawerOpen: this.$q.platform.is.desktop,
 			nodes: this.$router.options.routes,
-			src_logo: '../../statics/icono.png',
+			src_logo: '../../statics/logo-clean.png',
             src_avatar: localStorage.getItem('src_avatar'),
             base : process.env.BASE_URL,
 			username: true,

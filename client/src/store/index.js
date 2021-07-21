@@ -6,14 +6,16 @@ import VuexPersist from 'vuex-persist'
 import Auth from './auth'
 import Registry from './registry'
 import Menu from './menu'
-import Home from './home'
-import Asesoria from './asesoria'
-import GestorCortes from './gestion_corte'
-import MaterialCorte from './material_corte'
-import HistorialCorte from './historial_corte'
-import UnidadMedida from './unidad_medida'
-import Usuario from './usuario'
-import Perfil from './perfiles'
+import Home from './admin/home'
+import Asesoria from './admin/asesoria'
+import Capacitacion from './admin/capacitacion'
+import Inscribete from './admin/inscribete'
+import Networking from './admin/networking'
+import Op_trabajo from './admin/op_trabajo'
+import Op_practica from './admin/op_practica'
+import Publicar_pro from './admin/publicar_pro'
+import Usuario from './admin/usuario'
+import Perfil from './admin/perfiles'
 
 Vue.use(Vuex)
 const vuexLocalStorage = new VuexPersist({
@@ -36,12 +38,14 @@ export default function (/* { ssrContext } */) {
 			Menu: Menu,
             Home,
             Asesoria,
-            MaterialCorte,
-            UnidadMedida,
+            Capacitacion,
+            Inscribete,
+            Networking,
+            Op_practica,
+            Op_trabajo,
+            Publicar_pro,
             Usuario,
             Perfil,
-            GestorCortes,
-            HistorialCorte
 		},
 		state: {
 		},

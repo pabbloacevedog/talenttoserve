@@ -6,16 +6,10 @@ export async function getById(parentValue, {codigo}) {
 }
 
 // Get all users
-export async function getAll(parentValue, {estado}) {
-    console.log('models.Asesoria', models.Asesoria)
-    var status = 0
-    if(estado){
-        status = 1
-    }
+export async function getAll(parentValue, {}) {
     var as = await models.Asesoria.findAll({order: [
         ['codigo', 'DESC']
-    ], where : {estado: status}})
-    console.log('as', as)
+    ]})
 	return as
 }
 
@@ -65,20 +59,14 @@ export async function edit(parentValue,{ codigo, titulo, descripcion, estado }) 
 		throw new Error(`Error al editar el asesoria ` + error)
 	}
 }
-export async function remove_more(parentValue,{ codigo  }) {
+export async function remove_more(parentValue,{ id  }) {
     var eliminado = true
     var error = ''
     console.log(models.Asesoria)
 
-    codigo.forEach(element => {
+    id.forEach(element => {
         console.log(element.codigo)
         models.Asesoria.destroy({where: {codigo : element.codigo}})
-        // .then(act => {
-        //     eliminado = true
-        // }).catch(err => {
-        //     console.log(err)
-        //     error = err
-        // })
     });
 	if(eliminado){
 		return { eliminado: eliminado }

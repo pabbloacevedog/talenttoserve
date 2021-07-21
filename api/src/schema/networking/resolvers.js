@@ -1,16 +1,16 @@
 // App Imports
 import models from '../../models'
 // Get users by ID
-export async function getById(parentValue, {codigo}, {models }) {
+export async function getById(parentValue, {codigo}) {
 	return await models.Networking.findOne({ where: { codigo } })
 }
 
 // Get all users
-export async function getAll(parentValue, {estado}, {models }) {
-    console.log('getAll', estado)
-	return await models.Networking.findAll({order: [
+export async function getAll(parentValue, {}) {
+    var as = await models.Networking.findAll({order: [
         ['codigo', 'DESC']
-    ],})
+    ]})
+	return as
 }
 
 // Delete user
@@ -18,7 +18,7 @@ export async function remove({codigo}) {
 	return await models.Networking.destroy({where: {codigo}})
 }
 // Create user
-export async function create(parentValue,{ titulo, descripcion, estado  }, {models }) {
+export async function create(parentValue,{ titulo, descripcion, estado  }) {
     var create = false
     var error = ''
     let codigo = 0
@@ -40,7 +40,7 @@ export async function create(parentValue,{ titulo, descripcion, estado  }, {mode
 		throw new Error(`Error al crear el networking ` + error)
 	}
 }
-export async function edit(parentValue,{ codigo, titulo, descripcion, estado }, { models }) {
+export async function edit(parentValue,{ codigo, titulo, descripcion, estado }) {
     var editado = false
     var error = ''
     var editar = {
@@ -59,20 +59,14 @@ export async function edit(parentValue,{ codigo, titulo, descripcion, estado }, 
 		throw new Error(`Error al editar el networking ` + error)
 	}
 }
-export async function remove_more(parentValue,{ codigo  }, { models }) {
+export async function remove_more(parentValue,{ id  }) {
     var eliminado = true
     var error = ''
     console.log(models.Networking)
 
-    codigo.forEach(element => {
+    id.forEach(element => {
         console.log(element.codigo)
         models.Networking.destroy({where: {codigo : element.codigo}})
-        // .then(act => {
-        //     eliminado = true
-        // }).catch(err => {
-        //     console.log(err)
-        //     error = err
-        // })
     });
 	if(eliminado){
 		return { eliminado: eliminado }
