@@ -6,7 +6,7 @@ export async function getById(parentValue, {codigo}) {
 }
 
 // Get all users
-export async function getAll(parentValue, {estado}) {
+export async function getAll(parentValue, {}) {
     console.log('getAll', estado)
 	return await models.OpPractica.findAll({order: [
         ['codigo', 'DESC']
@@ -59,20 +59,14 @@ export async function edit(parentValue,{codigo, cargo, descripcion, link, hotel,
 		throw new Error(`Error al editar el oppractica ` + error)
 	}
 }
-export async function remove_more(parentValue,{ codigo  }) {
+export async function remove_more(parentValue,{ id  }) {
     var eliminado = true
     var error = ''
     console.log(models.OpPractica)
 
-    codigo.forEach(element => {
+    id.forEach(element => {
         console.log(element.codigo)
         models.OpPractica.destroy({where: {codigo : element.codigo}})
-        // .then(act => {
-        //     eliminado = true
-        // }).catch(err => {
-        //     console.log(err)
-        //     error = err
-        // })
     });
 	if(eliminado){
 		return { eliminado: eliminado }

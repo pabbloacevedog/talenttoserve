@@ -11,15 +11,15 @@ const UsuarioList = new GraphQLInputObjectType ({
         email: {
             type: GraphQLString
         },
-        password: {
-            type: GraphQLString
-        },
-        password_new: {
-            type: GraphQLString
-        },
-        passphrase: {
-            type: GraphQLString
-        },
+        // password: {
+        //     type: GraphQLString
+        // },
+        // password_new: {
+        //     type: GraphQLString
+        // },
+        // passphrase: {
+        //     type: GraphQLString
+        // },
         avatar: {
 			type: GraphQLString
 		},

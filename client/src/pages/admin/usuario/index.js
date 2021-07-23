@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import {getUserFromToken} from '@utils/authService'
 import { mapGetters } from 'vuex'
-import CryptoJS from 'crypto-js'
 export default Vue.component('Usuario', {
     $validates: 1,
     components:{
@@ -10,37 +9,43 @@ export default Vue.component('Usuario', {
 	data () {
 		return {
             img:'/statics/login.jpg',
-            nuevo_email: '',
-			nuevo_password: '',
-			nuevo_nombre: '',
-            nuevo_descripcion: '',
-			nuevo_apellido:'',
-            nuevo_usuario: '',
-            nuevo_id_perfil: [],
-            nuevo_rut:'',
-            nuevo_telefono: '',
+            nuevo_email : '',
+            nuevo_id_perfil   : '',
+            nuevo_nombre      : '',
+            nuevo_telefono    : '',
+            nuevo_id_pais     : '',
+            nuevo_nombre_empresa    : '',
+            nuevo_cargo : '',
+            nuevo_producto_empresa  : '',
+            nuevo_universidad : '',
+            nuevo_carrera     : '',
             nuevo_estado : 
                 {
-                label: 'Activo',
-                value: true
+                    label: 'Activo',
+                    value: true
                 }
             ,
-            editar_email: '',
-			editar_password: '',
-			editar_nombre: '',
-            editar_descripcion:'',
-			editar_apellido:'',
-            editar_usuario: '',
-            editar_id_perfil: [],
-            editar_rut:'',
-            editar_telefono: '',
+            editar_usuario_id  : '',
+            editar_email : '',
+            editar_id_perfil   : '',
+            editar_nombre      : '',
+            editar_telefono    : '',
+            editar_id_pais     : '',
+            editar_nombre_empresa    : '',
+            editar_cargo : '',
+            editar_producto_empresa  : '',
+            editar_universidad : '',
+            editar_carrera     : '',
+            editar_suscrito_mail     : {
+                label: 'Activo',
+                value: true
+            },
             editar_estado : 
                 {
                 label: 'Activo',
                 value: true
                 }
             ,
-            isPwd: true,
             modal_nuevo: false,
             modal_eliminar: false,
             modal_editar: false,
@@ -56,22 +61,24 @@ export default Vue.component('Usuario', {
                 pagination: {
                     rowsPerPage: 10 
                 },
-                selectedkey: 'uuid_usuario', 
+                selectedkey: 'usuario_id', 
                 columns: [
                   {
-                    name: 'rut',
-                    label: 'Rut',
-                    align: 'left',
-                    field: 'rut',
+                    name: 'nombre',
+                    label: 'Nombre',
+                    align: 'nombre',
+                    field: 'nombre',
                     sortable: true
                   },
-                  { name: 'nombre', align: 'center', label: 'Nombres', field: 'nombre', sortable: true },
-                  { name: 'apellido', align: 'center', label: 'Apellidos', field: 'apellido', sortable: true },
-                  { name: 'email', align: 'center', label: 'E-nmail', field: 'email', sortable: true },
-                  { name: 'usuario', align: 'center', label: 'Usuario', field: 'usuario', sortable: true },
-                  { name: 'telefono', align: 'center', label: 'Tel', field: 'telefono', sortable: true },
-                  { name: 'descripcion', align: 'center', label: 'Desc', field: 'descripcion', sortable: true },
+                  { name: 'email', align: 'center', label: 'Email', field: 'email', sortable: true },
                   { name: 'id_perfil', align: 'center', label: 'Perfil', field: 'id_perfil', sortable: true },
+                  { name: 'telefono', align: 'center', label: 'Telefono', field: 'telefono', sortable: true },
+                  { name: 'id_pais', align: 'center', label: 'País', field: 'id_pais', sortable: true },
+                  { name: 'nombre_empresa', align: 'center', label: 'Empresa', field: 'nombre_empresa', sortable: true },
+                  { name: 'producto_empresa', align: 'center', label: 'Producto', field: 'producto_empresa', sortable: true },
+                  { name: 'universidad', align: 'center', label: 'Universidad', field: 'universidad', sortable: true },
+                  { name: 'carrera', align: 'center', label: 'Carrera', field: 'carrera', sortable: true },
+                  { name: 'suscrito_mail', align: 'center', label: 'Suscrito', field: 'suscrito_mail', sortable: true },
                   { name: 'estado', align: 'center', label: 'Estado', field: 'estado' , sortable: true},
                 ],
                 data: [
@@ -92,13 +99,11 @@ export default Vue.component('Usuario', {
 				label: 'Inactivo',
 				value: false
 				}
-            ],
-            perfiles: []
+			]
         }
 	},
 	computed: {
 		...mapGetters({ 
-            dataPerfil: "Perfil/getData", 
             dataUsuario: "Usuario/getData", 
             registro_creado: "Usuario/getCreado",
             registro_editado: "Usuario/getEditado",
@@ -107,37 +112,6 @@ export default Vue.component('Usuario', {
         })
 	},
 	methods: {
-        async cargarPerfiles () {
-            this.$q.loading.show()
-			await this.$store.dispatch("Perfil/cargarPerfil").then(res => {
-				this.$q.loading.hide()
-				if(this.error){
-					var message = this.error.message.replace('GraphQL error: ','')
-					this.$q.notify({
-						message: message,
-						timeout: 3000,
-						type: 'negative',// Available values: 'positive', 'negative', 'warning', 'info'
-						position: 'bottom',
-						icon: 'report_problem'
-					})
-				}
-				else{
-                    for (let index = 0; index < this.dataPerfil.length; index++) {
-                        const label = this.dataPerfil[index].nombre;
-                        const value = this.dataPerfil[index].id_perfil;
-
-                        var obj = {
-                            value: value,
-                            label: label
-                        }
-                        this.perfiles.push(obj)
-                    }
-                    console.log('dataPerfil',this.dataPerfil)
-				}
-			}).catch(err => {
-				console.log(err)
-			})
-        },
         async iniciar () {
             this.$q.loading.show()
 			await this.$store.dispatch("Usuario/cargarUsuario").then(res => {
@@ -162,19 +136,31 @@ export default Vue.component('Usuario', {
         },
         editar(){
             if(this.parametros_tabla.selected.length == 1){
-                this.editar_uuid_usuario = this.parametros_tabla.selected[0].uuid_usuario
-                this.editar_rut = this.parametros_tabla.selected[0].rut
-                this.editar_nombre = this.parametros_tabla.selected[0].nombre
-                this.editar_apellido = this.parametros_tabla.selected[0].apellido
-                this.editar_email = this.parametros_tabla.selected[0].email
-                this.editar_usuario = this.parametros_tabla.selected[0].usuario
-                this.editar_telefono = this.parametros_tabla.selected[0].telefono
-                var perfil = {
-                    value : this.parametros_tabla.selected[0].id_perfil,
-                    label : this.parametros_tabla.selected[0].perfil
+                this.usuario_id = this.parametros_tabla.selected[0].usuario_id
+                this.email = this.parametros_tabla.selected[0].email
+                this.id_perfil = this.parametros_tabla.selected[0].id_perfil
+                this.nombre = this.parametros_tabla.selected[0].nombre
+                this.telefono = this.parametros_tabla.selected[0].telefono
+                this.id_pais = this.parametros_tabla.selected[0].id_pais
+                this.nombre_empresa = this.parametros_tabla.selected[0].nombre_empresa
+                this.cargo = this.parametros_tabla.selected[0].cargo
+                this.producto_empresa = this.parametros_tabla.selected[0].producto_empresa
+                this.universidad = this.parametros_tabla.selected[0].universidad
+                this.carrera = this.parametros_tabla.selected[0].carrera
+                this.suscrito_mail = this.parametros_tabla.selected[0].suscrito_mail
+                this.estado = this.parametros_tabla.selected[0].estado
+                if(this.parametros_tabla.selected[0].suscrito_mail){
+                    this.suscrito_mail = {
+                        label: 'Suscrito',
+                        value: true
+                    }
                 }
-                this.editar_id_perfil = perfil
-                this.editar_descripcion = this.parametros_tabla.selected[0].descripcion
+                else{
+                    this.suscrito_mail = {
+                        label: 'Inactivo',
+                        value: false
+                    }
+                }
                 if(this.parametros_tabla.selected[0].estado){
                     this.editar_estado = {
                         label: 'Activo',
@@ -202,23 +188,32 @@ export default Vue.component('Usuario', {
         },
         editar_fila(id){
             for (let index = 0; index < this.parametros_tabla.data.length; index++) {
-                const element = this.parametros_tabla.data[index].uuid_usuario;
+                const element = this.parametros_tabla.data[index].codigo;
                 if(id == element)
                 {
-                    this.editar_uuid_usuario = this.parametros_tabla.data[index].uuid_usuario
-                    this.editar_rut = this.parametros_tabla.data[index].rut
-                    this.editar_nombre = this.parametros_tabla.data[index].nombre
-                    this.editar_apellido = this.parametros_tabla.data[index].apellido
-                    this.editar_email = this.parametros_tabla.data[index].email
-                    this.editar_usuario = this.parametros_tabla.data[index].usuario
-                    this.editar_telefono = this.parametros_tabla.data[index].telefono
-                    var perfil = {
-                        value : this.parametros_tabla.data[index].id_perfil,
-                        label : this.parametros_tabla.data[index].perfil
+                    this.usuario_id = this.parametros_tabla.data[index].usuario_id
+                    this.email = this.parametros_tabla.data[index].email
+                    this.id_perfil = this.parametros_tabla.data[index].id_perfil
+                    this.nombre = this.parametros_tabla.data[index].nombre
+                    this.telefono = this.parametros_tabla.data[index].telefono
+                    this.id_pais = this.parametros_tabla.data[index].id_pais
+                    this.nombre_empresa = this.parametros_tabla.data[index].nombre_empresa
+                    this.cargo = this.parametros_tabla.data[index].cargo
+                    this.producto_empresa = this.parametros_tabla.data[index].producto_empresa
+                    this.universidad = this.parametros_tabla.data[index].universidad
+                    this.carrera = this.parametros_tabla.data[index].carrera
+                    if(this.parametros_tabla.data[index].suscrito_mail){
+                        this.suscrito_mail = {
+                            label: 'Suscrito',
+                            value: true
+                        }
                     }
-                    this.editar_id_perfil = perfil
-                    this.editar_descripcion = this.parametros_tabla.data[index].descripcion
-
+                    else{
+                        this.suscrito_mail = {
+                            label: 'Inactivo',
+                            value: false
+                        }
+                    }
                     if(this.parametros_tabla.data[index].estado){
                         this.editar_estado = {
                             label: 'Activo',
@@ -237,11 +232,23 @@ export default Vue.component('Usuario', {
         },
         async guardar_editar(){
 			this.$q.loading.show()
-            const {editar_rut,editar_nombre, editar_apellido, editar_email, editar_usuario, editar_telefono, editar_descripcion , editar_id_perfil, editar_estado} = this
-            // var gro = parseInt(editar_rut)
+            const {editar_usuario_id,editar_email,editar_id_perfil,editar_nombre,editar_telefono,editar_id_pais,editar_nombre_empresa,editar_cargo,editar_producto_empresa,editar_universidad,editar_carrera,editar_suscrito_mail,editar_estado} = this
             var est = editar_estado.value
-            var id_per = String(editar_id_perfil.value)
-            await this.$store.dispatch("Usuario/editarUsuario", { uuid_usuario : this.editar_uuid_usuario, rut: editar_rut,nombre : editar_nombre, apellido: editar_apellido, email: editar_email, usuario: editar_usuario, telefono: editar_telefono, descripcion:editar_descripcion ,id_perfil:id_per, estado:est }).then(res => {
+            await this.$store.dispatch("Usuario/editarUsuario", { 
+                usuario_id : editar_usuario_id,
+                email : editar_email,
+                id_perfil : editar_id_perfil,
+                nombre : editar_nombre,
+                telefono : editar_telefono,
+                id_pais : editar_id_pais,
+                nombre_empresa : editar_nombre_empresa,
+                cargo : editar_cargo,
+                producto_empresa : editar_producto_empresa,
+                universidad : editar_universidad,
+                carrera : editar_carrera,
+                suscrito_mail : editar_suscrito_mail,
+                estado : est
+            }).then(res => {
                 console.log(res)
                 this.$q.loading.hide()
                 if(this.error){
@@ -271,21 +278,26 @@ export default Vue.component('Usuario', {
             }).catch(err => {
                 console.log(err)
             })
-            console.log(this.registro_editado)
-            if(this.registro_editado){
-                await this.iniciar()
-            }
+            // if(this.registro_editado){
+            //     await this.iniciar()
+            // }
         },
         limpiar_editar(){
-            this.editar_uuid_usuario = ''
-            this.editar_rut = ''
-            this.editar_nombre = ''
-            this.editar_apellido = ''
+            this.editar_usuario_id = ''
             this.editar_email = ''
-            this.editar_usuario = ''
-            this.editar_telefono = ''
             this.editar_id_perfil = ''
-            this.editar_descripcion = ''
+            this.editar_nombre = ''
+            this.editar_telefono = ''
+            this.editar_id_pais = ''
+            this.editar_nombre_empresa = ''
+            this.editar_cargo = ''
+            this.editar_producto_empresa = ''
+            this.editar_universidad = ''
+            this.editar_carrera = ''
+            this.editar_suscrito_mail = {
+                label: 'Suscrito',
+                value: true
+            }
             this.editar_estado = {
                 label: 'Activo',
                 value: true
@@ -293,15 +305,21 @@ export default Vue.component('Usuario', {
 
         },
         limpiar_nuevo(){
-            this.nuevo_uuid_usuario = ''
-            this.nuevo_rut = ''
-            this.nuevo_nombre = ''
-            this.nuevo_apellido = ''
+            this.nuevo_usuario_id = ''
             this.nuevo_email = ''
-            this.nuevo_usuario = ''
-            this.nuevo_telefono = ''
             this.nuevo_id_perfil = ''
-            this.nuevo_descripcion = ''
+            this.nuevo_nombre = ''
+            this.nuevo_telefono = ''
+            this.nuevo_id_pais = ''
+            this.nuevo_nombre_empresa = ''
+            this.nuevo_cargo = ''
+            this.nuevo_producto_empresa = ''
+            this.nuevo_universidad = ''
+            this.nuevo_carrera = ''
+            this.nuevo_suscrito_mail = {
+                label: 'Suscrito',
+                value: true
+            }
             this.nuevo_estado = {
                 label: 'Activo',
                 value: true
@@ -310,12 +328,23 @@ export default Vue.component('Usuario', {
         },
         async guardar_nuevo() {
 			this.$q.loading.show()
-            const {nuevo_rut,nuevo_nombre, nuevo_apellido, nuevo_email, nuevo_usuario, nuevo_telefono, nuevo_descripcion , nuevo_estado, nuevo_id_perfil, nuevo_password} = this
+            const {nuevo_usuario_id,nuevo_email,nuevo_id_perfil,nuevo_nombre,nuevo_telefono,nuevo_id_pais,nuevo_nombre_empresa,nuevo_cargo,nuevo_producto_empresa,nuevo_universidad,nuevo_carrera,nuevo_suscrito_mail,nuevo_estado} = this
             var est = nuevo_estado.value
-            var id_per = nuevo_id_perfil.value
-            var pass = process.env.PASSPHRASE;
-            var encrypted = CryptoJS.AES.encrypt(nuevo_password, pass);
-            await this.$store.dispatch("Usuario/crearUsuario", { rut: nuevo_rut,nombre : nuevo_nombre, apellido: nuevo_apellido, email: nuevo_email, usuario: nuevo_usuario, telefono: nuevo_telefono, descripcion:nuevo_descripcion ,id_perfil:id_per, estado:est, clave: encrypted.toString() }).then(res => {
+            await this.$store.dispatch("Usuario/crearUsuario", { 
+                usuario_id : nuevo_usuario_id,
+                email : nuevo_email,
+                id_perfil : nuevo_id_perfil,
+                nombre : nuevo_nombre,
+                telefono : nuevo_telefono,
+                id_pais : nuevo_id_pais,
+                nombre_empresa : nuevo_nombre_empresa,
+                cargo : nuevo_cargo,
+                producto_empresa : nuevo_producto_empresa,
+                universidad : nuevo_universidad,
+                carrera : nuevo_carrera,
+                suscrito_mail : nuevo_suscrito_mail,
+                estado : est
+            }).then(res => {
                 this.$q.loading.hide()
                 if(this.error){
                     var message = this.error.message.replace('GraphQL error: ','')
@@ -440,46 +469,6 @@ export default Vue.component('Usuario', {
             }
 
         },
-        formatearRut(){
-            this.nuevo_rut = this.$general.formatear_rut(this.nuevo_rut)
-        },
-        validarRut () {
-            if (this.nuevo_rut != ""){
-                var valido = this.$general.validar_rut(this.nuevo_rut.split('.').join('').split('-').join(''))
-            
-                if(valido){
-                    this.error_rut = false
-                }else{
-                    this.error_rut = true
-                }
-            }
-        },
-        formatearRut_e(){
-            this.editar_rut = this.$general.formatear_rut(this.editar_rut)
-        },
-        validarRut_e () {
-            if (this.editar_rut != ""){
-                var valido = this.$general.validar_rut(this.nuevoeditar_rut_rut.split('.').join('').split('-').join(''))
-            
-                if(valido){
-                    this.error_rut = false
-                }else{
-                    this.error_rut = true
-                }
-            }
-        },
-        format(){
-            var rutAndDv = splitRutAndDv(this.rut);
-            var cRut = rutAndDv[0]; var cDv = rutAndDv[1];
-            if(!(cRut && cDv)) { return cRut || this.rut; }
-            var rutF = "";
-            var thousandsSeparator = useThousandsSeparator ? "." : "";
-            while(cRut.length > 3) {
-                rutF = thousandsSeparator + cRut.substr(cRut.length - 3) + rutF;
-                cRut = cRut.substring(0, cRut.length - 3);
-            }
-            return cRut + rutF + "-" + cDv;
-        }
 	},
 	created () {
 		const token = localStorage.getItem('token')
@@ -490,7 +479,6 @@ export default Vue.component('Usuario', {
 			this.src_avatar = datos.datosUsuario.avatar
         }
         this.iniciar()
-        this.cargarPerfiles()
 	},
 	mounted () {
 	},

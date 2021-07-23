@@ -4,18 +4,20 @@ import gql from 'graphql-tag'
 //espacio definido para las queries de graphql, las queries son consultas tipo "select"
 // 			<-------------- QUERIES -------------->
 export const GET_USUARIO_QUERY = gql`
-    query usuarios ($estado: Boolean!) {
-        usuarios(estado:$estado){
-            uuid_usuario,
-            nombre,
-            apellido,
-            rut,
-            usuario,
+    query Usuarios  {
+        Usuarios{
+            usuario_id,
             email,
-            telefono,
-            descripcion,
             id_perfil,
-            perfil,
+            nombre,
+            telefono,
+            id_pais,
+            nombre_empresa,
+            cargo,
+            producto_empresa,
+            universidad,
+            carrera,
+            suscrito_mail,
             estado
         }
     }

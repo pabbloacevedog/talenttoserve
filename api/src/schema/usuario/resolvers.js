@@ -84,6 +84,11 @@ export async function traer_todos() {
     //     }
     //   })
 }
+export async function getAll(parentValue,{}) {
+	return await models.Usuario.findAll({attributes: {exclude: ['password']}, order: [
+        ['usuario_id', 'DESC']
+    ],})
+}
 export async function existe_usuario(parent, {usuario}) {
 	var exists = false
 	var usuario = await models.Usuario.findOne({ where: { usuario } })
@@ -98,18 +103,18 @@ export async function remover_usuario(parent, {usuario_id}) {
 }
 
 // Create usuario
-export async function crear_usuario(parent,{ nombre, email, password  }) {
+export async function crear_usuario(parent,{ password_new,email,id_perfil,nombre,telefono,id_pais,nombre_empresa,cargo,producto_empresa,universidad,carrera,suscrito_mail,estado  }) {
 	// Usuarios exists with same email check
     var creado = false
 	var usuario = await models.Usuario.findOne({ where: { email } })
 	if (!usuario) {
 		// Usuario no existe
         var pass = config.passphrase;
-		var decrypted = CryptoJS.AES.decrypt(password, pass)
+		var decrypted = CryptoJS.AES.decrypt(password_new, pass)
 		var passDecryp = decrypted.toString(CryptoJS.enc.Utf8)
 		const passwordHashed = await bcrypt.hash(passDecryp, config.saltRounds)
         var crear = {
-            nombre, email, password: passwordHashed 
+            email,id_perfil,nombre,telefono,id_pais,nombre_empresa,cargo,producto_empresa,universidad,carrera,suscrito_mail,estado, password_new: passwordHashed 
         }
         await models.Usuario.create(crear).then(cre => {
             creado = true
@@ -129,11 +134,11 @@ export async function crear_usuario(parent,{ nombre, email, password  }) {
 		throw new Error(`El email ${ email } ya esta registrado. Intenta iniciar sesión.`)
 	}
 }
-export async function actualizar_usuario(parent,{ usuario_id, rut_usuario, nombre, usuario, password, email, telefono, avatar, ruta_avatar, verificado, facebook, whatsapp, fecha_creacion, fecha_actualizacion, estado }, { models, pubsub }) {
+export async function actualizar_usuario(parent,{ usuario_id, email,id_perfil,nombre,telefono,id_pais,nombre_empresa,cargo,producto_empresa,universidad,carrera,suscrito_mail,estado }) {
     var actualizado = false
     var error = ''
     var editar = {
-        usuario_id, rut_usuario, nombre, usuario, password, email, telefono, avatar, ruta_avatar, verificado, facebook, whatsapp, fecha_creacion, fecha_actualizacion, estado
+        usuario_id, email,id_perfil,nombre,telefono,id_pais,nombre_empresa,cargo,producto_empresa,universidad,carrera,suscrito_mail,estado
     }
     await models.Usuario.update(editar, { where: { uuid_usuario } }).then(act => {
         actualizado = true
@@ -148,60 +153,63 @@ export async function actualizar_usuario(parent,{ usuario_id, rut_usuario, nombr
 		throw new Error(`Error al actualizar usuario ` + error)
 	}
 }
-export async function remove_more(parentValue,{ codigo  }) {
-    var eliminado = true
-    var error = ''
+// export async function remove_more(parentValue,{ codigo  }) {
+//     var eliminado = true
+//     var error = ''
 
-    codigo.forEach(element => {
-        console.log(element.codigo)
-        models.Usuario.destroy({where: {usuario_id : element.codigo}})
-        // .then(act => {
-        //     eliminado = true
-        // }).catch(err => {
-        //     console.log(err)
-        //     error = err
-        // })
-    });
-	if(eliminado){
-		return { eliminado: eliminado }
-	}
-	else{
-		throw new Error(`Error al eliminar el Usuario ` + error)
-	}
-}
-export async function update_users(parentValue,{ users  }) {
-    var update = true
-    var error = ''
+//     codigo.forEach(element => {
+//         console.log(element.codigo)
+//         models.Usuario.destroy({where: {usuario_id : element.codigo}})
+//         // .then(act => {
+//         //     eliminado = true
+//         // }).catch(err => {
+//         //     console.log(err)
+//         //     error = err
+//         // })
+//     });
+// 	if(eliminado){
+// 		return { eliminado: eliminado }
+// 	}
+// 	else{
+// 		throw new Error(`Error al eliminar el Usuario ` + error)
+// 	}
+// }
 
-    for (const element of users) {
-        var usuario_id = element.usuario_id
-        var passphrase =  element.password
-        var password_new =  element.password_new
+
+
+// export async function update_users(parentValue,{ users  }) {
+//     var update = true
+//     var error = ''
+
+//     for (const element of users) {
+//         var usuario_id = element.usuario_id
+//         var passphrase =  element.password
+//         var password_new =  element.password_new
         
-        var pass = config.passphrase;
+//         var pass = config.passphrase;
 
-        console.log('passphrase', passphrase)
+//         console.log('passphrase', passphrase)
 
-        const passwordHashed = await bcrypt.hash(password_new, config.saltRounds)
-        // console.log('passwordHashed', passwordHashed)
-        password_new = passwordHashed
-        var editar = {
-            passphrase, password_new
-        }
-        console.log('editar', editar)
-        await models.Usuario.update(editar, { where: { usuario_id } }).then(act => {
-            update = true
-        }).catch(err => {
-            console.log(err)
-            error = err
-        })
-        console.log('actualizado ', editar)
+//         const passwordHashed = await bcrypt.hash(password_new, config.saltRounds)
+//         // console.log('passwordHashed', passwordHashed)
+//         password_new = passwordHashed
+//         var editar = {
+//             passphrase, password_new
+//         }
+//         console.log('editar', editar)
+//         await models.Usuario.update(editar, { where: { usuario_id } }).then(act => {
+//             update = true
+//         }).catch(err => {
+//             console.log(err)
+//             error = err
+//         })
+//         console.log('actualizado ', editar)
 
-    }
-	if(update){
-		return { editado: update }
-	}
-	else{
-		throw new Error(`Error al eliminar el Usuario ` + error)
-	}
-}
+//     }
+// 	if(update){
+// 		return { editado: update }
+// 	}
+// 	else{
+// 		throw new Error(`Error al eliminar el Usuario ` + error)
+// 	}
+// }

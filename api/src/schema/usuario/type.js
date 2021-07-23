@@ -15,12 +15,12 @@ const UsuarioType = new GraphQLObjectType({
         password: {
             type: GraphQLString
         },
-        password_new: {
-            type: GraphQLString
-        },
-        passphrase: {
-            type: GraphQLString
-        },
+        // password_new: {
+        //     type: GraphQLString
+        // },
+        // passphrase: {
+        //     type: GraphQLString
+        // },
         avatar: {
 			type: GraphQLString
 		},

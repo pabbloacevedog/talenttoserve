@@ -8,12 +8,6 @@ import {getAll, getById} from '../resolvers'
 // Users All
 export const oppracticas = {
     type: new GraphQLList(OpPracticaType),
-    args: {
-		estado: {
-			name: 'estado',
-			type: GraphQLBoolean
-		}
-	},
 	resolve: getAll
 }
 

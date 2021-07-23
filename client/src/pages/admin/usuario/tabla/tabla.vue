@@ -9,9 +9,8 @@
         :pagination.sync="parametros.pagination"
         :filter="parametros.filter"
         v-if="$q.platform.is.mobile"
-        class="tabla_mobile"
+        class=""
         grid
-        hide-header
     >
         <template v-slot:top-right>
             <q-input  
@@ -57,21 +56,25 @@
         >
             <q-card :class="props.selected ? 'card_tabla_mobile_selected' : 'card_tabla_mobile'" >
             <q-card-section>
-                <q-checkbox dense v-model="props.selected" :label="props.row.nombre"></q-checkbox>
+                <q-checkbox dense v-model="props.selected" :label="'Grosor '+props.row.grosor"></q-checkbox>
             </q-card-section>
             <q-separator></q-separator>
             <q-list dense>
-                <q-item v-for="col in props.cols.filter(col => col.name !== 'nombre')" :key="col.name">
+                <q-item v-for="col in props.cols.filter(col => col.name !== 'codigo')" :key="col.name">
                 <q-item-section>
                     <q-item-label>{{ col.label }}</q-item-label>
                 </q-item-section>
                 <q-item-section side>
-                    <q-item-label caption v-if="col.name !== 'estado'">{{ col.value }}</q-item-label>
+                    <q-item-label caption v-if="col.name !== 'estado'">{{ col.value }}
+                        <q-tooltip>
+                            {{ col.value }}
+                        </q-tooltip>
+                    </q-item-label>
                     <q-item-label caption v-else>
-                        <q-chip size="sm" v-if="col.value" color="green" text-color="white">
+                        <q-chip size="sm" v-if="col.value" class="activo" text-color="white">
                             Activo
                         </q-chip>
-                        <q-chip  size="sm" v-else color="red" text-color="white">
+                        <q-chip  size="sm" v-else class="inactivo" text-color="white">
                             Inactivo
                         </q-chip>
                     </q-item-label>
@@ -83,6 +86,7 @@
         </template>
 
     </q-table>
+
     <q-table
         :title="parametros.tittle"
         :data="parametros.data"
@@ -131,31 +135,44 @@
 
         </template>
         <template  v-slot:body="props" >
-            <q-tr :props="props" v-on:dblclick="funciones.editar_fila(props.row.uuid_usuario)">
+            <q-tr :props="props" v-on:dblclick="funciones.editar_fila(props.row.codigo)">
                 <q-td auto-width>
                     <q-checkbox size="sm"  color="accent" v-model="props.selected"/>
                 </q-td>
-                <q-td key="rut" :props="props">{{ props.row.rut }}</q-td>
-                <q-td key="nombre" :props="props">{{ props.row.nombre }}</q-td>
-                <q-td key="apellido" :props="props">{{ props.row.apellido }}</q-td>
-                <q-td key="email" :props="props">{{ props.row.email }}</q-td>
-                <q-td key="usuario" :props="props">{{ props.row.usuario }}</q-td>
-                <q-td key="telefono" :props="props">{{ props.row.telefono }}</q-td>
-                <q-td key="descripcion" :props="props">{{ props.row.descripcion }}</q-td>
-                <q-td key="id_perfil" :props="props">{{ props.row.perfil }}</q-td>
-                <q-td key="estado" :props="props" v-if="props.row.estado">
-                    <q-chip color="green" text-color="white">
+                <q-td key="nombre" :props="props">{{ props.row.nombre }}<q-tooltip v-if="props.row.nombre">{{ props.row.nombre }}</q-tooltip></q-td>
+                <q-td key="email" :props="props">{{ props.row.email }} <q-tooltip v-if="props.row.email">{{ props.row.email }}</q-tooltip></q-td>
+                <q-td key="id_perfil" :props="props">{{ props.row.id_perfil }}<q-tooltip v-if="props.row.id_perfil">{{ props.row.id_perfil }}</q-tooltip></q-td>
+                <q-td key="telefono" :props="props">{{ props.row.telefono }}<q-tooltip v-if="props.row.telefono">{{ props.row.telefono }}</q-tooltip></q-td>
+                <q-td key="id_pais" :props="props">{{ props.row.id_pais }}<q-tooltip v-if="props.row.id_pais">{{ props.row.id_pais }}</q-tooltip></q-td>
+                <q-td key="nombre_empresa" :props="props">{{ props.row.nombre_empresa }}<q-tooltip v-if="props.row.nombre_empresa">{{ props.row.nombre_empresa }}</q-tooltip></q-td>
+                <q-td key="cargo" :props="props">{{ props.row.cargo }}<q-tooltip v-if="props.row.cargo">{{ props.row.cargo }}</q-tooltip></q-td>
+                <q-td key="producto_empresa" :props="props">{{ props.row.producto_empresa }}<q-tooltip v-if="props.row.producto_empresa">{{ props.row.producto_empresa }}</q-tooltip></q-td>
+                <q-td key="universidad" :props="props">{{ props.row.universidad }}<q-tooltip v-if="props.row.universidad">{{ props.row.universidad }}</q-tooltip></q-td>
+                <q-td key="carrera" :props="props">{{ props.row.banner }}<q-tooltip v-if="props.row.carrera">{{ props.row.carrera }}</q-tooltip></q-td>
+                <q-td key="suscrito_mail" :props="props" v-if="props.row.suscrito_mail">
+                    <q-chip class="activo" text-color="white">
+                        Suscrito
+                    </q-chip>
+                </q-td>
+                <q-td key="suscrito_mail" :props="props" v-else>
+                    <q-chip class="inactivo" text-color="white">
+                        Inactivo
+                    </q-chip>
+                </q-td>
+                                <q-td key="estado" :props="props" v-if="props.row.estado">
+                    <q-chip class="activo" text-color="white">
                         Activo
                     </q-chip>
                 </q-td>
                 <q-td key="estado" :props="props" v-else>
-                    <q-chip color="red" text-color="white">
+                    <q-chip class="inactivo" text-color="white">
                         Inactivo
                     </q-chip>
                 </q-td>
             </q-tr>
         </template>
     </q-table>
+
 </template>
 
 <script src="./tabla.js">

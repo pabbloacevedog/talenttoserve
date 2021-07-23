@@ -30,7 +30,7 @@ const OpPracticaList = new GraphQLInputObjectType ({
 		estado:{
 			type: GraphQLBoolean
         },
-        codigo:{
+        id:{
             type: OpPracticaList
         }
 	})

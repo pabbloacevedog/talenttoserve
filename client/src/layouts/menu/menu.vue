@@ -9,8 +9,8 @@
                 <div class="titulo_bar">Talent to serve</div>
 				<q-toolbar-title v-if="$q.platform.is.desktop" class="row justify-center">
 				</q-toolbar-title>
-                <div class="n_usuario" style="right: 0;position: absolute;">
-                    <q-chip removable v-model="nombre" @remove="logout" color="red" text-color="white" style="padding: 16px;">
+                <div class="n_usuario" style="right: 15px;position: absolute;">
+                    <q-chip removable @remove="logout" color="red" text-color="white" style="padding: 16px;">
                         {{nombre}}
                     </q-chip>
                 </div>

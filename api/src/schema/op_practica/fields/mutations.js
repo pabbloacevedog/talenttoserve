@@ -1,11 +1,9 @@
 // Imports
-import { GraphQLUpload } from 'apollo-server-koa'
 import {
 	GraphQLString,
     GraphQLInt,
     GraphQLBoolean,
-    GraphQLList,
-    GraphQLObjectType
+    GraphQLList
 } from 'graphql'
 
 // App Imports
@@ -88,8 +86,8 @@ export const OpPracticaRemove = {
 export const removeOpPractica = {
     type: OpPracticaType,
     args: {
-		codigo: {
-            name: 'codigo',
+		id: {
+            name: 'id',
 			type: GraphQLList(OpPracticaList)
 		}
 	},

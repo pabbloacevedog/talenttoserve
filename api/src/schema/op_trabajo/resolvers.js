@@ -6,8 +6,7 @@ export async function getById(parentValue, {codigo}) {
 }
 
 // Get all users
-export async function getAll(parentValue, {estado}) {
-    console.log('getAll', estado)
+export async function getAll(parentValue,{}) {
 	return await models.OpTrabajo.findAll({order: [
         ['codigo', 'DESC']
     ],})
@@ -59,12 +58,12 @@ export async function edit(parentValue,{ codigo, cargo, descripcion, link, hotel
 		throw new Error(`Error al editar el optrabajo ` + error)
 	}
 }
-export async function remove_more(parentValue,{ codigo  }) {
+export async function remove_more(parentValue,{ id  }) {
     var eliminado = true
     var error = ''
     console.log(models.OpTrabajo)
 
-    codigo.forEach(element => {
+    id.forEach(element => {
         console.log(element.codigo)
         models.OpTrabajo.destroy({where: {codigo : element.codigo}})
         // .then(act => {

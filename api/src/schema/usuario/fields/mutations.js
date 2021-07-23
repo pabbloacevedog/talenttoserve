@@ -20,16 +20,56 @@ import {
 export const CrearUsuario = {
 	type: UsuarioLoginType,
 	args: {
-		nombre: {
-			name: 'nombre',
+        email: {
+            name: 'email',
+            type: GraphQLString
+        },
+        id_perfil: {
+            name: 'id_perfil',
+            type: GraphQLInt
+        },
+        nombre: {
+            name: 'nombre',
+            type: GraphQLString
+        },
+        password_new: {
+			name: 'password_new',
 			type: GraphQLString
 		},
-		correo: {
-			name: 'correo',
-			type: GraphQLString
-		},
-		password: {
-			name: 'password',
+        telefono: {
+            name: 'telefono',
+            type: GraphQLString
+        },
+        id_pais: {
+            name: 'id_pais',
+            type: GraphQLInt
+        },
+        nombre_empresa: {
+            name: 'nombre_empresa',
+            type: GraphQLString
+        },
+        cargo: {
+            name: 'cargo',
+            type: GraphQLString
+        },
+        producto_empresa: {
+            name: 'producto_empresa',
+            type: GraphQLString
+        },
+        universidad: {
+            name: 'universidad',
+            type: GraphQLString
+        },
+        carrera: {
+            name: 'carrera',
+            type: GraphQLString
+        },
+        suscrito_mail: {
+            name: 'suscrito_mail',
+            type: GraphQLBoolean
+        },
+        estado: {
+			name: 'estado',
 			type: GraphQLString
 		}
 	},
@@ -39,62 +79,54 @@ export const CrearUsuario = {
 export const ActulizarUsuario = {
 	type: UsuarioType,
 	args: {
-        usuario_id: {
-			name: 'uuid_usuario',
-			type: GraphQLString
-		},
-        rut_usuario: {
-			name: 'rut_usuario',
-			type: GraphQLString
-		},
-		nombre: {
-			name: 'nombre',
-			type: GraphQLString
-		},
-		usuario: {
-			name: 'usuario',
-			type: GraphQLString
-		},
-		password: {
-			name: 'password',
-			type: GraphQLString
+        usuario_id:{
+            name: 'usuario_id',
+            type: GraphQLString
         },
-        correo: {
-			name: 'correo',
-			type: GraphQLString
-		},
-		telefono: {
-			name: 'telefono',
-			type: GraphQLString
+        email: {
+            name: 'email',
+            type: GraphQLString
         },
-        avatar: {
-			name: 'avatar',
-			type: GraphQLString
-		},
-		ruta_avatar: {
-			name: 'ruta_avatar',
-			type: GraphQLString
+        id_perfil: {
+            name: 'id_perfil',
+            type: GraphQLInt
         },
-        verificado: {
-			name: 'verificado',
-			type: GraphQLBoolean
-		},
-        facebook: {
-			name: 'facebook',
-			type: GraphQLString
-		},
-        whatsapp: {
-			name: 'whatsapp',
-			type: GraphQLString
-		},
-        fecha_creacion: {
-			name: 'fecha_creacion',
-			type: GraphQLString
-		},
-        fecha_actualizacion: {
-			name: 'fecha_actualizacion',
-			type: GraphQLString
-		},
+        nombre: {
+            name: 'nombre',
+            type: GraphQLString
+        },
+        telefono: {
+            name: 'telefono',
+            type: GraphQLString
+        },
+        id_pais: {
+            name: 'id_pais',
+            type: GraphQLInt
+        },
+        nombre_empresa: {
+            name: 'nombre_empresa',
+            type: GraphQLString
+        },
+        cargo: {
+            name: 'cargo',
+            type: GraphQLString
+        },
+        producto_empresa: {
+            name: 'producto_empresa',
+            type: GraphQLString
+        },
+        universidad: {
+            name: 'universidad',
+            type: GraphQLString
+        },
+        carrera: {
+            name: 'carrera',
+            type: GraphQLString
+        },
+        suscrito_mail: {
+            name: 'suscrito_mail',
+            type: GraphQLBoolean
+        },
         estado: {
 			name: 'estado',
 			type: GraphQLString
@@ -123,13 +155,16 @@ export const RemoverUsuario = {
 // 	},
 // 	resolve: remove_more
 // }
-export const updateUsers = {
-    type: UsuarioType,
-    args: {
-		users: {
-            name: 'users',
-			type: GraphQLList(UsuarioList)
-		}
-	},
-	resolve: update_users
-}
+
+
+//mutation for update password and generate new hash for user
+// export const updateUsers = {
+//     type: UsuarioType,
+//     args: {
+// 		users: {
+//             name: 'users',
+// 			type: GraphQLList(UsuarioList)
+// 		}
+// 	},
+// 	resolve: update_users
+// }

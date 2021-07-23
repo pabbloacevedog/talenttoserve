@@ -30,7 +30,7 @@ export default Vue.component('Networking', {
             modal_eliminar: false,
             modal_editar: false,
             parametros_tabla:{
-                tittle: 'Inscríbete',
+                tittle: 'Networking',
                 acciones:[
                     { accion: 'Eliminar', icon: 'delete', cmd: 'eliminar'},
                     { accion: 'Editar', icon: 'update', cmd: 'editar' },

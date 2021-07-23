@@ -3,12 +3,12 @@ import {GraphQLString, GraphQLList} from 'graphql'
 
 // App Imports
 import UsuarioType from '../type.js'
-import {traer_todos, buscar_por_usuario, buscar_por_email, existe_usuario ,buscar_usuario, datos_usuario} from '../resolvers.js'
+import {getAll, buscar_por_email, existe_usuario ,buscar_usuario, datos_usuario} from '../resolvers.js'
 
 // Usuarios All
 export const Usuarios = {
     type: new GraphQLList(UsuarioType),
-    resolve: traer_todos
+    resolve: getAll
 }
 // usuario By ID
 export const DatosUsuario = {
@@ -19,15 +19,6 @@ export const DatosUsuario = {
         }
     },
     resolve: datos_usuario
-}
-export const BuscarUsuarioUsuario = {
-    type: UsuarioType,
-    args: {
-        usuario: {
-            type: GraphQLString
-        }
-    },
-    resolve: buscar_por_usuario
 }
 export const BuscarUsuarioCorreo = {
     type: UsuarioType,

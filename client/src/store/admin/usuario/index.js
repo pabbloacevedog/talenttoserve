@@ -18,10 +18,9 @@ const actions = {
         commit('CARGAR')
         await this.$apollo.defaultClient.resetStore()
 		await this.$apollo.defaultClient.query({
-            query: GET_USUARIO_QUERY,
-            variables: { estado:true }
+            query: GET_USUARIO_QUERY
 		}).then(response => {
-            const datos = response.data.usuarios
+            const datos = response.data.Usuarios
             console.log('datos',this.$apollo)
 			commit('CARGAR_SUCCESS', datos)
 
