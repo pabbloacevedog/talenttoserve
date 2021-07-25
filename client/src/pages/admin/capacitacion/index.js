@@ -66,6 +66,7 @@ export default Vue.component('Capacitacion', {
                 eliminar: this.eliminar,
                 editar: this.editar,
                 editar_fila: this.editar_fila,
+                mostrar_banner: this.mostrar_banner,
                 iniciar: this.iniciar
             },
             estados: [
@@ -77,7 +78,10 @@ export default Vue.component('Capacitacion', {
 				label: 'Inactivo',
 				value: false
 				}
-			]
+			],
+            banner: '',
+            base : process.env.BASE_URL,
+            modal_banner: false,
         }
 	},
 	computed: {
@@ -111,6 +115,10 @@ export default Vue.component('Capacitacion', {
 			}).catch(err => {
 				console.log(err)
 			})
+        },
+        mostrar_banner(banner){
+            this.banner = this.base + banner
+            this.modal_banner = true
         },
         editar(){
             if(this.parametros_tabla.selected.length == 1){

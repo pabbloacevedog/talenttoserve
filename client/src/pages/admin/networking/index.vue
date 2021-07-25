@@ -48,12 +48,6 @@
 					</q-input>
 					<q-input  dense standout required label='Descripción' v-model='nuevo_descripcion' class="input-reg q-mx-lg">
 					</q-input>
-                    <q-input  dense standout required label='Link' v-model='nuevo_link' class="input-reg q-mx-lg">
-					</q-input>
-                    <q-input  dense standout required label='Botón' v-model='nuevo_boton' class="input-reg q-mx-lg">
-					</q-input>
-                    <q-input  dense standout required label='Banner' v-model='nuevo_banner' class="input-reg q-mx-lg">
-					</q-input>
                     <q-select dense standout required v-model="nuevo_estado" :options="estados" label="Estado" class="input-reg q-mx-lg"/>
                 </q-card-section>
                 <div class="q-pb-lg" style="text-align: center;">
@@ -77,12 +71,6 @@
 					<q-input  dense standout required label='Nombre' v-model='editar_titulo' class="input-reg  q-mx-lg">
 					</q-input>
 					<q-input  dense standout required label='Descripción' v-model='editar_descripcion' class="input-reg q-mx-lg">
-					</q-input>
-                    <q-input  dense standout required label='Link' v-model='editar_link' class="input-reg q-mx-lg">
-					</q-input>
-                    <q-input  dense standout required label='Botón' v-model='editar_boton' class="input-reg q-mx-lg">
-					</q-input>
-                    <q-input  dense standout required label='Banner' v-model='editar_banner' class="input-reg q-mx-lg">
 					</q-input>
                     <q-select dense standout required v-model="editar_estado" :options="estados" label="Estado" class="input-reg q-mx-lg"/>
                 </q-card-section>

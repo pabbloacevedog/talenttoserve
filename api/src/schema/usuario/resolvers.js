@@ -69,20 +69,35 @@ export async function datos_usuario(parent, {usuario_id}, {models, usuario}, inf
 	return usuario[0]
 }
 // Get all usuarios
-// export async function traer_todos() {
-// 	return await models.Usuario.findAll()
-// }
 export async function traer_todos() {
-    return await models.sequelize.query(" SELECT * FROM usuario "  ,
+    var usuarios = await models.sequelize.query(
+        "   SELECT  " +
+        "       u.usuario_id,   " +
+        "       u.nombre,   " +
+        "       u.email,    " +
+        "       pe.nombre AS perfil,    " +
+        "       u.id_perfil,    " +
+        "       u.telefono, " +
+        "       pa.nombre AS pais,  " +
+        "       u.id_pais,  " +
+        "       u.nombre_empresa,   " +
+        "       u.producto_empresa, " +
+        "       u.universidad,  " +
+        "       u.carrera,  " +
+        "       u.suscrito_mail,    " +
+        "       u.estado    " +
+        "   FROM    " +
+        "       usuario u   " +
+        "           INNER JOIN  " +
+        "       perfil pe ON u.id_perfil = pe.id_perfil " +
+        "           INNER JOIN  " +
+        "       pais pa ON u.id_pais = pa.id    " ,
         {
             type: QueryTypes.SELECT
         }
     )
-	// return await models.Usuario.findAll({
-    //     where: {
-    //         password_new: null
-    //     }
-    //   })
+    console.log(usuarios)
+	return usuarios
 }
 export async function getAll(parentValue,{}) {
 	return await models.Usuario.findAll({attributes: {exclude: ['password']}, order: [

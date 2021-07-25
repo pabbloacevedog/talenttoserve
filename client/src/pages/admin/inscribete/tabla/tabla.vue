@@ -143,16 +143,12 @@
                 <q-td key="descripcion" :props="props">{{ props.row.descripcion }} <q-tooltip>{{ props.row.descripcion }}</q-tooltip></q-td>
                 <q-td key="link" :props="props">{{ props.row.link }}<q-tooltip>{{ props.row.link }}</q-tooltip></q-td>
                 <q-td key="boton" :props="props">{{ props.row.boton }}<q-tooltip>{{ props.row.boton }}</q-tooltip></q-td>
-                <q-td key="banner" :props="props">{{ props.row.banner }}<q-tooltip>{{ props.row.banner }}</q-tooltip></q-td>
+                <q-td key="banner" :props="props"><q-btn v-if="props.row.banner !='' " unelevated rounded color="accent" size="xs" label="Ver banner" @click="funciones.mostrar_banner(props.row.banner)"/></q-td>
                 <q-td key="estado" :props="props" v-if="props.row.estado">
-                    <q-chip class="activo" text-color="white">
-                        Activo
-                    </q-chip>
+                    <q-btn unelevated rounded class="activo" color="accent" size="xs" label="activo"/>
                 </q-td>
                 <q-td key="estado" :props="props" v-else>
-                    <q-chip class="inactivo" text-color="white">
-                        Inactivo
-                    </q-chip>
+                    <q-btn  unelevated rounded class="inactivo" color="accent" size="xs" label="Inactivo"/>
                 </q-td>
             </q-tr>
         </template>

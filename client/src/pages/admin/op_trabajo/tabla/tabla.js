@@ -9,7 +9,7 @@ export default Vue.component('tabla', {
     },
 	data () {
 		return {
-
+            base : process.env.BASE_URL
         }
 	},
 	computed: {

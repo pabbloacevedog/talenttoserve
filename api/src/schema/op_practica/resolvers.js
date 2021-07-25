@@ -7,7 +7,6 @@ export async function getById(parentValue, {codigo}) {
 
 // Get all users
 export async function getAll(parentValue, {}) {
-    console.log('getAll', estado)
 	return await models.OpPractica.findAll({order: [
         ['codigo', 'DESC']
     ],})

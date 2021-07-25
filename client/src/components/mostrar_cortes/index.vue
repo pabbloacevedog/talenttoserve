@@ -95,10 +95,10 @@
                     <div id="contenedor">
                         <div align="center" style="padding: 3%;" v-if="btn_guardar">
                             <q-btn class="desechar_corte"  @click.native="funciones.desechar_corte()">Desechar</q-btn>
-                            <q-btn class="guardar" @click="funciones.guardar_corte_bd()">guardar</q-btn>
+                            <q-btn class="bg-accent text-white" @click="funciones.guardar_corte_bd()">guardar</q-btn>
                         </div>
                         <div align="center" style="padding: 3%;" v-else>
-                            <q-btn class="guardar" @click="funciones.cerrar_grafico()">Aceptar</q-btn>
+                            <q-btn class="bg-accent text-white" @click="funciones.cerrar_grafico()">Aceptar</q-btn>
                         </div>
                     </div>
                 </div>
@@ -225,10 +225,10 @@
                 <div id="contenedor">
                     <div align="center" style="padding: 3%;" v-if="btn_guardar">
                         <q-btn class="desechar_corte"  @click.native="funciones.desechar_corte()">Desechar</q-btn>
-                        <q-btn class="guardar" @click="funciones.guardar_corte_bd()">guardar</q-btn>
+                        <q-btn class="bg-accent text-white" @click="funciones.guardar_corte_bd()">guardar</q-btn>
                     </div>
                     <div align="center" style="padding: 3%;" v-else>
-                        <q-btn class="guardar" @click="funciones.cerrar_grafico()">Aceptar</q-btn>
+                        <q-btn class="bg-accent text-white" @click="funciones.cerrar_grafico()">Aceptar</q-btn>
                     </div>
                 </div>
             </div>

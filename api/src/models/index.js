@@ -10,7 +10,8 @@ import Networking       from './networking/index.js'
 import OpPractica       from './op_practica/index.js'
 import OpTrabajo      from './op_trabajo/index.js'
 import Pais       from './pais/index.js'
-import Publicar_pro       from './publicar_pro/index.js'
+import Cargo       from './cargo/index.js'
+import Proveedor       from './proveedores/index.js'
 import Registro_publicidad       from './registro_publicidad/index.js'
 import PerfilRouter       from './perfil_router/index.js'
 import Perfil       from './perfil/index.js'
@@ -27,8 +28,9 @@ const models = {
     Networking       :   Networking(connection),
     OpPractica       :   OpPractica(connection),       
     OpTrabajo        :   OpTrabajo(connection),          
-    Publicar_pro     :   Publicar_pro(connection),    
-    Pais             :   Pais(connection),          
+    Proveedor     :   Proveedor(connection),    
+    Pais             :   Pais(connection),        
+    Cargo             :   Cargo(connection),          
     Registro_publicidad :   Registro_publicidad(connection),        
 	Usuario          :   Usuario(connection),     
 }

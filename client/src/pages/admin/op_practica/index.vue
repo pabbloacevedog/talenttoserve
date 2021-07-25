@@ -41,18 +41,16 @@
         >
             <q-card class="modales" style="width: 500px !important;" color="primary">
                 <q-card-section align="center" class="q-pa-xs">
-                    <div class="text-h6 titulo_crear" color="text">Nuevo Item</div>
+                    <div class="text-h6 cargo_crear" color="text">Nuevo Item</div>
                 </q-card-section>
                 <q-card-section class="area_comment">                   
-					<q-input  dense standout required label='Titulo' v-model='nuevo_titulo' class="input-reg q-mx-lg">
+					<q-input  dense standout required label='Cargo' v-model='nuevo_cargo' class="input-reg q-mx-lg">
 					</q-input>
 					<q-input  dense standout required label='Descripción' v-model='nuevo_descripcion' class="input-reg q-mx-lg">
 					</q-input>
                     <q-input  dense standout required label='Link' v-model='nuevo_link' class="input-reg q-mx-lg">
 					</q-input>
-                    <q-input  dense standout required label='Botón' v-model='nuevo_boton' class="input-reg q-mx-lg">
-					</q-input>
-                    <q-input  dense standout required label='Banner' v-model='nuevo_banner' class="input-reg q-mx-lg">
+                    <q-input  dense standout required label='Hotel' v-model='nuevo_hotel' class="input-reg q-mx-lg">
 					</q-input>
                     <q-select dense standout required v-model="nuevo_estado" :options="estados" label="Estado" class="input-reg q-mx-lg"/>
                 </q-card-section>
@@ -71,18 +69,16 @@
         >
             <q-card class="modales" style="width: 500px !important;">
                 <q-card-section align="center">
-                    <div class="text-h6 titulo_crear" color="text">Editar Registro</div>
+                    <div class="text-h6 cargo_crear" color="text">Editar Registro</div>
                 </q-card-section>
                 <q-card-section class="area_comment">                      
-					<q-input  dense standout required label='Nombre' v-model='editar_titulo' class="input-reg  q-mx-lg">
+					<q-input  dense standout required label='Nombre' v-model='editar_cargo' class="input-reg  q-mx-lg">
 					</q-input>
 					<q-input  dense standout required label='Descripción' v-model='editar_descripcion' class="input-reg q-mx-lg">
 					</q-input>
                     <q-input  dense standout required label='Link' v-model='editar_link' class="input-reg q-mx-lg">
 					</q-input>
-                    <q-input  dense standout required label='Botón' v-model='editar_boton' class="input-reg q-mx-lg">
-					</q-input>
-                    <q-input  dense standout required label='Banner' v-model='editar_banner' class="input-reg q-mx-lg">
+                    <q-input  dense standout required label='Hotel' v-model='editar_hotel' class="input-reg q-mx-lg">
 					</q-input>
                     <q-select dense standout required v-model="editar_estado" :options="estados" label="Estado" class="input-reg q-mx-lg"/>
                 </q-card-section>
@@ -95,7 +91,7 @@
         <q-dialog persistent width="800" v-model="modal_eliminar" >
             <q-card class="modales" style="width: 800px;">
                 <q-card-section align="center">
-                    <div class="text-h6 titulo_crear" color="text">Eliminar registro</div>
+                    <div class="text-h6 cargo_crear" color="text">Eliminar registro</div>
                 </q-card-section>
                 <q-card-section align="center" v-if="parametros_tabla.selected.length > 1">
                     <div class="text-h6 b_eliminar" color="text">

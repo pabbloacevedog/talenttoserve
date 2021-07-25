@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import {getUserFromToken} from '@utils/authService'
 import { mapGetters } from 'vuex'
-export default Vue.component('Inscribete', {
+export default Vue.component('OpPractica', {
     $validates: 1,
     components:{
         tabla:() => import('./tabla/tabla.vue')
@@ -9,11 +9,10 @@ export default Vue.component('Inscribete', {
 	data () {
 		return {
             img:'/statics/login.jpg',
-            nuevo_titulo:'',
+            nuevo_cargo:'',
             nuevo_descripcion:'',
             nuevo_link:'',
-            nuevo_boton:'',
-            nuevo_banner:'',
+            nuevo_hotel:'',
             nuevo_estado : 
                 {
                 label: 'Activo',
@@ -21,11 +20,10 @@ export default Vue.component('Inscribete', {
                 }
             ,
             editar_codigo: '',
-            editar_titulo:'',
+            editar_cargo:'',
             editar_descripcion:'',
             editar_link:'',
-            editar_boton:'',
-            editar_banner:'',
+            editar_hotel:'',
             editar_estado : 
                 {
                 label: 'Activo',
@@ -36,7 +34,7 @@ export default Vue.component('Inscribete', {
             modal_eliminar: false,
             modal_editar: false,
             parametros_tabla:{
-                tittle: 'Inscríbete',
+                tittle: 'Oportunidades de Practica',
                 acciones:[
                     { accion: 'Eliminar', icon: 'delete', cmd: 'eliminar'},
                     { accion: 'Editar', icon: 'update', cmd: 'editar' },
@@ -50,16 +48,15 @@ export default Vue.component('Inscribete', {
                 selectedkey: 'codigo', 
                 columns: [
                   {
-                    name: 'titulo',
-                    label: 'titulo',
+                    name: 'cargo',
+                    label: 'cargo',
                     align: 'left',
-                    field: 'titulo',
+                    field: 'cargo',
                     sortable: true
                   },
                   { name: 'descripcion', align: 'center', label: 'Descripción', field: 'descripcion', sortable: true },
                   { name: 'link', align: 'center', label: 'Link', field: 'link', sortable: true },
-                  { name: 'boton', align: 'center', label: 'Botón', field: 'boton', sortable: true },
-                  { name: 'banner', align: 'center', label: 'Banner', field: 'banner', sortable: true },
+                  { name: 'hotel', align: 'center', label: 'Hotel', field: 'hotel', sortable: true },
                   { name: 'estado', align: 'center', label: 'Estado', field: 'estado' , sortable: true},
                 ],
                 data: [
@@ -85,17 +82,17 @@ export default Vue.component('Inscribete', {
 	},
 	computed: {
 		...mapGetters({ 
-            dataInscribete: "Inscribete/getData", 
-            registro_creado: "Inscribete/getCreado",
-            registro_editado: "Inscribete/getEditado",
-            registro_eliminado: "Inscribete/getEliminado",
-            error: "Inscribete/error" , 
+            dataOpPractica: "OpPractica/getData", 
+            registro_creado: "OpPractica/getCreado",
+            registro_editado: "OpPractica/getEditado",
+            registro_eliminado: "OpPractica/getEliminado",
+            error: "OpPractica/error" , 
         })
 	},
 	methods: {
         async iniciar () {
             this.$q.loading.show()
-			await this.$store.dispatch("Inscribete/cargarInscribete").then(res => {
+			await this.$store.dispatch("OpPractica/cargarOpPractica").then(res => {
 				this.$q.loading.hide()
 				if(this.error){
 					var message = this.error.message.replace('GraphQL error: ','')
@@ -108,8 +105,8 @@ export default Vue.component('Inscribete', {
 					})
 				}
 				else{
-                    console.log('dataInscribete',this.dataInscribete)
-                    this.parametros_tabla.data = this.dataInscribete
+                    console.log('dataOpPractica',this.dataOpPractica)
+                    this.parametros_tabla.data = this.dataOpPractica
 				}
 			}).catch(err => {
 				console.log(err)
@@ -118,11 +115,10 @@ export default Vue.component('Inscribete', {
         editar(){
             if(this.parametros_tabla.selected.length == 1){
                 this.editar_codigo = this.parametros_tabla.selected[0].codigo
-                this.editar_titulo = this.parametros_tabla.selected[0].titulo
+                this.editar_cargo = this.parametros_tabla.selected[0].cargo
                 this.editar_descripcion = this.parametros_tabla.selected[0].descripcion
                 this.editar_link = this.parametros_tabla.selected[0].link
-                this.editar_boton = this.parametros_tabla.selected[0].boton
-                this.editar_banner = this.parametros_tabla.selected[0].banner
+                this.editar_hotel = this.parametros_tabla.selected[0].hotel
                 if(this.parametros_tabla.selected[0].estado){
                     this.editar_estado = {
                         label: 'Activo',
@@ -154,11 +150,10 @@ export default Vue.component('Inscribete', {
                 if(id == element)
                 {
                     this.editar_codigo = this.parametros_tabla.data[index].codigo
-                    this.editar_titulo = this.parametros_tabla.data[index].titulo
+                    this.editar_cargo = this.parametros_tabla.data[index].cargo
                     this.editar_descripcion = this.parametros_tabla.data[index].descripcion
                     this.editar_link = this.parametros_tabla.data[index].link
-                    this.editar_boton = this.parametros_tabla.data[index].boton
-                    this.editar_banner = this.parametros_tabla.data[index].banner
+                    this.editar_hotel = this.parametros_tabla.data[index].hotel
                     if(this.parametros_tabla.data[index].estado){
                         this.editar_estado = {
                             label: 'Activo',
@@ -177,9 +172,9 @@ export default Vue.component('Inscribete', {
         },
         async guardar_editar(){
 			this.$q.loading.show()
-            const {editar_titulo, editar_descripcion , editar_link, editar_boton, editar_banner, editar_estado} = this
+            const {editar_cargo, editar_descripcion , editar_link, editar_hotel, editar_estado} = this
             var est = editar_estado.value
-            await this.$store.dispatch("Inscribete/editarInscribete", { codigo : this.editar_codigo, titulo:editar_titulo, descripcion:editar_descripcion ,link: editar_link, boton: editar_boton, banner: editar_banner, estado:est }).then(res => {
+            await this.$store.dispatch("OpPractica/editarOpPractica", { codigo : this.editar_codigo, cargo:editar_cargo, descripcion:editar_descripcion ,link: editar_link, hotel: editar_hotel,  estado:est }).then(res => {
                 console.log(res)
                 this.$q.loading.hide()
                 if(this.error){
@@ -215,11 +210,10 @@ export default Vue.component('Inscribete', {
         },
         limpiar_editar(){
             this.editar_codigo = ''
-            this.editar_titulo = ''
+            this.editar_cargo = ''
             this.editar_descripcion = ''
             this.editar_link = ''
-            this.editar_boton = ''
-            this.editar_banner = ''
+            this.editar_hotel = ''
             this.editar_estado = {
                 label: 'Activo',
                 value: true
@@ -228,11 +222,10 @@ export default Vue.component('Inscribete', {
         },
         limpiar_nuevo(){
             this.nuevo_codigo = ''
-            this.nuevo_titulo = ''
+            this.nuevo_cargo = ''
             this.nuevo_descripcion = ''
             this.nuevo_link = ''
-            this.nuevo_boton = ''
-            this.nuevo_banner = ''
+            this.nuevo_hotel = ''
             this.nuevo_estado = {
                 label: 'Activo',
                 value: true
@@ -241,9 +234,9 @@ export default Vue.component('Inscribete', {
         },
         async guardar_nuevo() {
 			this.$q.loading.show()
-            const {nuevo_titulo, nuevo_descripcion , nuevo_link, nuevo_boton, nuevo_banner, nuevo_estado} = this
+            const {nuevo_cargo, nuevo_descripcion , nuevo_link, nuevo_hotel, nuevo_estado} = this
             var est = nuevo_estado.value
-            await this.$store.dispatch("Inscribete/crearInscribete", { titulo: nuevo_titulo, descripcion:nuevo_descripcion , link: nuevo_link, boton: nuevo_boton, banner: nuevo_banner, estado:est }).then(res => {
+            await this.$store.dispatch("OpPractica/crearOpPractica", { cargo: nuevo_cargo, descripcion:nuevo_descripcion , link: nuevo_link, hotel: nuevo_hotel,  estado:est }).then(res => {
                 this.$q.loading.hide()
                 if(this.error){
                     var message = this.error.message.replace('GraphQL error: ','')
@@ -288,7 +281,7 @@ export default Vue.component('Inscribete', {
         },
         async guardar_eliminar(){
             this.$q.loading.show()
-            await this.$store.dispatch("Inscribete/eliminarInscribete", { id:this.parametros_tabla.selected}).then(res => {
+            await this.$store.dispatch("OpPractica/eliminarOpPractica", { id:this.parametros_tabla.selected}).then(res => {
                 this.$q.loading.hide()
                 if(this.error){
                     var message = this.error.message.replace('GraphQL error: ','')

@@ -9,9 +9,11 @@ export const GET_USUARIO_QUERY = gql`
             usuario_id,
             email,
             id_perfil,
+            perfil,
             nombre,
             telefono,
             id_pais,
+            pais,
             nombre_empresa,
             cargo,
             producto_empresa,
@@ -26,55 +28,73 @@ export const GET_USUARIO_QUERY = gql`
 // 			<-------------- MUTACIONES -------------->
 export const CREAR_USUARIO_MUTATION = gql`
     mutation createUsuario(
-        $rut: String!, 
-        $nombre: String!, 
-        $apellido: String!, 
-        $email: String!, 
-        $usuario: String, 
-        $id_perfil: String!, 
-        $telefono: String, 
-        $descripcion: String, 
-        $clave : String!, 
+        $nombre: String!,
+        $email: String!,
+        $id_perfil: String!,
+        $perfil: Int!,
+        $telefono: String!,
+        $id_pais: Int!,
+        $pais: String!,
+        $nombre_empresa: String!,
+        $cargo: String!,
+        $producto_empresa: String!,
+        $universidad: String!,
+        $carrera: String!,
+        $suscrito_mail: Boolean!,
         $estado: Boolean!
         ){
         createUsuario(
-            rut: $rut, 
             nombre: $nombre,
-            apellido: $apellido,
             email: $email,
-            usuario: $usuario,
             id_perfil: $id_perfil,
+            perfil: $perfil,
             telefono: $telefono,
-            descripcion: $descripcion,
-            clave: $clave,
-            estado: $estado){
+            id_pais: $id_pais,
+            pais: $pais,
+            nombre_empresa: $nombre_empresa,
+            cargo: $cargo,
+            producto_empresa: $producto_empresa,
+            universidad: $universidad,
+            carrera: $carrera,
+            suscrito_mail: $suscrito_mail,
+            estado: $estado
+            ){
             creado
         }
     }
 `
 export const EDITAR_USUARIO_MUTATION = gql`
     mutation editUsuario(
-        $uuid_usuario: String!, 
-        $rut: String!, 
-        $nombre: String!, 
-        $apellido: String!, 
-        $email: String!, 
-        $usuario: String, 
-        $id_perfil: String, 
-        $telefono: String, 
-        $descripcion: String, 
+        $usuario_id: String!, 
+        $email: String!,
+        $id_perfil: String!,
+        $perfil: Int!,
+        $telefono: String!,
+        $id_pais: Int!,
+        $pais: String!,
+        $nombre_empresa: String!,
+        $cargo: String!,
+        $producto_empresa: String!,
+        $universidad: String!,
+        $carrera: String!,
+        $suscrito_mail: Boolean!,
         $estado: Boolean!
         ){
         editUsuario(
-            uuid_usuario : $uuid_usuario,
-            rut: $rut, 
+            usuario_id : $usuario_id,
             nombre: $nombre,
-            apellido: $apellido,
             email: $email,
-            usuario: $usuario,
             id_perfil: $id_perfil,
+            perfil: $perfil,
             telefono: $telefono,
-            descripcion: $descripcion,
+            id_pais: $id_pais,
+            pais: $pais,
+            nombre_empresa: $nombre_empresa,
+            cargo: $cargo,
+            producto_empresa: $producto_empresa,
+            universidad: $universidad,
+            carrera: $carrera,
+            suscrito_mail: $suscrito_mail,
             estado: $estado
             ){
             editado

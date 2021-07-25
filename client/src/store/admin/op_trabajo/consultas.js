@@ -3,19 +3,23 @@ import gql from 'graphql-tag'
 
 //espacio definido para las queries de graphql, las queries son consultas tipo "select"
 // 			<-------------- QUERIES -------------->
-export const GET_ASESORIA_QUERY = gql`
+export const GET_OP_TRABAJO_QUERY = gql`
     query{
-        asesorias{
+        OpTrabajos{
             codigo,
-            titulo,
+            cargo,
             descripcion,
+            link,
+            hotel,
+            web,
+            banner,
             estado
         }
     }
 `
-// export const GET_ASESORIA_QUERY = gql`
+// export const GET_OpTrabajo_QUERY = gql`
     // query{
-    //     asesorias{
+    //     OpTrabajos{
     // codigo,
     // titulo,
     // descripcion,
@@ -25,23 +29,23 @@ export const GET_ASESORIA_QUERY = gql`
 // `
 //espacio definido para las mutaciones, las mutaciones son consultas tipo "update o delete"
 // 			<-------------- MUTACIONES -------------->
-export const CREAR_ASESORIA_MUTATION = gql`
-    mutation createAsesoria($titulo: String!, $descripcion: String!, $estado: Boolean!){
-        createAsesoria(titulo: $titulo,descripcion: $descripcion,estado: $estado){
+export const CREAR_OP_TRABAJO_MUTATION = gql`
+    mutation createOpTrabajo($cargo: String!, $descripcion: String!, $link: String!, $hotel: String!, $web: String!,$banner: String!,$estado: Boolean!){
+        createOpTrabajo(cargo: $cargo,descripcion: $descripcion,link: $link,hotel: $hotel,web: $web,banner: $banner,estado: $estado){
             creado
         }
     }
 `
-export const EDITAR_ASESORIA_MUTATION = gql`
-    mutation editAsesoria($codigo: Int!, $titulo: String!, $descripcion: String!, $estado: Boolean!){
-        editAsesoria(codigo : $codigo, titulo: $titulo,descripcion: $descripcion,estado: $estado){
+export const EDITAR_OP_TRABAJO_MUTATION = gql`
+    mutation editOpTrabajo($codigo: Int!, $cargo: String!, $descripcion: String!, $link: String!, $hotel: String!,$web: String!,$banner: String!, $estado: Boolean!){
+        editOpTrabajo(codigo:$codigo, cargo: $cargo,descripcion: $descripcion,link: $link,hotel: $hotel,web: $web,banner: $banner,estado: $estado){
             editado
         }
     }
 `
-export const ELIMINAR_ASESORIA_MUTATION = gql`
-    mutation removeAsesoria($id: [AsesoriaList]){
-        removeAsesoria(id : $id){
+export const ELIMINAR_OP_TRABAJO_MUTATION = gql`
+    mutation removeOpTrabajo($id: [OpTrabajoList]){
+        removeOpTrabajo(id : $id){
             eliminado
         }
     }

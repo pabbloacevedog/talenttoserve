@@ -1,4 +1,4 @@
-import {GET_ASESORIA_QUERY, CREAR_ASESORIA_MUTATION, EDITAR_ASESORIA_MUTATION, ELIMINAR_ASESORIA_MUTATION} from './consultas'
+import {GET_OP_PRACTICA_QUERY, CREAR_OP_PRACTICA_MUTATION, EDITAR_OP_PRACTICA_MUTATION, ELIMINAR_OP_PRACTICA_MUTATION} from './consultas'
 
 const state = {
     error: null,
@@ -14,13 +14,13 @@ const state = {
 
 const actions = {
 
-    async cargarAsesoria({commit}) {
+    async cargarOpPractica({commit}) {
         commit('CARGAR')
         await this.$apollo.defaultClient.resetStore()
 		await this.$apollo.defaultClient.query({
-            query: GET_ASESORIA_QUERY
+            query: GET_OP_PRACTICA_QUERY
 		}).then(response => {
-            const datos = response.data.asesorias
+            const datos = response.data.OpPracticas
             console.log('datos',this.$apollo)
 			commit('CARGAR_SUCCESS', datos)
 
@@ -28,42 +28,42 @@ const actions = {
 			commit('CARGAR_ERROR', response)
 		})
 	},
-    async crearAsesoria({commit}, credenciales) {
+    async crearOpPractica({commit}, credenciales) {
 		commit('CREAR')
-		const {titulo, descripcion , estado } = credenciales
+		const {cargo, descripcion, link, hotel, estado } = credenciales
 		await this.$apollo.defaultClient.mutate({
-			mutation: CREAR_ASESORIA_MUTATION,
-			variables: {titulo, descripcion , estado }
+			mutation: CREAR_OP_PRACTICA_MUTATION,
+			variables: {cargo, descripcion, link, hotel, estado }
 		}).then(response => {
-			const datos = response.data.createAsesoria.creado
+			const datos = response.data.createOpPractica.creado
 			commit('CREAR_SUCCESS', datos)
 		}).catch(response => {
 			console.log('response', response)
 			commit('CREAR_ERROR', response)
 		})
     },
-    async editarAsesoria({commit}, credenciales) {
+    async editarOpPractica({commit}, credenciales) {
 		commit('EDITAR')
-		const {codigo, titulo, descripcion , estado } = credenciales
+		const {codigo, cargo, descripcion, link, hotel, estado } = credenciales
 		await this.$apollo.defaultClient.mutate({
-			mutation: EDITAR_ASESORIA_MUTATION,
-			variables: {codigo, titulo, descripcion , estado }
+			mutation: EDITAR_OP_PRACTICA_MUTATION,
+			variables: {codigo, cargo, descripcion, link, hotel, estado }
 		}).then(response => {
-			const datos = response.data.editAsesoria.editado
+			const datos = response.data.editOpPractica.editado
 			commit('EDITAR_SUCCESS', datos)
 		}).catch(response => {
 			console.log('response', response)
 			commit('EDITAR_ERROR', response)
 		})
     },
-    async eliminarAsesoria({commit}, credenciales) {
+    async eliminarOpPractica({commit}, credenciales) {
 		commit('ELIMINAR')
 		const {id } = credenciales
 		await this.$apollo.defaultClient.mutate({
-			mutation: ELIMINAR_ASESORIA_MUTATION,
+			mutation: ELIMINAR_OP_PRACTICA_MUTATION,
 			variables: {id }
 		}).then(response => {
-			const datos = response.data.removeAsesoria.eliminado
+			const datos = response.data.removeOpPractica.eliminado
 			commit('ELIMINAR_SUCCESS', datos)
 		}).catch(response => {
 			console.log('response', response)

@@ -31,6 +31,9 @@ const schema = {
     banner: {
 		type: seq.STRING(500)
 	},
+    estado: {
+		type: seq.INTEGER(1)
+	},
 };
 const  index =  {
     indexes:[
@@ -41,15 +44,15 @@ const  index =  {
     ]
 }
 export default (sequelize) => {
-	class Publicar_pro extends Model {
+	class proveedor extends Model {
 		static associate() {
 
 		}
 	}
-	Publicar_pro.init(schema, {
-        tableName: 'publicar_pro',
+	proveedor.init(schema, {
+        tableName: 'proveedor',
         sequelize,
 	}, index);
-	return Publicar_pro;
+	return proveedor;
 };
 

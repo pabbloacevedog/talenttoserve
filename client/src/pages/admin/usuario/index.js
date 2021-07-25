@@ -71,9 +71,9 @@ export default Vue.component('Usuario', {
                     sortable: true
                   },
                   { name: 'email', align: 'center', label: 'Email', field: 'email', sortable: true },
-                  { name: 'id_perfil', align: 'center', label: 'Perfil', field: 'id_perfil', sortable: true },
+                  { name: 'perfil', align: 'center', label: 'Perfil', field: 'perfil', sortable: true },
                   { name: 'telefono', align: 'center', label: 'Telefono', field: 'telefono', sortable: true },
-                  { name: 'id_pais', align: 'center', label: 'País', field: 'id_pais', sortable: true },
+                  { name: 'pais', align: 'center', label: 'País', field: 'pais', sortable: true },
                   { name: 'nombre_empresa', align: 'center', label: 'Empresa', field: 'nombre_empresa', sortable: true },
                   { name: 'producto_empresa', align: 'center', label: 'Producto', field: 'producto_empresa', sortable: true },
                   { name: 'universidad', align: 'center', label: 'Universidad', field: 'universidad', sortable: true },
@@ -136,27 +136,27 @@ export default Vue.component('Usuario', {
         },
         editar(){
             if(this.parametros_tabla.selected.length == 1){
-                this.usuario_id = this.parametros_tabla.selected[0].usuario_id
-                this.email = this.parametros_tabla.selected[0].email
-                this.id_perfil = this.parametros_tabla.selected[0].id_perfil
-                this.nombre = this.parametros_tabla.selected[0].nombre
-                this.telefono = this.parametros_tabla.selected[0].telefono
-                this.id_pais = this.parametros_tabla.selected[0].id_pais
-                this.nombre_empresa = this.parametros_tabla.selected[0].nombre_empresa
-                this.cargo = this.parametros_tabla.selected[0].cargo
-                this.producto_empresa = this.parametros_tabla.selected[0].producto_empresa
-                this.universidad = this.parametros_tabla.selected[0].universidad
-                this.carrera = this.parametros_tabla.selected[0].carrera
-                this.suscrito_mail = this.parametros_tabla.selected[0].suscrito_mail
-                this.estado = this.parametros_tabla.selected[0].estado
+                this.editar_usuario_id = this.parametros_tabla.selected[0].usuario_id
+                this.editar_email = this.parametros_tabla.selected[0].email
+                this.editar_id_perfil = this.parametros_tabla.selected[0].id_perfil
+                this.editar_nombre = this.parametros_tabla.selected[0].nombre
+                this.editar_telefono = this.parametros_tabla.selected[0].telefono
+                this.editar_id_pais = this.parametros_tabla.selected[0].id_pais
+                this.editar_nombre_empresa = this.parametros_tabla.selected[0].nombre_empresa
+                this.editar_cargo = this.parametros_tabla.selected[0].cargo
+                this.editar_producto_empresa = this.parametros_tabla.selected[0].producto_empresa
+                this.editar_universidad = this.parametros_tabla.selected[0].universidad
+                this.editar_carrera = this.parametros_tabla.selected[0].carrera
+                this.editar_suscrito_mail = this.parametros_tabla.selected[0].suscrito_mail
+                this.editar_estado = this.parametros_tabla.selected[0].estado
                 if(this.parametros_tabla.selected[0].suscrito_mail){
-                    this.suscrito_mail = {
+                    this.editar_suscrito_mail = {
                         label: 'Suscrito',
                         value: true
                     }
                 }
                 else{
-                    this.suscrito_mail = {
+                    this.editar_suscrito_mail = {
                         label: 'Inactivo',
                         value: false
                     }
@@ -187,29 +187,30 @@ export default Vue.component('Usuario', {
             }
         },
         editar_fila(id){
+            debugger
             for (let index = 0; index < this.parametros_tabla.data.length; index++) {
-                const element = this.parametros_tabla.data[index].codigo;
+                const element = this.parametros_tabla.data[index].usuario_id;
                 if(id == element)
                 {
-                    this.usuario_id = this.parametros_tabla.data[index].usuario_id
-                    this.email = this.parametros_tabla.data[index].email
-                    this.id_perfil = this.parametros_tabla.data[index].id_perfil
-                    this.nombre = this.parametros_tabla.data[index].nombre
-                    this.telefono = this.parametros_tabla.data[index].telefono
-                    this.id_pais = this.parametros_tabla.data[index].id_pais
-                    this.nombre_empresa = this.parametros_tabla.data[index].nombre_empresa
-                    this.cargo = this.parametros_tabla.data[index].cargo
-                    this.producto_empresa = this.parametros_tabla.data[index].producto_empresa
-                    this.universidad = this.parametros_tabla.data[index].universidad
-                    this.carrera = this.parametros_tabla.data[index].carrera
+                    this.editar_usuario_id = this.parametros_tabla.data[index].usuario_id
+                    this.editar_email = this.parametros_tabla.data[index].email
+                    this.editar_id_perfil = this.parametros_tabla.data[index].id_perfil
+                    this.editar_nombre = this.parametros_tabla.data[index].nombre
+                    this.editar_telefono = this.parametros_tabla.data[index].telefono
+                    this.editar_id_pais = this.parametros_tabla.data[index].id_pais
+                    this.editar_nombre_empresa = this.parametros_tabla.data[index].nombre_empresa
+                    this.editar_cargo = this.parametros_tabla.data[index].cargo
+                    this.editar_producto_empresa = this.parametros_tabla.data[index].producto_empresa
+                    this.editar_universidad = this.parametros_tabla.data[index].universidad
+                    this.editar_carrera = this.parametros_tabla.data[index].carrera
                     if(this.parametros_tabla.data[index].suscrito_mail){
-                        this.suscrito_mail = {
+                        this.editar_suscrito_mail = {
                             label: 'Suscrito',
                             value: true
                         }
                     }
                     else{
-                        this.suscrito_mail = {
+                        this.editar_suscrito_mail = {
                             label: 'Inactivo',
                             value: false
                         }
@@ -494,7 +495,7 @@ export default Vue.component('Usuario', {
                 var element = document.getElementById("q-app");
                 element.classList.remove("modal-open");
                 this.parametros_tabla.data.length = 0
-                this.iniciar()
+                // this.iniciar()
             }
         },
         'modal_editar': function () {
@@ -506,7 +507,7 @@ export default Vue.component('Usuario', {
                 var element = document.getElementById("q-app");
                 element.classList.remove("modal-open");
                 this.parametros_tabla.data.length = 0
-                this.iniciar()
+                // this.iniciar()
             }
         },
         'modal_eliminar': function () {
@@ -518,7 +519,7 @@ export default Vue.component('Usuario', {
                 var element = document.getElementById("q-app");
                 element.classList.remove("modal-open");
                 this.parametros_tabla.data.length = 0
-                this.iniciar()
+                // this.iniciar()
             }
         },
     }

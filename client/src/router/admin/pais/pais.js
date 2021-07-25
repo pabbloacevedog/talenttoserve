@@ -1,12 +1,12 @@
-import Publicar_pro from '@/pages/admin/publicar_pro/index.vue'
+import Pais from '@/pages/admin/pais/index.vue'
 
 
 export default [
 
 	{
-		path : '/admin/publicar_pro',
-		component : Publicar_pro,
-		name: 'Publicar_pro',
+		path : '/admin/pais',
+		component : Pais,
+		name: 'Pais',
 		beforeEnter(to, from, next) {
 			if (!localStorage.getItem("isAdmin") ){
                 next('/login')

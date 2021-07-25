@@ -6,7 +6,7 @@ export async function getById(parentValue, {codigo}) {
 }
 
 // Get all users
-export async function getAll(parentValue,{}) {
+export async function getAll(parentValue, {}) {
 	return await models.OpTrabajo.findAll({order: [
         ['codigo', 'DESC']
     ],})
@@ -17,12 +17,12 @@ export async function remove({codigo}) {
 	return await models.OpTrabajo.destroy({where: {codigo}})
 }
 // Create user
-export async function create(parentValue,{ cargo, descripcion, link, hotel, web, banner, estado  }) {
+export async function create(parentValue,{ cargo, descripcion, link, hotel,web,banner, estado  }) {
     var create = false
     var error = ''
     let codigo = 0
 	await models.OpTrabajo.create({
-        cargo, descripcion, link, hotel, web, banner, estado
+        cargo, descripcion, link, hotel, web,banner,estado
 	}).then(optrabajo => {
 		codigo = optrabajo.codigo
         create = true
@@ -39,11 +39,11 @@ export async function create(parentValue,{ cargo, descripcion, link, hotel, web,
 		throw new Error(`Error al crear el optrabajo ` + error)
 	}
 }
-export async function edit(parentValue,{ codigo, cargo, descripcion, link, hotel, web, banner, estado }) {
+export async function edit(parentValue,{codigo, cargo, descripcion, link, hotel, web,banner,estado }) {
     var editado = false
     var error = ''
     var editar = {
-        cargo, descripcion, link, hotel, web, banner, estado
+        cargo, descripcion, link, hotel, web,banner,estado
     }
     await models.OpTrabajo.update(editar, { where: { codigo } }).then(act => {
         editado = true
@@ -66,12 +66,6 @@ export async function remove_more(parentValue,{ id  }) {
     id.forEach(element => {
         console.log(element.codigo)
         models.OpTrabajo.destroy({where: {codigo : element.codigo}})
-        // .then(act => {
-        //     eliminado = true
-        // }).catch(err => {
-        //     console.log(err)
-        //     error = err
-        // })
     });
 	if(eliminado){
 		return { eliminado: eliminado }

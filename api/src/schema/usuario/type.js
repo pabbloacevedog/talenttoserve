@@ -27,6 +27,9 @@ const UsuarioType = new GraphQLObjectType({
         id_perfil: {
             type: GraphQLInt
         },
+        perfil: {
+            type: GraphQLString
+        },
         nombre: {
             type: GraphQLString
         },
@@ -35,6 +38,9 @@ const UsuarioType = new GraphQLObjectType({
         },
         id_pais: {
             type: GraphQLInt
+        },
+        pais: {
+            type: GraphQLString
         },
         nombre_empresa: {
             type: GraphQLString

@@ -21,6 +21,12 @@ const OpTrabajoList = new GraphQLInputObjectType ({
         hotel: {
             type: GraphQLString
         },
+        web: {
+            type: GraphQLString
+        },
+        banner: {
+            type: GraphQLString
+        },
         fecha_creacion: {
             type: GraphQLString
         },

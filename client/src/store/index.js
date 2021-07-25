@@ -11,9 +11,9 @@ import Asesoria from './admin/asesoria'
 import Capacitacion from './admin/capacitacion'
 import Inscribete from './admin/inscribete'
 import Networking from './admin/networking'
-import Op_trabajo from './admin/op_trabajo'
-import Op_practica from './admin/op_practica'
-import Publicar_pro from './admin/publicar_pro'
+import OpTrabajo from './admin/op_trabajo'
+import OpPractica from './admin/op_practica'
+import Proveedor from './admin/proveedor'
 import Usuario from './admin/usuario'
 import Perfil from './admin/perfiles'
 
@@ -41,9 +41,9 @@ export default function (/* { ssrContext } */) {
             Capacitacion,
             Inscribete,
             Networking,
-            Op_practica,
-            Op_trabajo,
-            Publicar_pro,
+            OpPractica,
+            OpTrabajo,
+            Proveedor,
             Usuario,
             Perfil,
 		},

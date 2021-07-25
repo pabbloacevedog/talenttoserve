@@ -3,19 +3,21 @@ import gql from 'graphql-tag'
 
 //espacio definido para las queries de graphql, las queries son consultas tipo "select"
 // 			<-------------- QUERIES -------------->
-export const GET_ASESORIA_QUERY = gql`
+export const GET_OP_PRACTICA_QUERY = gql`
     query{
-        asesorias{
+        OpPracticas{
             codigo,
-            titulo,
+            cargo,
             descripcion,
+            link,
+            hotel,
             estado
         }
     }
 `
-// export const GET_ASESORIA_QUERY = gql`
+// export const GET_OpPractica_QUERY = gql`
     // query{
-    //     asesorias{
+    //     OpPracticas{
     // codigo,
     // titulo,
     // descripcion,
@@ -25,23 +27,23 @@ export const GET_ASESORIA_QUERY = gql`
 // `
 //espacio definido para las mutaciones, las mutaciones son consultas tipo "update o delete"
 // 			<-------------- MUTACIONES -------------->
-export const CREAR_ASESORIA_MUTATION = gql`
-    mutation createAsesoria($titulo: String!, $descripcion: String!, $estado: Boolean!){
-        createAsesoria(titulo: $titulo,descripcion: $descripcion,estado: $estado){
+export const CREAR_OP_PRACTICA_MUTATION = gql`
+    mutation createOpPractica($cargo: String!, $descripcion: String!, $link: String!, $hotel: String!, $estado: Boolean!){
+        createOpPractica(cargo: $cargo,descripcion: $descripcion,link: $link,hotel: $hotel,estado: $estado){
             creado
         }
     }
 `
-export const EDITAR_ASESORIA_MUTATION = gql`
-    mutation editAsesoria($codigo: Int!, $titulo: String!, $descripcion: String!, $estado: Boolean!){
-        editAsesoria(codigo : $codigo, titulo: $titulo,descripcion: $descripcion,estado: $estado){
+export const EDITAR_OP_PRACTICA_MUTATION = gql`
+    mutation editOpPractica($codigo: Int!, $cargo: String!, $descripcion: String!, $link: String!, $hotel: String!, $estado: Boolean!){
+        editOpPractica(codigo:$codigo, cargo: $cargo,descripcion: $descripcion,link: $link,hotel: $hotel,estado: $estado){
             editado
         }
     }
 `
-export const ELIMINAR_ASESORIA_MUTATION = gql`
-    mutation removeAsesoria($id: [AsesoriaList]){
-        removeAsesoria(id : $id){
+export const ELIMINAR_OP_PRACTICA_MUTATION = gql`
+    mutation removeOpPractica($id: [OpPracticaList]){
+        removeOpPractica(id : $id){
             eliminado
         }
     }

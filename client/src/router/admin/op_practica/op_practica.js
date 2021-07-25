@@ -1,12 +1,12 @@
-import Op_practica from '@/pages/admin/op_practica/index.vue'
+import OpPractica from '@/pages/admin/op_practica/index.vue'
 
 
 export default [
 
 	{
 		path : '/admin/op_practica',
-		component : Op_practica,
-		name: 'Op_practica',
+		component : OpPractica,
+		name: 'OpPractica',
 		beforeEnter(to, from, next) {
 			if (!localStorage.getItem("isAdmin") ){
                 next('/login')

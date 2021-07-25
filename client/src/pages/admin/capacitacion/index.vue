@@ -114,6 +114,16 @@
                 </div>
             </q-card>
         </q-dialog>
+                <q-dialog persistent width="800" v-model="modal_banner" >
+            <q-card class="modales" style="width: 800px;">
+                <q-card-section align="center">
+                    <q-img :src="banner"></q-img>
+                </q-card-section>
+                <div class="q-pb-lg" style="text-align: center;">
+                    <q-btn rounded @click.native="modal_banner = false" color="accent">Aceptar</q-btn>
+                </div>
+            </q-card>
+        </q-dialog>
     </div>
 </template>
 

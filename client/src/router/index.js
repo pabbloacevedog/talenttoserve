@@ -7,12 +7,14 @@ import menu from './menu/menu'
 import Auth from './auth/auth'
 import Home from './admin/home/home'
 import Asesoria from './admin/asesoria/asesoria'
+import Pais from './admin/pais/pais'
+import Cargo from './admin/cargo/cargo'
 import Capacitacion from './admin/capacitacion/capacitacion'
 import Inscribete from './admin/inscribete/inscribete'
 import Networking from './admin/networking/networking'
-import Op_practica from './admin/op_practica/op_practica'
+import OpPractica from './admin/op_practica/op_practica'
 import Op_trabajo from './admin/op_trabajo/op_trabajo'
-import Publicar_pro from './admin/publicar_pro/publicar_pro'
+import Proveedor from './admin/proveedor/proveedor'
 import Perfiles from './admin/perfiles/perfiles'
 import Usuario from './admin/usuario/usuario'
 // import Auth from './olvido/olvido'
@@ -24,13 +26,15 @@ const auxiliar = [];
 const routes = auxiliar.concat(
   //aqui se agregan las rutas de los archivos o paginas del sistema
   error,
+  Pais,
+  Cargo,
   Asesoria,
   Capacitacion,
   Inscribete,
   Networking,
-  Op_practica,
+  OpPractica,
   Op_trabajo,
-  Publicar_pro,
+  Proveedor,
   Home,
   Perfiles,
   Usuario,

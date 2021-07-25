@@ -28,18 +28,15 @@
 
             <q-breadcrumbs-el label="Home" icon="home" to="/"  class="b_link"/>
             <q-breadcrumbs-el :label="parametros_tabla.tittle" icon="fab fa-whmcs" class="b_activo" />
-
             <div class="flex items-center justify-end q-gutter-sm" >
-                
-                <q-btn
-                    rounded
-                    icon="add"
-                    color="primary"
-                    size="md"
-                    label="Agregar Item"
-                    class="btn_add"
-                    @click="mostrarNuevo()"
-                />
+                <q-chip clickable  @click="mostrarNuevo()" class="btn_add">
+                    <q-avatar class="activo icon_add" text-color="white" >
+                        <span class="material-icons">
+                            add
+                        </span>
+                    </q-avatar>
+                    Crear Nuevo
+                </q-chip >
             </div>
         </q-breadcrumbs>
         <div v-if="$q.platform.is.mobile">
@@ -138,7 +135,7 @@
             </q-card-section>
             <q-card-section align="center">
                 <q-btn class="cancelar"  @click.native="modal_nuevo = false ">CANCELAR</q-btn>
-                <q-btn class="guardar" @click="guardar_nuevo()">GUARDAR</q-btn>
+                <q-btn class="bg-accent text-white" @click="guardar_nuevo()">GUARDAR</q-btn>
             </q-card-section>
             </q-card>
         </q-dialog>
@@ -232,7 +229,7 @@
             </q-card-section>
             <q-card-section align="center">
                 <q-btn class="cancelar"  @click.native="modal_editar = false ">CANCELAR</q-btn>
-                <q-btn class="guardar" @click="guardar_editar()">CONFIRMAR</q-btn>
+                <q-btn class="bg-accent text-white" @click="guardar_editar()">CONFIRMAR</q-btn>
             </q-card-section>
             </q-card>
         </q-dialog>
@@ -259,7 +256,7 @@
                 </q-card-section>
                 <div class="q-mt-md q-pb-md q-pr-lg q-pl-lg" style="text-align: right;">
                     <q-btn class="cancelar"  @click.native="modal_eliminar = false ">CANCELAR</q-btn>
-                    <q-btn class="guardar" @click="guardar_eliminar()">CONFIRMAR</q-btn>
+                    <q-btn class="bg-accent text-white" @click="guardar_eliminar()">CONFIRMAR</q-btn>
                 </div>
             </q-card>
         </q-dialog>

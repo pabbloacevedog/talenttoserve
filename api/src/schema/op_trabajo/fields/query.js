@@ -6,13 +6,13 @@ import OpTrabajoType from '../type'
 import {getAll, getById} from '../resolvers'
 
 // Users All
-export const optrabajos = {
+export const OpTrabajos = {
     type: new GraphQLList(OpTrabajoType),
 	resolve: getAll
 }
 
 // user By ID
-export const optrabajo = {
+export const OpTrabajo = {
 	type: new GraphQLList(OpTrabajoType),
 	resolve: getById
 }

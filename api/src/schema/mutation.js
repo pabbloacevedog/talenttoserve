@@ -5,10 +5,11 @@ import {GraphQLObjectType} from 'graphql'
 import * as usuario from './usuario/fields/mutations.js'
 import * as asesoria from './asesoria/fields/mutations'
 import * as capacitacion from './capacitacion/fields/mutations'
+import * as proveedor from './proveedores/fields/mutations'
 import * as inscribete from './inscribete/fields/mutations'
 import * as perfil from './perfil/fields/mutations'
 import * as networking from './networking/fields/mutations'
-import * as op_practica from './op_practica/fields/mutations'
+import * as OpPractica from './op_practica/fields/mutations'
 import * as op_trabajo from './op_trabajo/fields/mutations'
 // Mutation
 const mutation = new GraphQLObjectType({
@@ -19,10 +20,11 @@ const mutation = new GraphQLObjectType({
 		...usuario,
         ...asesoria,
         ...capacitacion,
+        ...proveedor,
         ...inscribete,
         ...perfil, 
         ...networking,
-        ...op_practica,
+        ...OpPractica,
         ...op_trabajo
 	})
 })

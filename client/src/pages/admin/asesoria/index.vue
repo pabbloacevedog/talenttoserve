@@ -74,7 +74,7 @@
                 </q-card-section>
                 <div class="q-mt-md q-pb-md q-pr-lg q-pl-lg" style="text-align: center;">
                     <q-btn rounded @click.native="modal_nuevo = false" class="cancelar">Cancelar</q-btn>
-                    <q-btn rounded class="guardar" @click="guardar_nuevo()">Guardar</q-btn>
+                    <q-btn rounded class="bg-accent text-white" @click="guardar_nuevo()">Guardar</q-btn>
                 </div>
             </q-card>
         </q-dialog>
@@ -96,9 +96,9 @@
 					</q-input>
                     <q-select dense standout required v-model="editar_estado" :options="estados" label="Estado" class="input-reg"/>
                 </q-card-section>
-                <div class="q-mt-md q-pb-md q-pr-lg q-pl-lg" style="text-align: right;">
-                    <q-btn @click.native="modal_editar = false" class="cancelar">Cancelar</q-btn>
-                    <q-btn color="accent" @click="guardar_editar()">Guardar</q-btn>
+                <div class="q-pb-lg" style="text-align: center;">
+                    <q-btn rounded @click.native="modal_editar = false" class="cancelar">Cancelar</q-btn>
+                    <q-btn rounded class="bg-accent text-white" @click="guardar_editar()">Guardar</q-btn>
                 </div>
             </q-card>
         </q-dialog>
@@ -122,9 +122,9 @@
                     </div>
                     
                 </q-card-section>
-                <div class="q-mt-md q-pb-md q-pr-lg q-pl-lg" style="text-align: right;">
-                    <q-btn class="cancelar"  @click.native="modal_eliminar = false ">CANCELAR</q-btn>
-                    <q-btn class="guardar" @click="guardar_eliminar()">CONFIRMAR</q-btn>
+                <div class="q-pb-lg" style="text-align: center;">
+                    <q-btn rounded @click.native="modal_eliminar = false" class="cancelar">Cancelar</q-btn>
+                    <q-btn rounded class="bg-accent text-white" @click="guardar_eliminar()">Guardar</q-btn>
                 </div>
             </q-card>
         </q-dialog>
