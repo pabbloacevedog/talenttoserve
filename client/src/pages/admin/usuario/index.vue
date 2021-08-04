@@ -39,32 +39,44 @@
         transition-hide="slide-down"
         
         >
-            <q-card class="modales" style="width: 500px !important;" color="primary">
-                <q-card-section align="center" class="q-pa-xs">
-                    <div class="text-h6 titulo_crear" color="text">Nuevo Item</div>
+            <q-card class="modales" style="width: 700px; max-width: 80vw !important;" color="primary">
+                <q-card-section align="center">
+                    <div class="text-h6 titulo_crear" color="text">Nuevo Usuario</div>
                 </q-card-section>
-                <q-card-section class="area_comment">                   
-					<q-input  dense standout required label='Nombre' v-model='nuevo_nombre' class="input-reg q-mx-lg">
-					</q-input>
-					<q-input  dense standout required label='Email' v-model='nuevo_email' class="input-reg q-mx-lg">
-					</q-input>
-                    <q-input  dense standout required label='Perfil' v-model='nuevo_id_perfil' class="input-reg q-mx-lg">
-					</q-input>
-                    <q-input  dense standout required label='Telefono' v-model='nuevo_telefono' class="input-reg q-mx-lg">
-					</q-input>
-                    <q-input  dense standout required label='País' v-model='nuevo_id_pais' class="input-reg q-mx-lg">
-					</q-input>
-                    <q-input  dense standout required label='Empresa' v-model='nuevo_nombre_empresa' class="input-reg q-mx-lg">
-					</q-input>
-					<q-input  dense standout required label='Cargo' v-model='nuevo_cargo' class="input-reg q-mx-lg">
-					</q-input>
-                    <q-input  dense standout required label='Producto' v-model='nuevo_producto_empresa' class="input-reg q-mx-lg">
-					</q-input>
-                    <q-input  dense standout required label='Universidad' v-model='nuevo_universidad' class="input-reg q-mx-lg">
-					</q-input>
-                    <q-input  dense standout required label='Carrera' v-model='nuevo_carrera' class="input-reg q-mx-lg">
-					</q-input>
-                    <q-select dense standout required v-model="nuevo_estado" :options="estados" label="Estado" class="input-reg q-mx-lg"/>
+                <q-card-section class="area_comment">    
+                    <div class="row">
+                        <div class="col-6">
+                            <q-input  dense standout required label='Nombre' v-model='nuevo_nombre' class="input-reg q-mx-lg">
+                            </q-input>
+                            <q-input dense standout required label='Password' v-model="nuevo_password" class="input-reg q-mx-lg" :type="isPwd ? 'password' : 'text'">
+                                <template v-slot:append>
+                                    <q-icon
+                                        :name="isPwd ? 'visibility_off' : 'visibility'"
+                                        class="cursor-pointer"
+                                        @click="isPwd = !isPwd"
+                                    />
+                                </template>
+                            </q-input>
+                            <q-input  dense standout required label='Email' v-model='nuevo_email' class="input-reg q-mx-lg">
+                            </q-input>
+                            <q-select dense standout required v-model="nuevo_perfil" :options="select_perfil" label="Perfil" class="input-reg q-mx-lg"/>
+                            <q-input  dense standout required label='Telefono' v-model='nuevo_telefono' class="input-reg q-mx-lg">
+                            </q-input>
+                            <q-select dense standout required v-model="nuevo_id_pais" :options="select_pais" label="País" class="input-reg q-mx-lg"/>
+                        </div>
+                        <div class="col-6">
+                            <q-input  dense standout required label='Empresa' v-model='nuevo_nombre_empresa' class="input-reg q-mx-lg">
+                            </q-input>
+                            <q-select dense standout required v-model="nuevo_cargo" :options="select_cargo" label="Cargo" class="input-reg q-mx-lg"/>
+                            <q-input  dense standout required label='Producto' v-model='nuevo_producto_empresa' class="input-reg q-mx-lg">
+                            </q-input>
+                            <q-input  dense standout required label='Universidad' v-model='nuevo_universidad' class="input-reg q-mx-lg">
+                            </q-input>
+                            <q-input  dense standout required label='Carrera' v-model='nuevo_carrera' class="input-reg q-mx-lg">
+                            </q-input>
+                            <q-select dense standout required v-model="nuevo_estado" :options="estados" label="Estado" class="input-reg q-mx-lg"/>
+                        </div>               
+					</div>         
                 </q-card-section>
                 <div class="q-pb-lg" style="text-align: center;">
                     <q-btn rounded @click.native="modal_nuevo = false" class="cancelar">Cancelar</q-btn>
@@ -79,33 +91,36 @@
         transition-hide="slide-down"
         
         >
-            <q-card class="modales" style="width: 500px !important;">
+            <q-card class="modales" style="width: 700px; max-width: 80vw !important;">
                 <q-card-section align="center">
-                    <div class="text-h6 titulo_crear" color="text">Editar Registro</div>
+                    <div class="text-h6 titulo_crear" color="text">Editar Usuario</div>
                 </q-card-section>
-                <q-card-section class="area_comment">                      
-					<q-input  dense standout required label='Nombre' v-model='editar_nombre' class="input-reg q-mx-lg">
-					</q-input>
-					<q-input  dense standout required label='Email' v-model='editar_email' class="input-reg q-mx-lg">
-					</q-input>
-                    <q-input  dense standout required label='Perfil' v-model='editar_id_perfil' class="input-reg q-mx-lg">
-					</q-input>
-                    <q-input  dense standout required label='Telefono' v-model='editar_telefono' class="input-reg q-mx-lg">
-					</q-input>
-                    <q-input  dense standout required label='País' v-model='editar_id_pais' class="input-reg q-mx-lg">
-					</q-input>
-                    <q-input  dense standout required label='Empresa' v-model='editar_nombre_empresa' class="input-reg q-mx-lg">
-					</q-input>
-					<q-input  dense standout required label='Cargo' v-model='editar_cargo' class="input-reg q-mx-lg">
-					</q-input>
-                    <q-input  dense standout required label='Producto' v-model='editar_producto_empresa' class="input-reg q-mx-lg">
-					</q-input>
-                    <q-input  dense standout required label='Universidad' v-model='editar_universidad' class="input-reg q-mx-lg">
-					</q-input>
-                    <q-input  dense standout required label='Carrera' v-model='editar_carrera' class="input-reg q-mx-lg">
-					</q-input>
-                    <q-select dense standout required v-model="editar_suscrito_mail" :options="estados" label="Suscrito Newsletter" class="input-reg q-mx-lg"/>
-                    <q-select dense standout required v-model="editar_estado" :options="estados" label="Estado" class="input-reg q-mx-lg"/>
+                <q-card-section class="area_comment">    
+                    <div class="row">
+                        <div class="col-6">
+                            <q-input  dense standout required label='Nombre' v-model='editar_nombre' class="input-reg q-mx-lg">
+                            </q-input>
+                            <q-input  dense standout required label='Email' v-model='editar_email' class="input-reg q-mx-lg">
+                            </q-input>
+                            <q-select dense standout required v-model="editar_id_perfil" :options="select_perfil" label="Perfil" class="input-reg q-mx-lg"/>
+                            <q-input  dense standout required label='Telefono' v-model='editar_telefono' class="input-reg q-mx-lg">
+                            </q-input>
+                            <q-select dense standout required v-model="editar_id_pais" :options="select_pais" label="País" class="input-reg q-mx-lg"/>
+                            <q-input  dense standout required label='Empresa' v-model='editar_nombre_empresa' class="input-reg q-mx-lg">
+                            </q-input>
+                        </div>
+                        <div class="col-6">
+                            <q-select dense standout required v-model="editar_cargo" :options="select_cargo" label="Cargo" class="input-reg q-mx-lg"/>
+                            <q-input  dense standout required label='Producto' v-model='editar_producto_empresa' class="input-reg q-mx-lg">
+                            </q-input>
+                            <q-input  dense standout required label='Universidad' v-model='editar_universidad' class="input-reg q-mx-lg">
+                            </q-input>
+                            <q-input  dense standout required label='Carrera' v-model='editar_carrera' class="input-reg q-mx-lg">
+                            </q-input>
+                            <q-select dense standout required v-model="editar_suscrito_mail" :options="estados_suscrito" label="Suscrito Newsletter" class="input-reg q-mx-lg"/>
+                            <q-select dense standout required v-model="editar_estado" :options="estados" label="Estado" class="input-reg q-mx-lg"/>
+                        </div>               
+					</div>         
                 </q-card-section>
                 <div class="q-pb-lg" style="text-align: center;">
                     <q-btn rounded @click.native="modal_editar = false" class="cancelar">Cancelar</q-btn>

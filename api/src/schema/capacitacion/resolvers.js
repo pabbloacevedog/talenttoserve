@@ -18,16 +18,18 @@ export async function remove({codigo}) {
 	return await models.Capacitacion.destroy({where: {codigo}})
 }
 // Create user
-export async function create(parentValue,{ titulo, descripcion, link, banner, estado  }) {
+export async function create(parentValue,{ titulo, descripcion, link, file, estado  },{ storeUpload }) {
     var create = false
     var error = ''
-    let codigo = 0
+        var banner = ''
+    if(typeof file=== 'object'){
+        banner = await storeUpload(file)
+    }
+    console.log('banner',banner)
 	await models.Capacitacion.create({
         titulo, descripcion, link, banner, estado
 	}).then(capacitacion => {
-		codigo = capacitacion.codigo
         create = true
-        
 	}).catch(err => {
 		console.log(err)
 		error = err
@@ -40,9 +42,14 @@ export async function create(parentValue,{ titulo, descripcion, link, banner, es
 		throw new Error(`Error al crear el capacitacion ` + error)
 	}
 }
-export async function edit(parentValue,{ codigo,titulo, descripcion, link, banner, estado }) {
+export async function edit(parentValue,{ codigo,titulo, descripcion, link, file, estado },{ storeUpload }) {
     var editado = false
     var error = ''
+        var banner = ''
+    if(typeof file=== 'object'){
+        banner = await storeUpload(file)
+    }
+    console.log('banner',banner)
     var editar = {
         titulo, descripcion, link, banner, estado
     }
@@ -59,12 +66,10 @@ export async function edit(parentValue,{ codigo,titulo, descripcion, link, banne
 		throw new Error(`Error al editar el capacitacion ` + error)
 	}
 }
-export async function remove_more(parentValue,{ codigo  }) {
+export async function remove_more(parentValue,{ id  }) {
     var eliminado = true
     var error = ''
-    console.log(models.Capacitacion)
-
-    codigo.forEach(element => {
+    id.forEach(element => {
         console.log(element.codigo)
         models.Capacitacion.destroy({where: {codigo : element.codigo}})
         // .then(act => {

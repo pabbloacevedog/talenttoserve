@@ -14,7 +14,7 @@ export default Vue.component('Proveedor', {
             nuevo_telefono:'',
             nuevo_email:'',
             nuevo_web:'',
-            nuevo_categoria:1,
+            nuevo_categoria:null,
             nuevo_descripcion:'',
             nuevo_banner:'',
             nuevo_estado : 
@@ -29,7 +29,7 @@ export default Vue.component('Proveedor', {
             editar_telefono:'',
             editar_email:'',
             editar_web:'',
-            editar_categoria:1,
+            editar_categoria:null,
             editar_descripcion:'',
             editar_banner:'',
             editar_estado : 
@@ -65,8 +65,8 @@ export default Vue.component('Proveedor', {
                   { name: 'direccion', align: 'center', label: 'Dirección', field: 'direccion', sortable: true },
                   { name: 'telefono', align: 'center', label: 'Telefono', field: 'telefono', sortable: true },
                   { name: 'email', align: 'center', label: 'Email', field: 'email', sortable: true },
-                  { name: 'web', align: 'center', label: 'Descripción', field: 'web', sortable: true },
-                  { name: 'categoria', align: 'center', label: 'Categoría', field: 'categoria', sortable: true },
+                  { name: 'web', align: 'center', label: 'Web', field: 'web', sortable: true },
+                  { name: 'nombre_categoria', align: 'center', label: 'Categoría', field: 'nombre_categoria', sortable: true },
                   { name: 'descripcion', align: 'center', label: 'Descripción', field: 'descripcion', sortable: true },
                   { name: 'banner', align: 'center', label: 'Banner', field: 'banner', sortable: true },
                   { name: 'estado', align: 'center', label: 'Estado', field: 'estado' , sortable: true},
@@ -94,11 +94,13 @@ export default Vue.component('Proveedor', {
             banner: '',
             base : process.env.BASE_URL,
             modal_banner: false,
+            select_categoria:[]
         }
 	},
 	computed: {
 		...mapGetters({ 
             dataProveedor: "Proveedor/getData", 
+            dataSelector: "Usuario/getSelector", 
             registro_creado: "Proveedor/getCreado",
             registro_editado: "Proveedor/getEditado",
             registro_eliminado: "Proveedor/getEliminado",
@@ -128,9 +130,36 @@ export default Vue.component('Proveedor', {
 				console.log(err)
 			})
         },
+        async getSelector (tipo) {
+            var retorno = []
+            this.$q.loading.show()
+			await this.$store.dispatch("Usuario/cargarSelector",{tipo}).then(res => {
+				this.$q.loading.hide()
+				if(this.error){
+					var message = this.error.message.replace('GraphQL error: ','')
+					this.$q.notify({
+						message: message,
+						timeout: 3000,
+						type: 'negative',// Available values: 'positive', 'negative', 'warning', 'info'
+						position: 'bottom',
+						icon: 'report_problem'
+					})
+				}
+				else{
+                    // console.log('dataSelector',this.dataSelector)
+                    retorno = this.dataSelector
+				}
+			}).catch(err => {
+				console.log(err)
+			})
+            return retorno
+        },
         mostrar_banner(banner){
             this.banner = this.base + banner
             this.modal_banner = true
+        },
+        async selectores(){
+            this.select_categoria = await this.getSelector('categoria')
         },
         editar(){
             if(this.parametros_tabla.selected.length == 1){
@@ -140,7 +169,10 @@ export default Vue.component('Proveedor', {
                 this.editar_telefono = this.parametros_tabla.selected[0].telefono
                 this.editar_email = this.parametros_tabla.selected[0].email
                 this.editar_web = this.parametros_tabla.selected[0].web
-                this.editar_categoria = this.parametros_tabla.selected[0].categoria
+                this.editar_categoria = {
+                    value: this.parametros_tabla.selected[0].categoria, 
+                    label: this.parametros_tabla.selected[0].nombre_categoria
+                }
                 this.editar_descripcion = this.parametros_tabla.selected[0].descripcion
                 this.editar_banner = this.parametros_tabla.selected[0].banner
                 if(this.parametros_tabla.selected[0].estado){
@@ -169,20 +201,22 @@ export default Vue.component('Proveedor', {
             }
         },
         editar_fila(id){
-            for (let index = 0; index < this.parametros_tabla.data.length; index++) {
-                const element = this.parametros_tabla.data[index].codigo;
-                if(id == element)
+            this.parametros_tabla.data.forEach(element =>{
+                if(id == element.codigo)
                 {
-                    this.editar_codigo = this.parametros_tabla.data[index].codigo
-                    this.editar_proveedor = this.parametros_tabla.data[index].proveedor
-                    this.editar_direccion = this.parametros_tabla.data[index].direccion
-                    this.editar_telefono = this.parametros_tabla.data[index].telefono
-                    this.editar_email = this.parametros_tabla.data[index].email
-                    this.editar_web = this.parametros_tabla.data[index].web
-                    this.editar_categoria = this.parametros_tabla.data[index].categoria
-                    this.editar_descripcion = this.parametros_tabla.data[index].descripcion
-                    this.editar_banner = this.parametros_tabla.data[index].banner
-                    if(this.parametros_tabla.data[index].estado){
+                    this.editar_codigo = element.codigo
+                    this.editar_proveedor = element.proveedor
+                    this.editar_direccion = element.direccion
+                    this.editar_telefono = element.telefono
+                    this.editar_email = element.email
+                    this.editar_web = element.web
+                    this.editar_categoria = {
+                        value: element.categoria, 
+                        label: element.nombre_categoria
+                    }
+                    this.editar_descripcion = element.descripcion
+                    this.editar_banner = element.banner
+                    if(element.estado){
                         this.editar_estado = {
                             label: 'Activo',
                             value: true
@@ -196,14 +230,58 @@ export default Vue.component('Proveedor', {
                     }
                     this.modal_editar = true
                 }
-            }
+            })
+            // for (let index = 0; index < this.parametros_tabla.data.length; index++) {
+            //     const element = this.parametros_tabla.data[index].codigo;
+            //     if(id == element)
+            //     {
+            //         this.editar_codigo = this.parametros_tabla.data[index].codigo
+            //         this.editar_proveedor = this.parametros_tabla.data[index].proveedor
+            //         this.editar_direccion = this.parametros_tabla.data[index].direccion
+            //         this.editar_telefono = this.parametros_tabla.data[index].telefono
+            //         this.editar_email = this.parametros_tabla.data[index].email
+            //         this.editar_web = this.parametros_tabla.data[index].web
+            //         this.editar_categoria = this.parametros_tabla.data[index].categoria
+            //         this.editar_descripcion = this.parametros_tabla.data[index].descripcion
+            //         this.editar_banner = this.parametros_tabla.data[index].banner
+            //         if(this.parametros_tabla.data[index].estado){
+            //             this.editar_estado = {
+            //                 label: 'Activo',
+            //                 value: true
+            //             }
+            //         }
+            //         else{
+            //             this.editar_estado = {
+            //                 label: 'Inactivo',
+            //                 value: false
+            //             }
+            //         }
+            //         this.modal_editar = true
+            //     }
+            // }
         },
         async guardar_editar(){
 			this.$q.loading.show()
             const {editar_proveedor,editar_direccion,editar_telefono,editar_email,editar_web,editar_categoria, editar_descripcion , editar_banner, editar_estado} = this
             var est = editar_estado.value
-            var cat = parseInt(editar_categoria)
-            await this.$store.dispatch("Proveedor/editarProveedor", { codigo : this.editar_codigo,proveedor:editar_proveedor,direccion:editar_direccion,telefono:editar_telefono,email:editar_email,web:editar_web,categoria:cat, descripcion:editar_descripcion ,banner: editar_banner, estado:est }).then(res => {
+            var cat = parseInt(editar_categoria.value)
+            debugger
+            var fi = editar_banner
+            if( typeof editar_banner == 'object'){
+                fi = editar_banner[0]
+            }
+            await this.$store.dispatch("Proveedor/editarProveedor", { 
+                codigo : this.editar_codigo,
+                proveedor:editar_proveedor,
+                direccion:editar_direccion,
+                telefono:editar_telefono,
+                email:editar_email,
+                web:editar_web,
+                categoria:cat, 
+                descripcion:editar_descripcion ,
+                file: fi, 
+                estado:est 
+            }).then(res => {
                 console.log(res)
                 this.$q.loading.hide()
                 if(this.error){
@@ -233,6 +311,7 @@ export default Vue.component('Proveedor', {
             }).catch(err => {
                 console.log(err)
             })
+            await this.iniciar()
             // if(this.registro_editado){
             //     await this.iniciar()
             // }
@@ -270,36 +349,104 @@ export default Vue.component('Proveedor', {
 
         },
         async guardar_nuevo() {
-			this.$q.loading.show()
             const {nuevo_proveedor,nuevo_direccion, nuevo_telefono,nuevo_email,nuevo_web,nuevo_categoria,nuevo_descripcion , nuevo_banner, nuevo_estado} = this
             var est = nuevo_estado.value
-            await this.$store.dispatch("Proveedor/crearProveedor", { proveedor:nuevo_proveedor,direccion:nuevo_direccion,telefono:nuevo_telefono,email:nuevo_email,web:nuevo_web,categoria:nuevo_categoria, descripcion:nuevo_descripcion ,banner: nuevo_banner, estado:est }).then(res => {
-                this.$q.loading.hide()
-                if(this.error){
-                    var message = this.error.message.replace('GraphQL error: ','')
-                    this.$q.notify({
-                        message: message,
-                        timeout: 3000,
-                        type: 'negative',// Available values: 'positive', 'negative', 'warning', 'info'
-                        position: 'bottom',
-                        icon: 'report_problem'
-                    })
-                }
-                else{
-                    this.$q.notify({
-                        message: "Registro creado",
-                        timeout: 3000,
-                        type: 'positive',// Available values: 'positive', 'negative', 'warning', 'info'
-                        position: 'bottom',
-                        icon: 'done_all'
-                    })
-                    this.modal_nuevo = false
-                    this.limpiar_nuevo()
-                    // this.iniciar()
-                }
-            }).catch(err => {
-                console.log(err)
-            })
+            var cat = parseInt(nuevo_categoria.value)
+            if(nuevo_proveedor == ''){
+                this.$q.notify({
+                    message: 'El proveedor es obligatorio',
+                    timeout: 3000,
+                    type: 'negative',// Available values: 'positive', 'negative', 'warning', 'info'
+                    position: 'bottom',
+                    icon: 'report_problem'
+                })
+            }
+            else if(nuevo_descripcion == ''){
+                this.$q.notify({
+                    message: 'Ingrese una descripción',
+                    timeout: 3000,
+                    type: 'negative',// Available values: 'positive', 'negative', 'warning', 'info'
+                    position: 'bottom',
+                    icon: 'report_problem'
+                })
+            }
+            else if(nuevo_web == ''){
+                this.$q.notify({
+                    message: 'Ingrese web',
+                    timeout: 3000,
+                    type: 'negative',// Available values: 'positive', 'negative', 'warning', 'info'
+                    position: 'bottom',
+                    icon: 'report_problem'
+                })
+            }
+            else if(nuevo_direccion == ''){
+                this.$q.notify({
+                    message: 'Ingrese direccion',
+                    timeout: 3000,
+                    type: 'negative',// Available values: 'positive', 'negative', 'warning', 'info'
+                    position: 'bottom',
+                    icon: 'report_problem'
+                })
+            }
+            else if(nuevo_telefono == ''){
+                this.$q.notify({
+                    message: 'Ingrese telefono',
+                    timeout: 3000,
+                    type: 'negative',// Available values: 'positive', 'negative', 'warning', 'info'
+                    position: 'bottom',
+                    icon: 'report_problem'
+                })
+            }
+            else if(nuevo_email == ''){
+                this.$q.notify({
+                    message: 'Ingrese email',
+                    timeout: 3000,
+                    type: 'negative',// Available values: 'positive', 'negative', 'warning', 'info'
+                    position: 'bottom',
+                    icon: 'report_problem'
+                })
+            }
+            else{
+                this.$q.loading.show()
+                await this.$store.dispatch("Proveedor/crearProveedor", {
+                    proveedor:nuevo_proveedor,
+                    direccion:nuevo_direccion,
+                    telefono:nuevo_telefono,
+                    email:nuevo_email,
+                    web:nuevo_web,
+                    categoria:cat, 
+                    descripcion:nuevo_descripcion ,
+                    file: nuevo_banner[0], 
+                    estado:est 
+                }).then(res => {
+                    this.$q.loading.hide()
+                    if(this.error){
+                        var message = this.error.message.replace('GraphQL error: ','')
+                        this.$q.notify({
+                            message: message,
+                            timeout: 3000,
+                            type: 'negative',// Available values: 'positive', 'negative', 'warning', 'info'
+                            position: 'bottom',
+                            icon: 'report_problem'
+                        })
+                    }
+                    else{
+                        this.$q.notify({
+                            message: "Registro creado",
+                            timeout: 3000,
+                            type: 'positive',// Available values: 'positive', 'negative', 'warning', 'info'
+                            position: 'bottom',
+                            icon: 'done_all'
+                        })
+                        this.modal_nuevo = false
+                        this.limpiar_nuevo()
+                        // this.iniciar()
+                    }
+                }).catch(err => {
+                    console.log(err)
+                })
+            }
+            await this.iniciar()
         },
         eliminar(){
             // //replace
@@ -318,6 +465,7 @@ export default Vue.component('Proveedor', {
         },
         async guardar_eliminar(){
             this.$q.loading.show()
+            this.parametros_tabla.selected.forEach(element =>delete element.__typename)
             await this.$store.dispatch("Proveedor/eliminarProveedor", { id:this.parametros_tabla.selected}).then(res => {
                 this.$q.loading.hide()
                 if(this.error){
@@ -351,6 +499,7 @@ export default Vue.component('Proveedor', {
             }).catch(err => {
                 console.log(err)
             })
+            await this.iniciar()
         },
         solo_numeros(e){
             var key = e.keyCode || e.which;
@@ -416,39 +565,41 @@ export default Vue.component('Proveedor', {
     watch: {
         'modal_nuevo': function () {
             if(this.modal_nuevo){
-                var element = document.getElementById("q-app");
-                element.classList.add("modal-open");
+                // var element = document.getElementById("q-app");
+                // element.classList.add("modal-open");
+                this.selectores()
             }
             else{
-                var element = document.getElementById("q-app");
-                element.classList.remove("modal-open");
-                this.parametros_tabla.data.length = 0
-                this.iniciar()
+                // var element = document.getElementById("q-app");
+                // element.classList.remove("modal-open");
+                // this.parametros_tabla.data.length = 0
+                // this.iniciar()
             }
         },
         'modal_editar': function () {
             if(this.modal_editar){
-                var element = document.getElementById("q-app");
-                element.classList.add("modal-open");
+                // var element = document.getElementById("q-app");
+                // element.classList.add("modal-open");
+                this.selectores()
             }
-            else{
-                var element = document.getElementById("q-app");
-                element.classList.remove("modal-open");
-                this.parametros_tabla.data.length = 0
-                this.iniciar()
-            }
+            // else{
+            //     var element = document.getElementById("q-app");
+            //     element.classList.remove("modal-open");
+            //     this.parametros_tabla.data.length = 0
+            //     this.iniciar()
+            // }
         },
         'modal_eliminar': function () {
-            if(this.modal_eliminar){
-                var element = document.getElementById("q-app");
-                element.classList.add("modal-open");
-            }
-            else{
-                var element = document.getElementById("q-app");
-                element.classList.remove("modal-open");
-                this.parametros_tabla.data.length = 0
-                this.iniciar()
-            }
+            // if(this.modal_eliminar){
+            //     var element = document.getElementById("q-app");
+            //     element.classList.add("modal-open");
+            // }
+            // else{
+            //     var element = document.getElementById("q-app");
+            //     element.classList.remove("modal-open");
+            //     this.parametros_tabla.data.length = 0
+            //     this.iniciar()
+            // }
         },
     }
 

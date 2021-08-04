@@ -17,14 +17,19 @@ export async function remove({codigo}) {
 	return await models.Inscribete.destroy({where: {codigo}})
 }
 // Create user
-export async function create(parentValue,{ titulo, descripcion, link, boton, banner, estado  }) {
+export async function create(parentValue,{ titulo, descripcion, link, boton, file, estado  }, { storeUpload }) {
     var create = false
     var error = ''
-    let codigo = 0
+    console.log('file',file)
+    console.log('titulo',titulo)
+        var banner = ''
+    if(typeof file=== 'object'){
+        banner = await storeUpload(file)
+    }
+    console.log('banner',banner)
 	await models.Inscribete.create({
         titulo, descripcion, link, boton, banner, estado 
 	}).then(inscribete => {
-		codigo = inscribete.codigo
         create = true
         
 	}).catch(err => {
@@ -36,12 +41,18 @@ export async function create(parentValue,{ titulo, descripcion, link, boton, ban
 		return { creado: create }
 	}
 	else{
-		throw new Error(`Error al crear el inscribete ` + error)
+		throw new Error(`Error al crear el registro de publicidad ` + error)
 	}
 }
-export async function edit(parentValue,{ codigo, titulo, descripcion, link, boton, banner, estado  }) {
+export async function edit(parentValue,{ codigo, titulo, descripcion, link, boton, file, estado  },{ storeUpload }) {
     var editado = false
     var error = ''
+    var banner = ''
+    if(typeof file=== 'object'){
+        banner = await storeUpload(file)
+    }
+    console.log('banner',banner)
+    
     var editar = {
         titulo, descripcion, link, boton, banner, estado 
     }
@@ -55,13 +66,13 @@ export async function edit(parentValue,{ codigo, titulo, descripcion, link, boto
 		return { editado: editado }
 	}
 	else{
-		throw new Error(`Error al editar el inscribete ` + error)
+		throw new Error(`Error al editar el registro de publicidad ` + error)
 	}
 }
 export async function remove_more(parentValue,{ id  }) {
     var eliminado = true
     var error = ''
-    console.log(models.Inscribete)
+    console.log('remove_more',id)
 
     id.forEach(element => {
         console.log(element.codigo)
@@ -77,6 +88,7 @@ export async function remove_more(parentValue,{ id  }) {
 		return { eliminado: eliminado }
 	}
 	else{
-		throw new Error(`Error al eliminar el inscribete ` + error)
+		throw new Error(`Error al eliminar el registro de publicidad ` + error)
 	}
 }
+

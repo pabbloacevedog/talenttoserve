@@ -73,7 +73,7 @@ const UsuarioType = new GraphQLObjectType({
         creado:{
 			type: GraphQLBoolean
         },
-        editado:{
+        actualizado:{
 			type: GraphQLBoolean
         },
         eliminado:{

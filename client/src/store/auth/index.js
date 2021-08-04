@@ -47,7 +47,7 @@ const actions = {
 			localStorage.setItem('menu', JSON.stringify(rutas))
 			routers = crearRouter(rutas)
 			this.$router.addRoutes(routers)
-            // localStorage.setItem('ss_u', user.uuid_usuario)
+            // localStorage.setItem('ss_u', user.usuario_id)
             localStorage.setItem('username', user.nombre)
             localStorage.setItem('token', token)
 			commit('LOGIN_SUCCESS', user)

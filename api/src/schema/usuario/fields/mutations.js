@@ -70,13 +70,13 @@ export const CrearUsuario = {
         },
         estado: {
 			name: 'estado',
-			type: GraphQLString
+			type: GraphQLBoolean
 		}
 	},
 	resolve: crear_usuario
 }
 //actualizar usuario
-export const ActulizarUsuario = {
+export const ActualizarUsuario = {
 	type: UsuarioType,
 	args: {
         usuario_id:{
@@ -129,7 +129,7 @@ export const ActulizarUsuario = {
         },
         estado: {
 			name: 'estado',
-			type: GraphQLString
+			type: GraphQLBoolean
 		}
 	},
 	resolve: actualizar_usuario

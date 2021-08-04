@@ -1,9 +1,11 @@
 // Imports
+import { GraphQLUpload } from 'apollo-server-koa'
 import {
 	GraphQLString,
     GraphQLInt,
     GraphQLBoolean,
     GraphQLList,
+    GraphQLNonNull
 } from 'graphql'
 
 // App Imports
@@ -35,9 +37,9 @@ export const createInscribete = {
             name: 'boton',
             type: GraphQLString
         },
-        banner: {
-            name: 'banner',
-            type: GraphQLString
+        file: {
+            name: 'file',
+            type: GraphQLNonNull(GraphQLUpload)
         },
         estado: {
 			name: 'estado',
@@ -69,9 +71,9 @@ export const editInscribete = {
             name: 'boton',
             type: GraphQLString
         },
-        banner: {
-            name: 'banner',
-            type: GraphQLString
+        file: {
+            name: 'file',
+            type:  GraphQLNonNull(GraphQLUpload)
         },
         estado: {
 			name: 'estado',

@@ -12,6 +12,7 @@ import * as perfil from './perfil/fields/query'
 import * as networking from './networking/fields/query'
 import * as OpPractica from './op_practica/fields/query'
 import * as OpPrabajo from './op_trabajo/fields/query'
+import * as selector from './selector/query'
 console.info(`INFO  - Cargando querys.`)
 // Querys
 const query = new GraphQLObjectType({
@@ -28,7 +29,8 @@ const query = new GraphQLObjectType({
         ...perfil, 
         ...networking,
         ...OpPractica,
-        ...OpPrabajo
+        ...OpPrabajo,
+        ...selector
 	})
 })
 

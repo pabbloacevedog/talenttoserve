@@ -24,17 +24,24 @@ export const GET_USUARIO_QUERY = gql`
         }
     }
 `
+export const GET_SELECTOR_QUERY = gql`
+    query Selectores ($tipo: String) {
+        Selectores(tipo:$tipo){
+            value,
+            label
+        }
+    }
+`
 //espacio definido para las mutaciones, las mutaciones son consultas tipo "update o delete"
 // 			<-------------- MUTACIONES -------------->
 export const CREAR_USUARIO_MUTATION = gql`
-    mutation createUsuario(
+    mutation CrearUsuario(
         $nombre: String!,
+        $password_new: String!,
         $email: String!,
-        $id_perfil: String!,
-        $perfil: Int!,
+        $id_perfil: Int!,
         $telefono: String!,
         $id_pais: Int!,
-        $pais: String!,
         $nombre_empresa: String!,
         $cargo: String!,
         $producto_empresa: String!,
@@ -43,14 +50,13 @@ export const CREAR_USUARIO_MUTATION = gql`
         $suscrito_mail: Boolean!,
         $estado: Boolean!
         ){
-        createUsuario(
+        CrearUsuario(
             nombre: $nombre,
+            password_new: $password_new,
             email: $email,
             id_perfil: $id_perfil,
-            perfil: $perfil,
             telefono: $telefono,
             id_pais: $id_pais,
-            pais: $pais,
             nombre_empresa: $nombre_empresa,
             cargo: $cargo,
             producto_empresa: $producto_empresa,
@@ -64,14 +70,13 @@ export const CREAR_USUARIO_MUTATION = gql`
     }
 `
 export const EDITAR_USUARIO_MUTATION = gql`
-    mutation editUsuario(
+    mutation ActualizarUsuario(
         $usuario_id: String!, 
+        $nombre: String!, 
         $email: String!,
-        $id_perfil: String!,
-        $perfil: Int!,
+        $id_perfil: Int!,
         $telefono: String!,
         $id_pais: Int!,
-        $pais: String!,
         $nombre_empresa: String!,
         $cargo: String!,
         $producto_empresa: String!,
@@ -80,15 +85,13 @@ export const EDITAR_USUARIO_MUTATION = gql`
         $suscrito_mail: Boolean!,
         $estado: Boolean!
         ){
-        editUsuario(
+        ActualizarUsuario(
             usuario_id : $usuario_id,
             nombre: $nombre,
             email: $email,
             id_perfil: $id_perfil,
-            perfil: $perfil,
             telefono: $telefono,
             id_pais: $id_pais,
-            pais: $pais,
             nombre_empresa: $nombre_empresa,
             cargo: $cargo,
             producto_empresa: $producto_empresa,
@@ -97,13 +100,13 @@ export const EDITAR_USUARIO_MUTATION = gql`
             suscrito_mail: $suscrito_mail,
             estado: $estado
             ){
-            editado
+                actualizado
         }
     }
 `
 export const ELIMINAR_USUARIO_MUTATION = gql`
-    mutation removeUsuario($id: [UsuarioList]){
-        removeUsuario(id : $id){
+    mutation RemoverUsuario($id: [UsuarioList]){
+        RemoverUsuario(id : $id){
             eliminado
         }
     }

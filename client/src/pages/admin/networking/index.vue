@@ -40,7 +40,7 @@
         
         >
             <q-card class="modales" style="width: 500px !important;" color="primary">
-                <q-card-section align="center" class="q-pa-xs">
+                <q-card-section align="center">
                     <div class="text-h6 titulo_crear" color="text">Nuevo Item</div>
                 </q-card-section>
                 <q-card-section class="area_comment">                   

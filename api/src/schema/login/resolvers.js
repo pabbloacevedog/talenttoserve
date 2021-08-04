@@ -47,24 +47,29 @@ export async function login(parentValue, { email, password }, context) {
             var decrypted = CryptoJS.AES.decrypt(password, pass)
             var passDecryp = decrypted.toString(CryptoJS.enc.Utf8)
 			const datosUsuarioDetalles = usuario.get()
-            const router = await rutas(usuario.id_perfil)
-			return await bcrypt.compare(passDecryp, datosUsuarioDetalles.password_new).then(result => {
-                console.log('result',result)
-                if(result){
-                    var data = {
-                        datosUsuario:datosUsuarioDetalles,
-                        routers:router
+            if(usuario.estado){
+                const router = await rutas(usuario.id_perfil)
+                return await bcrypt.compare(passDecryp, datosUsuarioDetalles.password_new).then(result => {
+                    console.log('result',result)
+                    if(result){
+                        var data = {
+                            datosUsuario:datosUsuarioDetalles,
+                            routers:router
+                        }
+                        return {
+                            token: jwt.sign(data, config.secret)
+                        }
                     }
-                    return {
-                        token: jwt.sign(data, config.secret)
+                    else{
+                        throw new Error(`Lo sentimos, la contraseña que ingresaste es incorrecta. Inténtalo de nuevo.`)
                     }
-                }
-                else{
-                    throw new Error(`Lo sentimos, la contraseña que ingresaste es incorrecta. Inténtalo de nuevo.`)
-                }
-            }).catch(err => {
-                throw new Error(`${err}`)
-            })
+                }).catch(err => {
+                    throw new Error(`${err}`)
+                })
+            }
+            else{
+                throw new Error(`El usuario se encuentra inactivo, favor ponte en contacto con pborges@talenttoserve.com para activarlo.`)
+            }
 		}
 }
 

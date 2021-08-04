@@ -72,24 +72,24 @@ const terminatingLink = split(
 	wsLink,
 	httpLink
 );
-const omitTypename = (key, value) => {
-    return key === '__typename' ? undefined : value
-}
+// const omitTypename = (key, value) => {
+//     return key === '__typename' ? undefined : value
+// }
 
-const omitTypenameLink = new ApolloLink((operation, forward) => {
-    if (operation.variables) {
-        operation.variables = JSON.parse(
-        JSON.stringify(operation.variables),
-        omitTypename
-        )
-    }
-    return forward(operation)
-})
-const cache = new InMemoryCache()
-persistCache({
-    cache,
-    storage: window.localStorage,
-});
+// const omitTypenameLink = new ApolloLink((operation, forward) => {
+//     if (operation.variables) {
+//         operation.variables = JSON.parse(
+//         JSON.stringify(operation.variables),
+//         omitTypename
+//         )
+//     }
+//     return forward(operation)
+// })
+// const cache = new InMemoryCache()
+// persistCache({
+//     cache,
+//     storage: window.localStorage,
+// });
 const apolloClient = new ApolloClient({
     // link,
 	link:  ApolloLink.from([
@@ -103,10 +103,10 @@ const apolloClient = new ApolloClient({
             if (networkError) console.log(`[Network error]: ${networkError}`);
         }),
         authLink,
-        omitTypenameLink,
+        // omitTypenameLink,
         terminatingLink
     ]),
-	cache: cache,
+	cache: new InMemoryCache(),
 	connectToDevTools: true
 })
 

@@ -30,10 +30,10 @@ const actions = {
 	},
     async crearOpTrabajo({commit}, credenciales) {
 		commit('CREAR')
-		const {cargo, descripcion, link, hotel,web, banner, estado } = credenciales
+		const {cargo, descripcion, link, hotel,web, file, estado } = credenciales
 		await this.$apollo.defaultClient.mutate({
 			mutation: CREAR_OP_TRABAJO_MUTATION,
-			variables: {cargo, descripcion, link, hotel,web, banner, estado }
+			variables: {cargo, descripcion, link, hotel,web, file, estado }
 		}).then(response => {
 			const datos = response.data.createOpTrabajo.creado
 			commit('CREAR_SUCCESS', datos)
@@ -44,10 +44,10 @@ const actions = {
     },
     async editarOpTrabajo({commit}, credenciales) {
 		commit('EDITAR')
-		const {codigo, cargo, descripcion, link, hotel,web, banner, estado } = credenciales
+		const {codigo, cargo, descripcion, link, hotel,web, file, estado } = credenciales
 		await this.$apollo.defaultClient.mutate({
 			mutation: EDITAR_OP_TRABAJO_MUTATION,
-			variables: {codigo, cargo, descripcion, link, hotel,web, banner, estado }
+			variables: {codigo, cargo, descripcion, link, hotel,web, file, estado }
 		}).then(response => {
 			const datos = response.data.editOpTrabajo.editado
 			commit('EDITAR_SUCCESS', datos)

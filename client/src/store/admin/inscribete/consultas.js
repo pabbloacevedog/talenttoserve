@@ -29,15 +29,45 @@ export const GET_INSCRIBETE_QUERY = gql`
 //espacio definido para las mutaciones, las mutaciones son consultas tipo "update o delete"
 // 			<-------------- MUTACIONES -------------->
 export const CREAR_INSCRIBETE_MUTATION = gql`
-    mutation createInscribete($titulo: String!, $descripcion: String!,$link: String!,$boton: String!,$banner: String!, $estado: Boolean!){
-        createInscribete(titulo: $titulo,descripcion: $descripcion,link: $link,boton: $boton,banner: $banner,estado: $estado){
+    mutation createInscribete(
+        $titulo: String!, 
+        $descripcion: String!,
+        $link: String!,
+        $boton: String!,
+        $file: Upload!, 
+        $estado: Boolean!
+        ){
+        createInscribete(
+            titulo: $titulo,
+            descripcion: $descripcion,
+            link: $link,
+            boton: $boton,
+            file: $file,
+            estado: $estado
+            ){
             creado
         }
     }
 `
 export const EDITAR_INSCRIBETE_MUTATION = gql`
-    mutation editInscribete($codigo: Int!, $titulo: String!, $descripcion: String!, $link: String!,$boton: String!,$banner: String!, $estado: Boolean!){
-        editInscribete(codigo : $codigo, titulo: $titulo,descripcion: $descripcion,link: $link,boton: $boton,banner: $banner,estado: $estado){
+    mutation editInscribete(
+        $codigo: Int!, 
+        $titulo: String!, 
+        $descripcion: String!, 
+        $link: String!,
+        $boton: String!,
+        $file: Upload!, 
+        $estado: Boolean!
+        ){
+        editInscribete(
+            codigo : $codigo, 
+            titulo: $titulo,
+            descripcion: $descripcion,
+            link: $link,
+            boton: $boton,
+            file: $file,
+            estado: $estado
+            ){
             editado
         }
     }

@@ -11,6 +11,7 @@
         v-if="$q.platform.is.mobile"
         class="tabla_mobile"
         grid
+        hide-header
     >
         <template v-slot:top-right>
             <q-input  
@@ -56,25 +57,21 @@
         >
             <q-card :class="props.selected ? 'card_tabla_mobile_selected' : 'card_tabla_mobile'" >
             <q-card-section>
-                <q-checkbox dense v-model="props.selected" :label="'Grosor '+props.row.grosor"></q-checkbox>
+                <q-checkbox dense v-model="props.selected" :label="props.row.nombre"></q-checkbox>
             </q-card-section>
             <q-separator></q-separator>
             <q-list dense>
-                <q-item v-for="col in props.cols.filter(col => col.name !== 'codigo')" :key="col.name">
+                <q-item v-for="col in props.cols.filter(col => col.name !== 'nombre')" :key="col.name">
                 <q-item-section>
                     <q-item-label>{{ col.label }}</q-item-label>
                 </q-item-section>
                 <q-item-section side>
-                    <q-item-label caption v-if="col.name !== 'estado'">{{ col.value }}
-                        <q-tooltip>
-                            {{ col.value }}
-                        </q-tooltip>
-                    </q-item-label>
+                    <q-item-label caption v-if="col.name !== 'estado'">{{ col.value }}</q-item-label>
                     <q-item-label caption v-else>
-                        <q-chip size="sm" v-if="col.value" class="activo" text-color="white">
+                        <q-chip size="sm" v-if="col.value" color="green" text-color="white">
                             Activo
                         </q-chip>
-                        <q-chip  size="sm" v-else class="inactivo" text-color="white">
+                        <q-chip  size="sm" v-else color="red" text-color="white">
                             Inactivo
                         </q-chip>
                     </q-item-label>
@@ -86,7 +83,6 @@
         </template>
 
     </q-table>
-
     <q-table
         :title="parametros.tittle"
         :data="parametros.data"
@@ -135,28 +131,25 @@
 
         </template>
         <template  v-slot:body="props" >
-            <q-tr :props="props" v-on:dblclick="funciones.editar_fila(props.row.codigo)">
+            <q-tr :props="props" v-on:dblclick="funciones.editar_fila(props.row.id_perfil)">
                 <q-td auto-width>
                     <q-checkbox size="sm"  color="accent" v-model="props.selected"/>
                 </q-td>
-                <q-td key="proveedor" :props="props">{{ props.row.proveedor }}<q-tooltip v-if="props.row.proveedor">{{ props.row.proveedor }}</q-tooltip></q-td>
-                <q-td key="direccion" :props="props">{{ props.row.direccion }}<q-tooltip v-if="props.row.direccion">{{ props.row.direccion }}</q-tooltip></q-td>
-                <q-td key="telefono" :props="props">{{ props.row.telefono }}<q-tooltip v-if="props.row.telefono">{{ props.row.telefono }}</q-tooltip></q-td>
-                <q-td key="email" :props="props">{{ props.row.email }}<q-tooltip v-if="props.row.email">{{ props.row.email }}</q-tooltip></q-td>
-                <q-td key="web" :props="props">{{ props.row.web }}<q-tooltip v-if="props.row.web">{{ props.row.web }}</q-tooltip></q-td>
-                <q-td key="descripcion" :props="props">{{ props.row.categoria }} <q-tooltip v-if="props.row.categoria">{{ props.row.categoria }}</q-tooltip></q-td>
-                <q-td key="categoria" :props="props">{{ props.row.descripcion }} <q-tooltip v-if="props.row.descripcion">{{ props.row.descripcion }}</q-tooltip></q-td>
-                <q-td key="banner" :props="props"><q-btn v-if="props.row.banner !='' || props.row.banner != null" unelevated rounded color="accent" size="xs" label="Ver banner" @click="funciones.mostrar_banner(props.row.banner)"/></q-td>
+                <q-td key="nombre" :props="props">{{ props.row.nombre }}</q-td>
+                <q-td key="descripcion" :props="props">{{ props.row.descripcion }}</q-td>
                 <q-td key="estado" :props="props" v-if="props.row.estado">
-                    <q-btn unelevated rounded class="activo" color="accent" size="xs" label="activo"/>
+                    <q-chip color="green" text-color="white">
+                        Activo
+                    </q-chip>
                 </q-td>
                 <q-td key="estado" :props="props" v-else>
-                    <q-btn  unelevated rounded class="inactivo" color="accent" size="xs" label="Inactivo"/>
+                    <q-chip color="red" text-color="white">
+                        Inactivo
+                    </q-chip>
                 </q-td>
             </q-tr>
         </template>
     </q-table>
-
 </template>
 
 <script src="./tabla.js">

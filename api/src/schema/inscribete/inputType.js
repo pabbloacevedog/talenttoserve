@@ -35,7 +35,7 @@ const InscribeteList = new GraphQLInputObjectType ({
         },
         id:{
             type: InscribeteList
-        }
+        },
 	})
 })
 

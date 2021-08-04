@@ -13,6 +13,7 @@ export const GET_PROVEEDOR_QUERY = gql`
             email,
             web,
             categoria,
+            nombre_categoria,
             descripcion,
             banner,
             estado
@@ -32,15 +33,15 @@ export const GET_PROVEEDOR_QUERY = gql`
 //espacio definido para las mutaciones, las mutaciones son consultas tipo "update o delete"
 // 			<-------------- MUTACIONES -------------->
 export const CREAR_PROVEEDOR_MUTATION = gql`
-    mutation createProveedor($proveedor: String!,$direccion: String!, $telefono: String!, $email: String!,  $web: String!,$categoria: Int!, $descripcion: String!, $banner: String!, $estado: Boolean!){
-        createProveedor(proveedor: $proveedor,direccion: $direccion,telefono: $telefono,email: $email,web: $web,categoria: $categoria,descripcion: $descripcion,banner: $banner,estado: $estado){
+    mutation createProveedor($proveedor: String!,$direccion: String!, $telefono: String!, $email: String!,  $web: String!,$categoria: Int!, $descripcion: String!, $file: Upload!, $estado: Boolean!){
+        createProveedor(proveedor: $proveedor,direccion: $direccion,telefono: $telefono,email: $email,web: $web,categoria: $categoria,descripcion: $descripcion,file: $file,estado: $estado){
             creado
         }
     }
 `
 export const EDITAR_PROVEEDOR_MUTATION = gql`
-    mutation editProveedor($codigo: Int!,$proveedor: String!,$direccion: String!, $telefono: String!, $email: String!,  $web: String!,$categoria: Int!, $descripcion: String!, $banner: String!, $estado: Boolean!){
-        editProveedor(codigo : $codigo, proveedor: $proveedor,direccion: $direccion,telefono: $telefono,email: $email,web: $web,categoria: $categoria,descripcion: $descripcion,banner: $banner,estado: $estado){
+    mutation editProveedor($codigo: Int!,$proveedor: String!,$direccion: String!, $telefono: String!, $email: String!,  $web: String!,$categoria: Int!, $descripcion: String!, $file: Upload!, $estado: Boolean!){
+        editProveedor(codigo : $codigo, proveedor: $proveedor,direccion: $direccion,telefono: $telefono,email: $email,web: $web,categoria: $categoria,descripcion: $descripcion,file: $file,estado: $estado){
             editado
         }
     }

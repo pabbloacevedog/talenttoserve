@@ -144,8 +144,8 @@
                 <q-td key="telefono" :props="props">{{ props.row.telefono }}<q-tooltip v-if="props.row.telefono">{{ props.row.telefono }}</q-tooltip></q-td>
                 <q-td key="email" :props="props">{{ props.row.email }}<q-tooltip v-if="props.row.email">{{ props.row.email }}</q-tooltip></q-td>
                 <q-td key="web" :props="props">{{ props.row.web }}<q-tooltip v-if="props.row.web">{{ props.row.web }}</q-tooltip></q-td>
-                <q-td key="descripcion" :props="props">{{ props.row.categoria }} <q-tooltip v-if="props.row.categoria">{{ props.row.categoria }}</q-tooltip></q-td>
-                <q-td key="categoria" :props="props">{{ props.row.descripcion }} <q-tooltip v-if="props.row.descripcion">{{ props.row.descripcion }}</q-tooltip></q-td>
+                <q-td key="nombre_categoria" :props="props">{{ props.row.nombre_categoria }} <q-tooltip v-if="props.row.nombre_categoria">{{ props.row.nombre_categoria }}</q-tooltip></q-td>
+                <q-td key="descripcion" :props="props">{{ props.row.descripcion }} <q-tooltip v-if="props.row.descripcion">{{ props.row.descripcion }}</q-tooltip></q-td>
                 <q-td key="banner" :props="props"><q-btn v-if="props.row.banner !='' " unelevated rounded color="accent" size="xs" label="Ver banner" @click="funciones.mostrar_banner(props.row.banner)"/></q-td>
                 <q-td key="estado" :props="props" v-if="props.row.estado">
                     <q-btn unelevated rounded class="activo" color="accent" size="xs" label="activo"/>

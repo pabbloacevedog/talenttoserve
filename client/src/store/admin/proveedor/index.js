@@ -31,10 +31,10 @@ const actions = {
     async crearProveedor({commit}, credenciales) {
 		commit('CREAR')
         debugger
-		const {proveedor,direccion,telefono,email,web,categoria, descripcion , banner,estado } = credenciales
+		const {proveedor,direccion,telefono,email,web,categoria, descripcion , file,estado } = credenciales
 		await this.$apollo.defaultClient.mutate({
 			mutation: CREAR_PROVEEDOR_MUTATION,
-			variables: {proveedor,direccion,telefono,email,web,categoria, descripcion , banner,estado }
+			variables: {proveedor,direccion,telefono,email,web,categoria, descripcion , file,estado }
 		}).then(response => {
 			const datos = response.data.createProveedor.creado
 			commit('CREAR_SUCCESS', datos)
@@ -45,10 +45,10 @@ const actions = {
     },
     async editarProveedor({commit}, credenciales) {
 		commit('EDITAR')
-		const {codigo, proveedor,direccion,telefono,email,web,categoria, descripcion , banner , estado } = credenciales
+		const {codigo, proveedor,direccion,telefono,email,web,categoria, descripcion , file , estado } = credenciales
 		await this.$apollo.defaultClient.mutate({
 			mutation: EDITAR_PROVEEDOR_MUTATION,
-			variables: {codigo, proveedor,direccion,telefono,email,web,categoria, descripcion , banner, estado }
+			variables: {codigo, proveedor,direccion,telefono,email,web,categoria, descripcion , file, estado }
 		}).then(response => {
 			const datos = response.data.editProveedor.editado
 			commit('EDITAR_SUCCESS', datos)

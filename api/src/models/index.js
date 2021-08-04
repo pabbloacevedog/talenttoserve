@@ -11,6 +11,7 @@ import OpPractica       from './op_practica/index.js'
 import OpTrabajo      from './op_trabajo/index.js'
 import Pais       from './pais/index.js'
 import Cargo       from './cargo/index.js'
+import Categoria       from './categoria/index.js'
 import Proveedor       from './proveedores/index.js'
 import Registro_publicidad       from './registro_publicidad/index.js'
 import PerfilRouter       from './perfil_router/index.js'
@@ -30,7 +31,8 @@ const models = {
     OpTrabajo        :   OpTrabajo(connection),          
     Proveedor     :   Proveedor(connection),    
     Pais             :   Pais(connection),        
-    Cargo             :   Cargo(connection),          
+    Cargo             :   Cargo(connection),       
+    Categoria             :   Categoria(connection),      
     Registro_publicidad :   Registro_publicidad(connection),        
 	Usuario          :   Usuario(connection),     
 }

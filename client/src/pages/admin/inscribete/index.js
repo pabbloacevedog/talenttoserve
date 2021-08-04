@@ -85,6 +85,7 @@ export default Vue.component('Inscribete', {
             banner: '',
             base : process.env.BASE_URL,
             modal_banner: false,
+            file: null,
         }
 	},
 	computed: {
@@ -187,7 +188,19 @@ export default Vue.component('Inscribete', {
 			this.$q.loading.show()
             const {editar_titulo, editar_descripcion , editar_link, editar_boton, editar_banner, editar_estado} = this
             var est = editar_estado.value
-            await this.$store.dispatch("Inscribete/editarInscribete", { codigo : this.editar_codigo, titulo:editar_titulo, descripcion:editar_descripcion ,link: editar_link, boton: editar_boton, banner: editar_banner, estado:est }).then(res => {
+            var fi = editar_banner
+            if( typeof editar_banner == 'object'){
+                fi = editar_banner[0]
+            }
+            await this.$store.dispatch("Inscribete/editarInscribete", { 
+                codigo : this.editar_codigo, 
+                titulo:editar_titulo, 
+                descripcion:editar_descripcion ,
+                link: editar_link, 
+                boton: editar_boton, 
+                file: fi, 
+                estado:est 
+            }).then(res => {
                 console.log(res)
                 this.$q.loading.hide()
                 if(this.error){
@@ -217,6 +230,7 @@ export default Vue.component('Inscribete', {
             }).catch(err => {
                 console.log(err)
             })
+            await this.iniciar()
             // if(this.registro_editado){
             //     await this.iniciar()
             // }
@@ -248,36 +262,74 @@ export default Vue.component('Inscribete', {
 
         },
         async guardar_nuevo() {
-			this.$q.loading.show()
+			
             const {nuevo_titulo, nuevo_descripcion , nuevo_link, nuevo_boton, nuevo_banner, nuevo_estado} = this
             var est = nuevo_estado.value
-            await this.$store.dispatch("Inscribete/crearInscribete", { titulo: nuevo_titulo, descripcion:nuevo_descripcion , link: nuevo_link, boton: nuevo_boton, banner: nuevo_banner, estado:est }).then(res => {
-                this.$q.loading.hide()
-                if(this.error){
-                    var message = this.error.message.replace('GraphQL error: ','')
+            if(nuevo_titulo == ''){
                     this.$q.notify({
-                        message: message,
-                        timeout: 3000,
-                        type: 'negative',// Available values: 'positive', 'negative', 'warning', 'info'
-                        position: 'bottom',
-                        icon: 'report_problem'
-                    })
-                }
-                else{
-                    this.$q.notify({
-                        message: "Registro creado",
-                        timeout: 3000,
-                        type: 'positive',// Available values: 'positive', 'negative', 'warning', 'info'
-                        position: 'bottom',
-                        icon: 'done_all'
-                    })
-                    this.modal_nuevo = false
-                    this.limpiar_nuevo()
-                    // this.iniciar()
-                }
-            }).catch(err => {
-                console.log(err)
-            })
+                    message: 'El titulo es obligatorio',
+                    timeout: 3000,
+                    type: 'negative',// Available values: 'positive', 'negative', 'warning', 'info'
+                    position: 'bottom',
+                    icon: 'report_problem'
+                })
+            }
+            else if(nuevo_descripcion == ''){
+                this.$q.notify({
+                    message: 'Ingrese una descripción',
+                    timeout: 3000,
+                    type: 'negative',// Available values: 'positive', 'negative', 'warning', 'info'
+                    position: 'bottom',
+                    icon: 'report_problem'
+                })
+            }
+            else if(nuevo_link == ''){
+                this.$q.notify({
+                    message: 'Ingrese link para rideccionar',
+                    timeout: 3000,
+                    type: 'negative',// Available values: 'positive', 'negative', 'warning', 'info'
+                    position: 'bottom',
+                    icon: 'report_problem'
+                })
+            }
+            else{
+                this.$q.loading.show()
+                await this.$store.dispatch("Inscribete/crearInscribete", { 
+                    titulo: nuevo_titulo, 
+                    descripcion:nuevo_descripcion , 
+                    link: nuevo_link, 
+                    boton: nuevo_boton, 
+                    file: nuevo_banner[0], 
+                    estado:est 
+                }).then(res => {
+                    this.$q.loading.hide()
+                    if(this.error){
+                        var message = this.error.message.replace('GraphQL error: ','')
+                        this.$q.notify({
+                            message: message,
+                            timeout: 3000,
+                            type: 'negative',// Available values: 'positive', 'negative', 'warning', 'info'
+                            position: 'bottom',
+                            icon: 'report_problem'
+                        })
+                    }
+                    else{
+                        this.$q.notify({
+                            message: "Registro creado",
+                            timeout: 3000,
+                            type: 'positive',// Available values: 'positive', 'negative', 'warning', 'info'
+                            position: 'bottom',
+                            icon: 'done_all'
+                        })
+                        this.modal_nuevo = false
+                        this.limpiar_nuevo()
+                        // this.iniciar()
+                    }
+                }).catch(err => {
+                    console.log(err)
+                })
+            }
+            await this.iniciar()
         },
         eliminar(){
             // //replace
@@ -296,6 +348,7 @@ export default Vue.component('Inscribete', {
         },
         async guardar_eliminar(){
             this.$q.loading.show()
+            this.parametros_tabla.selected.forEach(element =>delete element.__typename)
             await this.$store.dispatch("Inscribete/eliminarInscribete", { id:this.parametros_tabla.selected}).then(res => {
                 this.$q.loading.hide()
                 if(this.error){
@@ -329,6 +382,7 @@ export default Vue.component('Inscribete', {
             }).catch(err => {
                 console.log(err)
             })
+            await this.iniciar()
         },
         solo_numeros(e){
             var key = e.keyCode || e.which;
@@ -394,38 +448,38 @@ export default Vue.component('Inscribete', {
     watch: {
         'modal_nuevo': function () {
             if(this.modal_nuevo){
-                var element = document.getElementById("q-app");
-                element.classList.add("modal-open");
+                // var element = document.getElementById("q-app");
+                // element.classList.add("modal-open");
             }
             else{
-                var element = document.getElementById("q-app");
-                element.classList.remove("modal-open");
-                this.parametros_tabla.data.length = 0
-                this.iniciar()
+                // var element = document.getElementById("q-app");
+                // element.classList.remove("modal-open");
+                // this.parametros_tabla.data.length = 0
+                // this.iniciar()
             }
         },
         'modal_editar': function () {
             if(this.modal_editar){
-                var element = document.getElementById("q-app");
-                element.classList.add("modal-open");
+                // var element = document.getElementById("q-app");
+                // element.classList.add("modal-open");
             }
             else{
-                var element = document.getElementById("q-app");
-                element.classList.remove("modal-open");
-                this.parametros_tabla.data.length = 0
-                this.iniciar()
+                // var element = document.getElementById("q-app");
+                // element.classList.remove("modal-open");
+                // this.parametros_tabla.data.length = 0
+                // this.iniciar()
             }
         },
         'modal_eliminar': function () {
             if(this.modal_eliminar){
-                var element = document.getElementById("q-app");
-                element.classList.add("modal-open");
+                // var element = document.getElementById("q-app");
+                // element.classList.add("modal-open");
             }
             else{
-                var element = document.getElementById("q-app");
-                element.classList.remove("modal-open");
-                this.parametros_tabla.data.length = 0
-                this.iniciar()
+                // var element = document.getElementById("q-app");
+                // element.classList.remove("modal-open");
+                // this.parametros_tabla.data.length = 0
+                // this.iniciar()
             }
         },
     }

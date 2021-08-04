@@ -150,16 +150,12 @@
                 <q-td key="universidad" :props="props">{{ props.row.universidad }}<q-tooltip v-if="props.row.universidad">{{ props.row.universidad }}</q-tooltip></q-td>
                 <q-td key="carrera" :props="props">{{ props.row.banner }}<q-tooltip v-if="props.row.carrera">{{ props.row.carrera }}</q-tooltip></q-td>
                 <q-td key="suscrito_mail" :props="props" v-if="props.row.suscrito_mail">
-                    <q-chip class="activo" text-color="white">
-                        Suscrito
-                    </q-chip>
+                    <q-btn unelevated rounded class="activo" color="accent" size="xs" label="Suscrito"/>
                 </q-td>
                 <q-td key="suscrito_mail" :props="props" v-else>
-                    <q-chip class="inactivo" text-color="white">
-                        No
-                    </q-chip>
+                    <q-btn  unelevated rounded class="inactivo" color="accent" size="xs" label="No"/>
                 </q-td>
-                                <q-td key="estado" :props="props" v-if="props.row.estado">
+                <q-td key="estado" :props="props" v-if="props.row.estado">
                     <q-btn unelevated rounded class="activo" color="accent" size="xs" label="activo"/>
                 </q-td>
                 <q-td key="estado" :props="props" v-else>

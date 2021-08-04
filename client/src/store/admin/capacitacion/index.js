@@ -31,10 +31,10 @@ const actions = {
     async crearCapacitacion({commit}, credenciales) {
 		commit('CREAR')
         debugger
-		const {titulo, descripcion , link, banner,estado } = credenciales
+		const {titulo, descripcion , link, file,estado } = credenciales
 		await this.$apollo.defaultClient.mutate({
 			mutation: CREAR_CAPACITACION_MUTATION,
-			variables: {titulo, descripcion , link, banner,estado }
+			variables: {titulo, descripcion , link, file,estado }
 		}).then(response => {
 			const datos = response.data.createCapacitacion.creado
 			commit('CREAR_SUCCESS', datos)
@@ -45,10 +45,10 @@ const actions = {
     },
     async editarCapacitacion({commit}, credenciales) {
 		commit('EDITAR')
-		const {codigo, titulo, descripcion , link, banner, estado } = credenciales
+		const {codigo, titulo, descripcion , link, file, estado } = credenciales
 		await this.$apollo.defaultClient.mutate({
 			mutation: EDITAR_CAPACITACION_MUTATION,
-			variables: {codigo, titulo, descripcion ,link,  banner, estado }
+			variables: {codigo, titulo, descripcion ,link,  file, estado }
 		}).then(response => {
 			const datos = response.data.editCapacitacion.editado
 			commit('EDITAR_SUCCESS', datos)

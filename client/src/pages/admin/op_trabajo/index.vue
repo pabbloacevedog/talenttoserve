@@ -40,7 +40,7 @@
         
         >
             <q-card class="modales" style="width: 500px !important;" color="primary">
-                <q-card-section align="center" class="q-pa-xs">
+                <q-card-section align="center">
                     <div class="text-h6 cargo_crear" color="text">Nuevo Item</div>
                 </q-card-section>
                 <q-card-section class="area_comment">                   
@@ -54,8 +54,15 @@
 					</q-input>
                     <q-input  dense standout required label='Web' v-model='nuevo_web' class="input-reg q-mx-lg">
 					</q-input>
-                    <q-input  dense standout required label='Banner' v-model='nuevo_banner' class="input-reg q-mx-lg">
-					</q-input>
+                    <q-input
+                        dense standout
+                        v-model="nuevo_banner"
+                        type="file"
+                        class="input-reg q-mx-lg">
+                        <template v-slot:append>
+                            <q-icon name="attachment" />
+                        </template>
+                    </q-input>
                     <q-select dense standout required v-model="nuevo_estado" :options="estados" label="Estado" class="input-reg q-mx-lg"/>
                 </q-card-section>
                 <div class="q-pb-lg" style="text-align: center;">
@@ -86,8 +93,16 @@
 					</q-input>
                     <q-input  dense standout required label='Web' v-model='editar_web' class="input-reg q-mx-lg">
 					</q-input>
-                    <q-input  dense standout required label='Banner' v-model='editar_banner' class="input-reg q-mx-lg">
-					</q-input>
+                    <q-input
+                        dense standout
+                            @input="val => { editar_banner = val }"
+                            type="file"
+                            class="input-reg q-mx-lg"
+                        >
+                        <template v-slot:append>
+                            <q-icon name="attachment" />
+                        </template>
+                    </q-input>
                     <q-select dense standout required v-model="editar_estado" :options="estados" label="Estado" class="input-reg q-mx-lg"/>
                 </q-card-section>
                 <div class="q-pb-lg" style="text-align: center;">
@@ -123,9 +138,9 @@
             </q-card>
         </q-dialog>
         <q-dialog persistent width="800" v-model="modal_banner" >
-            <q-card class="modales" style="width: 800px;">
+            <q-card class="modales" style=" max-width: 80vw; max-height:90vh">
                 <q-card-section align="center">
-                    <q-img :src="banner"></q-img>
+                    <q-img :src="banner" style="width: 600px;"></q-img>
                 </q-card-section>
                 <div class="q-pb-lg" style="text-align: center;">
                     <q-btn rounded @click.native="modal_banner = false" color="accent">Aceptar</q-btn>

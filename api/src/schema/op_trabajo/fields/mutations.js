@@ -1,9 +1,11 @@
 // Imports
+import { GraphQLUpload } from 'apollo-server-koa'
 import {
 	GraphQLString,
     GraphQLInt,
     GraphQLBoolean,
-    GraphQLList
+    GraphQLList,
+    GraphQLNonNull
 } from 'graphql'
 
 // App Imports
@@ -39,9 +41,9 @@ export const createOpTrabajo = {
             name: 'web',
             type: GraphQLString
         },
-        banner: {
-            name: 'banner',
-            type: GraphQLString
+        file: {
+            name: 'file',
+            type: GraphQLNonNull(GraphQLUpload)
         },
         estado: {
 			name: 'estado',
@@ -77,9 +79,9 @@ export const editOpTrabajo = {
             name: 'web',
             type: GraphQLString
         },
-        banner: {
-            name: 'banner',
-            type: GraphQLString
+        file: {
+            name: 'file',
+            type: GraphQLNonNull(GraphQLUpload)
         },
         estado: {
 			name: 'estado',

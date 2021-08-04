@@ -23,9 +23,12 @@ const ProveedorType = new GraphQLObjectType({
         },
         web: {
             type: GraphQLString
+        },    
+        nombre_categoria: {
+            type: GraphQLString
         },
         categoria: {
-            type: GraphQLString
+            type: GraphQLInt
         },
         descripcion: {
             type: GraphQLString

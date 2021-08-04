@@ -3,7 +3,7 @@
     "secret": "desktop deflate judgingly engaging",
     "passphrase": "connected private spectator blunt",
 
-    "client": "http://192.168.43.145:8085",
+    "client": "http://192.168.43.2:8085",
     "saltRounds": 10,
     "graphql": {
         "endpoint": "/",

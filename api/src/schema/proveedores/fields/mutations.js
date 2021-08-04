@@ -1,9 +1,11 @@
 // Imports
+import { GraphQLUpload } from 'apollo-server-koa'
 import {
 	GraphQLString,
     GraphQLInt,
     GraphQLBoolean,
     GraphQLList,
+    GraphQLNonNull
 } from 'graphql'
 
 // App Imports
@@ -47,9 +49,9 @@ export const createProveedor = {
             name: 'descripcion',
 			type: GraphQLString
 		},
-        banner: {
-            name: 'banner',
-            type: GraphQLString
+        file: {
+            name: 'file',
+            type: GraphQLNonNull(GraphQLUpload)
         },
         estado: {
 			name: 'estado',
@@ -93,9 +95,9 @@ export const editProveedor = {
             name: 'descripcion',
 			type: GraphQLString
 		},
-        banner: {
-            name: 'banner',
-            type: GraphQLString
+        file: {
+            name: 'file',
+            type: GraphQLNonNull(GraphQLUpload)
         },
         estado: {
 			name: 'estado',

@@ -17,14 +17,18 @@ export async function remove({codigo}) {
 	return await models.OpTrabajo.destroy({where: {codigo}})
 }
 // Create user
-export async function create(parentValue,{ cargo, descripcion, link, hotel,web,banner, estado  }) {
+export async function create(parentValue,{ cargo, descripcion, link, hotel,web,file, estado  }, { storeUpload }) {
     var create = false
     var error = ''
-    let codigo = 0
+    var banner = ''
+    if(typeof file=== 'object'){
+        banner = await storeUpload(file)
+    }
+    
+    console.log('banner',banner)
 	await models.OpTrabajo.create({
         cargo, descripcion, link, hotel, web,banner,estado
 	}).then(optrabajo => {
-		codigo = optrabajo.codigo
         create = true
         
 	}).catch(err => {
@@ -39,9 +43,14 @@ export async function create(parentValue,{ cargo, descripcion, link, hotel,web,b
 		throw new Error(`Error al crear el optrabajo ` + error)
 	}
 }
-export async function edit(parentValue,{codigo, cargo, descripcion, link, hotel, web,banner,estado }) {
+export async function edit(parentValue,{codigo, cargo, descripcion, link, hotel, web,file,estado }, { storeUpload }) {
     var editado = false
     var error = ''
+    var banner = ''
+    if(typeof file=== 'object'){
+        banner = await storeUpload(file)
+    }
+    console.log('banner',banner)
     var editar = {
         cargo, descripcion, link, hotel, web,banner,estado
     }

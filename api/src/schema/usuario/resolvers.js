@@ -18,7 +18,7 @@ export async function buscar_usuario(parent, {usuario, word}, ) {
     var usuarios = await models.sequelize.query(
         "   SELECT "  +
         "       us.rut_usuario, "  +
-        "       us.usuario,"  +
+        "       us.usuario, "  +
         "       us.nombre, "  +
         "       us.avatar, "  +
         "       us.ruta_avatar "  +
@@ -81,6 +81,7 @@ export async function traer_todos() {
         "       pa.nombre AS pais,  " +
         "       u.id_pais,  " +
         "       u.nombre_empresa,   " +
+        "       u.cargo,   " +
         "       u.producto_empresa, " +
         "       u.universidad,  " +
         "       u.carrera,  " +
@@ -96,7 +97,7 @@ export async function traer_todos() {
             type: QueryTypes.SELECT
         }
     )
-    console.log(usuarios)
+    // console.log(usuarios)
 	return usuarios
 }
 export async function getAll(parentValue,{}) {
@@ -155,14 +156,14 @@ export async function actualizar_usuario(parent,{ usuario_id, email,id_perfil,no
     var editar = {
         usuario_id, email,id_perfil,nombre,telefono,id_pais,nombre_empresa,cargo,producto_empresa,universidad,carrera,suscrito_mail,estado
     }
-    await models.Usuario.update(editar, { where: { uuid_usuario } }).then(act => {
+    await models.Usuario.update(editar, { where: { usuario_id } }).then(act => {
         actualizado = true
     }).catch(err => {
         console.log(err)
         error = err
     })
 	if(actualizado){
-		return { editado: actualizado }
+		return { actualizado}
 	}
 	else{
 		throw new Error(`Error al actualizar usuario ` + error)

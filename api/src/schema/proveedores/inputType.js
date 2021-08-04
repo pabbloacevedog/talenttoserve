@@ -24,8 +24,11 @@ const ProveedorList = new GraphQLInputObjectType ({
         web: {
             type: GraphQLString
         },
-        categoria: {
+        nombre_categoria: {
             type: GraphQLString
+        },
+        categoria: {
+            type: GraphQLInt
         },
         descripcion: {
             type: GraphQLString

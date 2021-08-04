@@ -30,15 +30,31 @@ export const GET_OP_TRABAJO_QUERY = gql`
 //espacio definido para las mutaciones, las mutaciones son consultas tipo "update o delete"
 // 			<-------------- MUTACIONES -------------->
 export const CREAR_OP_TRABAJO_MUTATION = gql`
-    mutation createOpTrabajo($cargo: String!, $descripcion: String!, $link: String!, $hotel: String!, $web: String!,$banner: String!,$estado: Boolean!){
-        createOpTrabajo(cargo: $cargo,descripcion: $descripcion,link: $link,hotel: $hotel,web: $web,banner: $banner,estado: $estado){
+    mutation createOpTrabajo(
+        $cargo: String!, 
+        $descripcion: String!, 
+        $link: String!, 
+        $hotel: String!, 
+        $web: String!,
+        $file: Upload!, 
+        $estado: Boolean!
+        ){
+        createOpTrabajo(
+            cargo: $cargo,
+            descripcion: $descripcion,
+            link: $link,
+            hotel: $hotel,
+            web: $web,
+            file: $file,
+            estado: $estado
+            ){
             creado
         }
     }
 `
 export const EDITAR_OP_TRABAJO_MUTATION = gql`
-    mutation editOpTrabajo($codigo: Int!, $cargo: String!, $descripcion: String!, $link: String!, $hotel: String!,$web: String!,$banner: String!, $estado: Boolean!){
-        editOpTrabajo(codigo:$codigo, cargo: $cargo,descripcion: $descripcion,link: $link,hotel: $hotel,web: $web,banner: $banner,estado: $estado){
+    mutation editOpTrabajo($codigo: Int!, $cargo: String!, $descripcion: String!, $link: String!, $hotel: String!,$web: String!,$file: Upload!,  $estado: Boolean!){
+        editOpTrabajo(codigo:$codigo, cargo: $cargo,descripcion: $descripcion,link: $link,hotel: $hotel,web: $web,file: $file,estado: $estado){
             editado
         }
     }

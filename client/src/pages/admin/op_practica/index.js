@@ -281,6 +281,7 @@ export default Vue.component('OpPractica', {
         },
         async guardar_eliminar(){
             this.$q.loading.show()
+            this.parametros_tabla.selected.forEach(element =>delete element.__typename)
             await this.$store.dispatch("OpPractica/eliminarOpPractica", { id:this.parametros_tabla.selected}).then(res => {
                 this.$q.loading.hide()
                 if(this.error){

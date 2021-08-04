@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import {getUserFromToken} from '@utils/authService'
 import { mapGetters } from 'vuex'
+import CryptoJS from 'crypto-js'
+
 export default Vue.component('Usuario', {
     $validates: 1,
     components:{
@@ -8,9 +10,12 @@ export default Vue.component('Usuario', {
     },
 	data () {
 		return {
+            isPwd: true,
             img:'/statics/login.jpg',
             nuevo_email : '',
+            nuevo_password: '',
             nuevo_id_perfil   : '',
+            nuevo_perfil   : '',
             nuevo_nombre      : '',
             nuevo_telefono    : '',
             nuevo_id_pais     : '',
@@ -52,7 +57,7 @@ export default Vue.component('Usuario', {
             parametros_tabla:{
                 tittle: 'Usuarios',
                 acciones:[
-                    { accion: 'Eliminar', icon: 'delete', cmd: 'eliminar'},
+                    // { accion: 'Eliminar', icon: 'delete', cmd: 'eliminar'},
                     { accion: 'Editar', icon: 'update', cmd: 'editar' },
                 ],
                 navigationActive: false,
@@ -75,6 +80,7 @@ export default Vue.component('Usuario', {
                   { name: 'telefono', align: 'center', label: 'Telefono', field: 'telefono', sortable: true },
                   { name: 'pais', align: 'center', label: 'País', field: 'pais', sortable: true },
                   { name: 'nombre_empresa', align: 'center', label: 'Empresa', field: 'nombre_empresa', sortable: true },
+                  { name: 'cargo', align: 'center', label: 'Cargo', field: 'cargo', sortable: true },
                   { name: 'producto_empresa', align: 'center', label: 'Producto', field: 'producto_empresa', sortable: true },
                   { name: 'universidad', align: 'center', label: 'Universidad', field: 'universidad', sortable: true },
                   { name: 'carrera', align: 'center', label: 'Carrera', field: 'carrera', sortable: true },
@@ -85,14 +91,28 @@ export default Vue.component('Usuario', {
                 ],
             },
             funciones:  {
-                eliminar: this.eliminar,
+                // eliminar: this.eliminar,
                 editar: this.editar,
                 editar_fila: this.editar_fila,
                 iniciar: this.iniciar
             },
+            select_perfil:[
+			],
+            select_pais:[],
+            select_cargo:[],
             estados: [
 				{
 				label: 'Activo',
+				value: true
+				},
+				{
+				label: 'Inactivo',
+				value: false
+				}
+			],
+            estados_suscrito: [
+				{
+				label: 'Suscrito',
 				value: true
 				},
 				{
@@ -105,6 +125,7 @@ export default Vue.component('Usuario', {
 	computed: {
 		...mapGetters({ 
             dataUsuario: "Usuario/getData", 
+            dataSelector: "Usuario/getSelector", 
             registro_creado: "Usuario/getCreado",
             registro_editado: "Usuario/getEditado",
             registro_eliminado: "Usuario/getEliminado",
@@ -133,17 +154,59 @@ export default Vue.component('Usuario', {
 			}).catch(err => {
 				console.log(err)
 			})
+
+        },
+        async selectores(){
+            this.select_cargo = await this.getSelector('cargo')
+            this.select_pais = await this.getSelector('pais')
+            this.select_perfil = await this.getSelector('perfil')
+            
+            console.log('select_perfil',this.select_perfil)
+        },
+        async getSelector (tipo) {
+            var retorno = []
+            this.$q.loading.show()
+			await this.$store.dispatch("Usuario/cargarSelector",{tipo}).then(res => {
+				this.$q.loading.hide()
+				if(this.error){
+					var message = this.error.message.replace('GraphQL error: ','')
+					this.$q.notify({
+						message: message,
+						timeout: 3000,
+						type: 'negative',// Available values: 'positive', 'negative', 'warning', 'info'
+						position: 'bottom',
+						icon: 'report_problem'
+					})
+				}
+				else{
+                    // console.log('dataSelector',this.dataSelector)
+                    retorno = this.dataSelector
+				}
+			}).catch(err => {
+				console.log(err)
+			})
+            return retorno
         },
         editar(){
             if(this.parametros_tabla.selected.length == 1){
                 this.editar_usuario_id = this.parametros_tabla.selected[0].usuario_id
                 this.editar_email = this.parametros_tabla.selected[0].email
-                this.editar_id_perfil = this.parametros_tabla.selected[0].id_perfil
+                this.editar_id_perfil = {
+                    value: this.parametros_tabla.selected[0].id_perfil, 
+                    label: this.parametros_tabla.selected[0].perfil
+                }
                 this.editar_nombre = this.parametros_tabla.selected[0].nombre
                 this.editar_telefono = this.parametros_tabla.selected[0].telefono
-                this.editar_id_pais = this.parametros_tabla.selected[0].id_pais
+            
+                this.editar_id_pais = {
+                    value: this.parametros_tabla.selected[0].id_pais, 
+                    label: this.parametros_tabla.selected[0].pais
+                }
                 this.editar_nombre_empresa = this.parametros_tabla.selected[0].nombre_empresa
-                this.editar_cargo = this.parametros_tabla.selected[0].cargo
+                this.editar_cargo = {
+                    value: this.parametros_tabla.selected[0].cargo, 
+                    label: this.parametros_tabla.selected[0].cargo
+                }
                 this.editar_producto_empresa = this.parametros_tabla.selected[0].producto_empresa
                 this.editar_universidad = this.parametros_tabla.selected[0].universidad
                 this.editar_carrera = this.parametros_tabla.selected[0].carrera
@@ -187,23 +250,32 @@ export default Vue.component('Usuario', {
             }
         },
         editar_fila(id){
-            debugger
-            for (let index = 0; index < this.parametros_tabla.data.length; index++) {
-                const element = this.parametros_tabla.data[index].usuario_id;
-                if(id == element)
+            this.parametros_tabla.data.forEach(element => {
+                if(id == element.usuario_id)
                 {
-                    this.editar_usuario_id = this.parametros_tabla.data[index].usuario_id
-                    this.editar_email = this.parametros_tabla.data[index].email
-                    this.editar_id_perfil = this.parametros_tabla.data[index].id_perfil
-                    this.editar_nombre = this.parametros_tabla.data[index].nombre
-                    this.editar_telefono = this.parametros_tabla.data[index].telefono
-                    this.editar_id_pais = this.parametros_tabla.data[index].id_pais
-                    this.editar_nombre_empresa = this.parametros_tabla.data[index].nombre_empresa
-                    this.editar_cargo = this.parametros_tabla.data[index].cargo
-                    this.editar_producto_empresa = this.parametros_tabla.data[index].producto_empresa
-                    this.editar_universidad = this.parametros_tabla.data[index].universidad
-                    this.editar_carrera = this.parametros_tabla.data[index].carrera
-                    if(this.parametros_tabla.data[index].suscrito_mail){
+                    this.editar_usuario_id = element.usuario_id
+                    this.editar_email = element.email
+                    this.editar_id_perfil = {
+                        value: element.id_perfil, 
+                        label: element.perfil
+                    }
+                    this.editar_nombre = element.nombre
+                    this.editar_telefono = element.telefono
+                    this.editar_id_pais = {
+                        value: element.id_pais, 
+                        label: element.pais
+                    }
+                    this.editar_nombre_empresa = element.nombre_empresa
+                    // debugger
+                    // this.editar_cargo = element.cargo
+                    this.editar_cargo = {
+                        value: element.cargo,
+                        label: element.cargo
+                    }
+                    this.editar_producto_empresa = element.producto_empresa
+                    this.editar_universidad = element.universidad
+                    this.editar_carrera = element.carrera
+                    if(element.suscrito_mail){
                         this.editar_suscrito_mail = {
                             label: 'Suscrito',
                             value: true
@@ -215,7 +287,7 @@ export default Vue.component('Usuario', {
                             value: false
                         }
                     }
-                    if(this.parametros_tabla.data[index].estado){
+                    if(element.estado){
                         this.editar_estado = {
                             label: 'Activo',
                             value: true
@@ -229,25 +301,81 @@ export default Vue.component('Usuario', {
                     }
                     this.modal_editar = true
                 }
-            }
+            });
+            // for (let index = 0; index < this.parametros_tabla.data.length; index++) {
+            //     const element = this.parametros_tabla.data[index].usuario_id;
+            //     if(id == element)
+            //     {
+            //         this.editar_usuario_id = this.parametros_tabla.data[index].usuario_id
+            //         this.editar_email = this.parametros_tabla.data[index].email
+            //         this.editar_id_perfil = this.parametros_tabla.data[index].id_perfil
+            //         this.editar_nombre = this.parametros_tabla.data[index].nombre
+            //         this.editar_telefono = this.parametros_tabla.data[index].telefono
+            //         this.editar_id_pais = this.parametros_tabla.data[index].id_pais
+            //         this.editar_nombre_empresa = this.parametros_tabla.data[index].nombre_empresa
+            //         this.editar_cargo = this.parametros_tabla.data[index].cargo
+            //         this.editar_producto_empresa = this.parametros_tabla.data[index].producto_empresa
+            //         this.editar_universidad = this.parametros_tabla.data[index].universidad
+            //         this.editar_carrera = this.parametros_tabla.data[index].carrera
+            //         if(this.parametros_tabla.data[index].suscrito_mail){
+            //             this.editar_suscrito_mail = {
+            //                 label: 'Suscrito',
+            //                 value: true
+            //             }
+            //         }
+            //         else{
+            //             this.editar_suscrito_mail = {
+            //                 label: 'Inactivo',
+            //                 value: false
+            //             }
+            //         }
+            //         if(this.parametros_tabla.data[index].estado){
+            //             this.editar_estado = {
+            //                 label: 'Activo',
+            //                 value: true
+            //             }
+            //         }
+            //         else{
+            //             this.editar_estado = {
+            //                 label: 'Inactivo',
+            //                 value: false
+            //             }
+            //         }
+            //         this.modal_editar = true
+            //     }
+            // }
         },
         async guardar_editar(){
 			this.$q.loading.show()
-            const {editar_usuario_id,editar_email,editar_id_perfil,editar_nombre,editar_telefono,editar_id_pais,editar_nombre_empresa,editar_cargo,editar_producto_empresa,editar_universidad,editar_carrera,editar_suscrito_mail,editar_estado} = this
+            const {
+                editar_usuario_id,
+                editar_email,
+                editar_id_perfil,
+                editar_nombre,
+                editar_telefono,
+                editar_id_pais,
+                editar_nombre_empresa,
+                editar_cargo,
+                editar_producto_empresa,
+                editar_universidad,
+                editar_carrera,
+                editar_suscrito_mail,
+                editar_estado
+            } = this
             var est = editar_estado.value
             await this.$store.dispatch("Usuario/editarUsuario", { 
                 usuario_id : editar_usuario_id,
                 email : editar_email,
-                id_perfil : editar_id_perfil,
+                id_perfil : parseInt(editar_id_perfil.value),
                 nombre : editar_nombre,
                 telefono : editar_telefono,
-                id_pais : editar_id_pais,
+                id_pais : parseInt(editar_id_pais.value),
                 nombre_empresa : editar_nombre_empresa,
-                cargo : editar_cargo,
+                cargo : editar_cargo.label,
                 producto_empresa : editar_producto_empresa,
                 universidad : editar_universidad,
                 carrera : editar_carrera,
-                suscrito_mail : editar_suscrito_mail,
+                suscrito_mail : editar_suscrito_mail.value,
                 estado : est
             }).then(res => {
                 console.log(res)
@@ -279,6 +407,7 @@ export default Vue.component('Usuario', {
             }).catch(err => {
                 console.log(err)
             })
+            await this.iniciar()
             // if(this.registro_editado){
             //     await this.iniciar()
             // }
@@ -329,21 +458,36 @@ export default Vue.component('Usuario', {
         },
         async guardar_nuevo() {
 			this.$q.loading.show()
-            const {nuevo_usuario_id,nuevo_email,nuevo_id_perfil,nuevo_nombre,nuevo_telefono,nuevo_id_pais,nuevo_nombre_empresa,nuevo_cargo,nuevo_producto_empresa,nuevo_universidad,nuevo_carrera,nuevo_suscrito_mail,nuevo_estado} = this
+            const {
+                nuevo_email,
+                nuevo_perfil,
+                nuevo_nombre,
+                nuevo_password,
+                nuevo_telefono,
+                nuevo_id_pais,
+                nuevo_nombre_empresa,
+                nuevo_cargo,
+                nuevo_producto_empresa,
+                nuevo_universidad,
+                nuevo_carrera,
+                nuevo_estado
+            } = this
+            var pass = process.env.PASSPHRASE;
+            var encrypted = CryptoJS.AES.encrypt(nuevo_password, pass);
             var est = nuevo_estado.value
             await this.$store.dispatch("Usuario/crearUsuario", { 
-                usuario_id : nuevo_usuario_id,
                 email : nuevo_email,
-                id_perfil : nuevo_id_perfil,
+                id_perfil : parseInt(nuevo_perfil.value),
                 nombre : nuevo_nombre,
+                password: encrypted.toString(),
                 telefono : nuevo_telefono,
-                id_pais : nuevo_id_pais,
+                id_pais : parseInt(nuevo_id_pais.value),
                 nombre_empresa : nuevo_nombre_empresa,
-                cargo : nuevo_cargo,
+                cargo : nuevo_cargo.label,
                 producto_empresa : nuevo_producto_empresa,
                 universidad : nuevo_universidad,
                 carrera : nuevo_carrera,
-                suscrito_mail : nuevo_suscrito_mail,
+                suscrito_mail : true,
                 estado : est
             }).then(res => {
                 this.$q.loading.hide()
@@ -372,6 +516,7 @@ export default Vue.component('Usuario', {
             }).catch(err => {
                 console.log(err)
             })
+            await this.iniciar()
         },
         eliminar(){
             // //replace
@@ -390,6 +535,7 @@ export default Vue.component('Usuario', {
         },
         async guardar_eliminar(){
             this.$q.loading.show()
+            this.parametros_tabla.selected.forEach(element =>delete element.__typename)
             await this.$store.dispatch("Usuario/eliminarUsuario", { id:this.parametros_tabla.selected}).then(res => {
                 this.$q.loading.hide()
                 if(this.error){
@@ -423,6 +569,7 @@ export default Vue.component('Usuario', {
             }).catch(err => {
                 console.log(err)
             })
+            await this.iniciar()
         },
         solo_numeros(e){
             var key = e.keyCode || e.which;
@@ -487,40 +634,41 @@ export default Vue.component('Usuario', {
 	},
     watch: {
         'modal_nuevo': function () {
+            
             if(this.modal_nuevo){
-                var element = document.getElementById("q-app");
-                element.classList.add("modal-open");
+                this.selectores()
+                console.log('select',this.select_perfil)
+                // var element = document.getElementById("q-app");
+                // element.classList.add("modal-open");
             }
-            else{
-                var element = document.getElementById("q-app");
-                element.classList.remove("modal-open");
-                this.parametros_tabla.data.length = 0
-                // this.iniciar()
-            }
+            // else{
+            //     // var element = document.getElementById("q-app");
+            //     // element.classList.remove("modal-open");
+            //     // this.parametros_tabla.data.length = 0
+            //     // this.iniciar()
+            // }
         },
         'modal_editar': function () {
             if(this.modal_editar){
-                var element = document.getElementById("q-app");
-                element.classList.add("modal-open");
+                this.selectores()
             }
-            else{
-                var element = document.getElementById("q-app");
-                element.classList.remove("modal-open");
-                this.parametros_tabla.data.length = 0
-                // this.iniciar()
-            }
+            // else{
+
+            //     // this.parametros_tabla.data.length = 0
+            //     // this.iniciar()
+            // }
         },
         'modal_eliminar': function () {
-            if(this.modal_eliminar){
-                var element = document.getElementById("q-app");
-                element.classList.add("modal-open");
-            }
-            else{
-                var element = document.getElementById("q-app");
-                element.classList.remove("modal-open");
-                this.parametros_tabla.data.length = 0
-                // this.iniciar()
-            }
+            // if(this.modal_eliminar){
+            //     var element = document.getElementById("q-app");
+            //     element.classList.add("modal-open");
+            // }
+            // else{
+            //     var element = document.getElementById("q-app");
+            //     element.classList.remove("modal-open");
+            //     // this.parametros_tabla.data.length = 0
+            //     // this.iniciar()
+            // }
         },
     }
 

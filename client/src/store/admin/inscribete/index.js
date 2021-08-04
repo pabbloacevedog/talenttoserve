@@ -30,12 +30,14 @@ const actions = {
 	},
     async crearInscribete({commit}, credenciales) {
 		commit('CREAR')
-        debugger
-		const {titulo, descripcion , link, boton, banner,estado } = credenciales
+        
+		const {titulo, descripcion , link, boton, file,estado } = credenciales
+        // debugger
 		await this.$apollo.defaultClient.mutate({
 			mutation: CREAR_INSCRIBETE_MUTATION,
-			variables: {titulo, descripcion , link, boton, banner,estado }
+			variables: {titulo, descripcion , link, boton, file,estado }
 		}).then(response => {
+            // debugger
 			const datos = response.data.createInscribete.creado
 			commit('CREAR_SUCCESS', datos)
 		}).catch(response => {
@@ -45,10 +47,10 @@ const actions = {
     },
     async editarInscribete({commit}, credenciales) {
 		commit('EDITAR')
-		const {codigo, titulo, descripcion , link, boton, banner, estado } = credenciales
+		const {codigo, titulo, descripcion , link, boton, file, estado } = credenciales
 		await this.$apollo.defaultClient.mutate({
 			mutation: EDITAR_INSCRIBETE_MUTATION,
-			variables: {codigo, titulo, descripcion ,link, boton, banner, estado }
+			variables: {codigo, titulo, descripcion ,link, boton, file, estado }
 		}).then(response => {
 			const datos = response.data.editInscribete.editado
 			commit('EDITAR_SUCCESS', datos)

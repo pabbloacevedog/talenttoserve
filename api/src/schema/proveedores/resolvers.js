@@ -1,5 +1,7 @@
 // App Imports
 import models from '../../models'
+import seq from 'sequelize';
+const { QueryTypes } = seq;
 // Get users by ID
 export async function getById(parentValue, {codigo}) {
 	return await models.Proveedor.findOne({ where: { codigo } })
@@ -7,24 +9,45 @@ export async function getById(parentValue, {codigo}) {
 
 // Get all users
 export async function getAll(parentValue, {}) {
-    console.log('getAll', models)
-	return await models.Proveedor.findAll({order: [
-        ['codigo', 'DESC']
-    ],})
+    return await models.sequelize.query(
+        "   SELECT   " +
+        "      u.codigo,    " +
+        "      u.proveedor,    " +
+        "      u.direccion,    " +
+        "      u.telefono,     " +
+        "      u.email, " +
+        "      u.web, " +
+        "      pe.nombre AS nombre_categoria,   " +
+        "      u.categoria, " +
+        "      u.descripcion, " +
+        "      u.banner, " +
+        "      u.estado     " +
+        "   FROM     " +
+        "      proveedor u    " +
+        "          left JOIN   " +
+        "      categoria pe ON u.categoria = pe.codigo  " +
+        "      order by u.codigo desc  " ,
+        {
+            type: QueryTypes.SELECT
+        }
+    )
 }
 // Delete user
 export async function remove({codigo}) {
 	return await models.Proveedor.destroy({where: {codigo}})
 }
 // Create user
-export async function create(parentValue,{ proveedor,direccion, telefono, email, web, categoria, descripcion, banner, estado  }) {
+export async function create(parentValue,{ proveedor,direccion, telefono, email, web, categoria, descripcion, file, estado  },{ storeUpload }) {
     var create = false
     var error = ''
-    let codigo = 0
-	await models.Proveedor.create({
-        proveedor,direccion, telefono, email, web, categoria, descripcion, banner,
-	}).then(proveedor => {
-		codigo = proveedor.codigo
+    var banner = ''
+    if(typeof file=== 'object'){
+        banner = await storeUpload(file)
+    }
+    console.log('banner',banner)
+    var crear = {proveedor,direccion, telefono, email, web, categoria, descripcion, banner,estado}
+    console.log('crear',crear)
+	await models.Proveedor.create(crear).then(proveedor => {
         create = true
         
 	}).catch(err => {
@@ -39,9 +62,14 @@ export async function create(parentValue,{ proveedor,direccion, telefono, email,
 		throw new Error(`Error al crear el proveedor ` + error)
 	}
 }
-export async function edit(parentValue,{ codigo,proveedor,direccion, telefono, email, web, categoria, descripcion, banner, estado }) {
+export async function edit(parentValue,{ codigo,proveedor,direccion, telefono, email, web, categoria, descripcion, file, estado },{ storeUpload }) {
     var editado = false
     var error = ''
+    var banner = ''
+    if(typeof file=== 'object'){
+        banner = await storeUpload(file)
+    }
+    console.log('banner',banner)
     var editar = {
         proveedor,direccion, telefono, email, web, categoria, descripcion, banner, estado
     }

@@ -65,7 +65,7 @@ const UsuarioList = new GraphQLInputObjectType ({
         codigo:{
             type: UsuarioList
         },
-        editado:{
+        actualizado:{
 			type: GraphQLBoolean
         },
         users:{

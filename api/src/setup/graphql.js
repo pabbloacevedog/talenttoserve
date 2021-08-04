@@ -3,12 +3,10 @@ import config from '../config/config.json'
 import { ApolloServer} from 'apollo-server-express'
 import { PubSub } from 'apollo-server';
 import fs ,{ createWriteStream, unlink } from 'fs'
-import { SubscriptionServer } from 'subscriptions-transport-ws';
-import { execute, subscribe } from 'graphql';
 // import { PubSub } from 'apollo-server-express';
 let pubsub = new PubSub();
 import mkdirp from 'mkdirp'
-const UPLOAD_DIR = './public/posts';
+const UPLOAD_DIR = './public/banner';
 const MESSAGE_DIR = './public/messages';
 const AVATAR_DIR = './public/profile/avatar';
 // App Imports
@@ -22,117 +20,17 @@ if (!fs.existsSync(UPLOAD_DIR)){
 
 const storeUpload = async (upload) => {
 	try{
-		const { createReadStream, filename, mimetype } = await upload.file;
-		var uuid_user = upload.uuid_user
-		var id_post = upload.id_post
-		var name = upload.name
+        console.log('upload',upload)
+        debugger
+		const { createReadStream, filename, mimetype } = await upload;
+		var name = filename
 		const stream = createReadStream();
-		const carpet = `${UPLOAD_DIR}/${uuid_user}`;
-		const carpetPost = `${UPLOAD_DIR}/${uuid_user}/${id_post}`;
+		const carpet = `${UPLOAD_DIR}`;
 		if (!fs.existsSync(carpet)){
 			mkdirp.sync(carpet);
 		}
-		if (!fs.existsSync(carpetPost)){
-			mkdirp.sync(carpetPost);
-		}
-
-		const path = `${carpetPost}/${name}`;
-		// Store the file in the filesystem.
-		await new Promise((resolve, reject) => {
-		// Create a stream to which the upload will be written.
-		const writeStream = createWriteStream(path);
-
-			// When the upload is fully written, resolve the promise.
-			writeStream.on('finish', resolve);
-
-			// If there's an error writing the file, remove the partially written file
-			// and reject the promise.
-			writeStream.on('error', (error) => {
-				unlink(path, () => {
-				reject(error);
-				});
-			});
-			// In node <= 13, errors are not automatically propagated between piped
-			// streams. If there is an error receiving the upload, destroy the write
-			// stream with the corresponding error.
-			stream.on('error', (error) => writeStream.destroy(error));
-			// Pipe the upload into the write stream.
-			stream.pipe(writeStream);
-		});
-		return filename;
-	}
-	catch (error) {
-		console.error(error);
-		// expected output: ReferenceError: nonExistentFunction is not defined
-		// Note - error messages will vary depending on browser
-		return error;
-	}
-	
-
-};
-const messageUpload = async (upload) => {
-	try{
-		const { createReadStream, filename, mimetype } = await upload.file;
-		var uuid_user = upload.uuid_user
-		var id_message = upload.id_message
-		var name = upload.name
-		const stream = createReadStream();
-		const carpet = `${MESSAGE_DIR}/${uuid_user}`;
-		const carpetMessage = `${MESSAGE_DIR}/${uuid_user}/${id_message}`;
-		if (!fs.existsSync(carpet)){
-			mkdirp.sync(carpet);
-		}
-		if (!fs.existsSync(carpetMessage)){
-			mkdirp.sync(carpetMessage);
-		}
-
-		const path = `${carpetMessage}/${name}`;
-		// Store the file in the filesystem.
-		await new Promise((resolve, reject) => {
-		// Create a stream to which the upload will be written.
-		const writeStream = createWriteStream(path);
-
-			// When the upload is fully written, resolve the promise.
-			writeStream.on('finish', resolve);
-
-			// If there's an error writing the file, remove the partially written file
-			// and reject the promise.
-			writeStream.on('error', (error) => {
-				unlink(path, () => {
-				reject(error);
-				});
-			});
-			// In node <= 13, errors are not automatically propagated between piped
-			// streams. If there is an error receiving the upload, destroy the write
-			// stream with the corresponding error.
-			stream.on('error', (error) => writeStream.destroy(error));
-			// Pipe the upload into the write stream.
-			stream.pipe(writeStream);
-		});
-		return filename;
-	}
-	catch (error) {
-		console.error(error);
-		// expected output: ReferenceError: nonExistentFunction is not defined
-		// Note - error messages will vary depending on browser
-		return error;
-	}
-	
-
-};
-const avatarUpload = async (upload) => {
-	try{
-		const { createReadStream, filename, mimetype } = await upload.file;
-		var uuid_user = upload.uuid_user
-		var name = upload.name
-		const stream = createReadStream();
-        const carpet = `${AVATAR_DIR}/${uuid_user}`;
-        
-		if (!fs.existsSync(carpet)){
-			mkdirp.sync(carpet);
-		}
-
 		const path = `${carpet}/${name}`;
+        const path_bd = `banner/${name}`;
 		// Store the file in the filesystem.
 		await new Promise((resolve, reject) => {
 		// Create a stream to which the upload will be written.
@@ -155,7 +53,7 @@ const avatarUpload = async (upload) => {
 			// Pipe the upload into the write stream.
 			stream.pipe(writeStream);
 		});
-		return filename;
+		return path_bd;
 	}
 	catch (error) {
 		console.error(error);
@@ -163,9 +61,11 @@ const avatarUpload = async (upload) => {
 		// Note - error messages will vary depending on browser
 		return error;
 	}
-
+	
 
 };
+
+
 const autoCall = async (fn, ...context) =>{
     if (typeof fn === 'function') {
         return fn(...context)
@@ -183,10 +83,10 @@ export default function (server, httpServer) {
 			// https://github.com/jaydenseric/graphql-upload#type-processrequestoptions
 			maxFileSize: 5000000000, // 10 MB
             maxFieldSize: 5000000000,
-			// maxFiles: 20,
+			maxFiles: 20,
 		},
         schema,
-        context: { storeUpload, avatarUpload, messageUpload, pubsub },
+        context: { storeUpload, pubsub },
         // playground: {
         //     endpoint: '/graphql',
         //     subscriptionEndpoint: `ws://localhost:${config.port}/subscriptions`,
