@@ -46,7 +46,7 @@ export async function create(parentValue,{ cargo, descripcion, link, hotel,web,f
 export async function edit(parentValue,{codigo, cargo, descripcion, link, hotel, web,file,estado }, { storeUpload }) {
     var editado = false
     var error = ''
-    var banner = ''
+    var banner = file
     if(typeof file=== 'object'){
         banner = await storeUpload(file)
     }

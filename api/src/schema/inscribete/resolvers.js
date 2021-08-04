@@ -22,7 +22,7 @@ export async function create(parentValue,{ titulo, descripcion, link, boton, fil
     var error = ''
     console.log('file',file)
     console.log('titulo',titulo)
-        var banner = ''
+    var banner = ''
     if(typeof file=== 'object'){
         banner = await storeUpload(file)
     }
@@ -47,7 +47,7 @@ export async function create(parentValue,{ titulo, descripcion, link, boton, fil
 export async function edit(parentValue,{ codigo, titulo, descripcion, link, boton, file, estado  },{ storeUpload }) {
     var editado = false
     var error = ''
-    var banner = ''
+    var banner = file
     if(typeof file=== 'object'){
         banner = await storeUpload(file)
     }
