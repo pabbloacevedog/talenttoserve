@@ -1,11 +1,18 @@
-import {LOGIN_QUERY,GET_ALL_PASS_USERS,UPDATE_PASSWORD_USER_MUTATION} from './consultas'
+import {LOGIN_QUERY,
+    // GET_ALL_PASS_USERS,UPDATE_PASSWORD_USER_MUTATION
+
+} from './consultas'
 import {getUserFromToken} from '@utils/authService'
 import {crearRouter, crearRutas} from '@utils/crearRouter'
+import CryptoJS from 'crypto-js'
 var routers = []
 var rutes= []
-
+// var pass = process.env.PASSPHRASE;
+var isadmin = localStorage.getItem("perm")
+var isdm = isadmin ? CryptoJS.AES.decrypt(isadmin, process.env.PASSPHRASE) : false
 const state = {
     isLogin: !!localStorage.getItem("token"),
+    isAdmin: isdm,
     error: null,
     pending: false,
     editado:false,
@@ -15,7 +22,6 @@ const state = {
     allPass:{},
 	avatar:''
 }
-
 const actions = {
 
     async login({commit}, credenciales) {
@@ -29,6 +35,7 @@ const actions = {
 				password
 			}
 		}).then(response => {
+
 			const token = response.data.userLogin.token
             console.log('token', token)
             const data = getUserFromToken(token)
@@ -39,12 +46,18 @@ const actions = {
 			const rutas = data.routers
 			rutes = crearRutas(rutas)
             if(user.id_perfil == 1){
-                localStorage.setItem('isAdmin', true)
+                var enc_perm = CryptoJS.AES.encrypt(true, pass);
+                localStorage.setItem('perm', enc_perm)
             }
+            
+            var enc_path_default = CryptoJS.AES.encrypt(user.path_default, pass);
+            localStorage.setItem('path_default', enc_path_default)
 			localStorage.removeItem("token")
-			localStorage.removeItem("rutas")
-			localStorage.setItem('rutas', JSON.stringify(rutes))
-			localStorage.setItem('menu', JSON.stringify(rutas))
+			// localStorage.removeItem("rutas")
+            var enc_rutes = CryptoJS.AES.encrypt(rutes, pass);
+			localStorage.setItem('rutas', JSON.stringify(enc_rutes))
+            var enc_rutas = CryptoJS.AES.encrypt(rutas, pass);
+			localStorage.setItem('menu', JSON.stringify(enc_rutas))
 			routers = crearRouter(rutas)
 			this.$router.addRoutes(routers)
             // localStorage.setItem('ss_u', user.usuario_id)
@@ -56,56 +69,40 @@ const actions = {
 			commit('LOGIN_ERROR', response)
 		})
     },
-    // async SetNewPass ({commit}, credenciales) {
+    // async SetNewPass({commit}, credenciales) {
 	// 	commit('UPDATEPASS')
 	// 	var users = credenciales.users
-    //     debugger
 	// 	await this.$apollo.defaultClient.mutate({
-	// 		query: UPDATE_PASSWORD_USER_MUTATION,
-	// 		variables: {
-	// 			users
-	// 		}
+	// 		mutation: UPDATE_PASSWORD_USER_MUTATION,
+	// 		variables: {users }
 	// 	}).then(response => {
-    //         debugger
-	// 		const editado = response.data.userLogin.editado
-	// 		commit('UPDATEPASS_SUCCESS', editado)
-
+	// 		const datos = response.data.updateUsers.editado
+	// 		commit('UPDATEPASS_SUCCESS', datos)
 	// 	}).catch(response => {
+	// 		console.log('response', response)
 	// 		commit('UPDATEPASS_ERROR', response)
 	// 	})
     // },
-    async SetNewPass({commit}, credenciales) {
-		commit('UPDATEPASS')
-		var users = credenciales.users
-		await this.$apollo.defaultClient.mutate({
-			mutation: UPDATE_PASSWORD_USER_MUTATION,
-			variables: {users }
-		}).then(response => {
-			const datos = response.data.updateUsers.editado
-			commit('UPDATEPASS_SUCCESS', datos)
-		}).catch(response => {
-			console.log('response', response)
-			commit('UPDATEPASS_ERROR', response)
-		})
-    },
-    async getPassUsers({commit}){
-        commit('GETPASS')
-		await this.$apollo.defaultClient.query({query: GET_ALL_PASS_USERS}).then(response => {
-			const allpass = response.data.Usuarios
-			commit('GETPASS_SUCCESS', allpass)
-		}).catch(response => {
-			commit('GETPASS_ERROR', response)
-		})
-    },
+    // async getPassUsers({commit}){
+    //     commit('GETPASS')
+	// 	await this.$apollo.defaultClient.query({query: GET_ALL_PASS_USERS}).then(response => {
+	// 		const allpass = response.data.Usuarios
+	// 		commit('GETPASS_SUCCESS', allpass)
+	// 	}).catch(response => {
+	// 		commit('GETPASS_ERROR', response)
+	// 	})
+    // },
     logout({commit}) {
 
         localStorage.removeItem("token")
+        localStorage.removeItem("path_default")
 		localStorage.removeItem("rutas")
 		localStorage.removeItem("isLoadNodes")
         localStorage.removeItem("menu")
         localStorage.removeItem("src_avatar")
         localStorage.removeItem("username")
         localStorage.removeItem("ss_u")
+        localStorage.removeItem("perm")
         commit('LOGOUT')
         location.reload();
     }
@@ -163,6 +160,9 @@ const mutations = {
 const getters = {
     isLogin: state => {
         return state.isLogin
+    },
+    isAdmin: state => {
+        return state.isAdmin
     },
     getAllPass: state => {
         return state.allPass

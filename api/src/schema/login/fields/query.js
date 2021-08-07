@@ -21,13 +21,13 @@ export const userLogin = {
     },
     resolve: login
 }
-export const userLoginGoogle = {
-    type: UserLoginType,
-    args: {
-        token: {
-            name: 'token',
-            type: GraphQLString
-        },
-    },
-    resolve: loginGoogle
-}
+// export const userLoginGoogle = {
+//     type: UserLoginType,
+//     args: {
+//         token: {
+//             name: 'token',
+//             type: GraphQLString
+//         },
+//     },
+//     resolve: loginGoogle
+// }

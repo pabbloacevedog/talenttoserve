@@ -13,6 +13,9 @@ const schema = {
     descripcion: {
 		type: seq.STRING(5000)
 	},
+    path_default:{ 
+        type:seq.STRING(500)
+    },
     estado: {
 		type: seq.INTEGER(1)
 	},
@@ -21,7 +24,7 @@ const  index =  {
     indexes:[
         {
             unique: false,
-            fields:['codigo']
+            fields:['id_perfil']
         }
     ]
 }

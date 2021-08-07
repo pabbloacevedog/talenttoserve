@@ -1,6 +1,7 @@
 // import Auth from '../layouts/auth/auth.vue'
 // import Registry from '../layouts/auth/registry/registry.vue'
 import Auth from '../layouts/auth/login.vue'
+// import Portada from '@/pages/web/portada/index.vue'
 import MostrarCortes from '../components/mostrar_cortes/index.vue'
 // import PhotoView from '../components/photo_view/index.vue'
 // import PhotoViewer from '../components/photo_viewer/index.vue'

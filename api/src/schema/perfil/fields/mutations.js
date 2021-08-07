@@ -30,6 +30,10 @@ export const createPerfil = {
 			name: 'descripcion',
 			type: GraphQLString
         },
+        path_default: {
+            name: 'path_default',
+            type: GraphQLString
+        },
         estado: {
 			name: 'estado',
 			type: GraphQLBoolean
@@ -55,6 +59,10 @@ export const editPerfil = {
 		descripcion: {
 			name: 'descripcion',
 			type: GraphQLString
+        },
+        path_default: {
+            name: 'path_default',
+            type: GraphQLString
         },
         estado: {
 			name: 'estado',

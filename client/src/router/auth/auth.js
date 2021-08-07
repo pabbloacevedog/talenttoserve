@@ -14,6 +14,9 @@ export default [
             if(!localStorage.getItem("token")){
                 next()
             }
+            else{
+                to("/")
+            }
 		}
 	},
 	{
@@ -23,6 +26,9 @@ export default [
 
 			if (!localStorage.getItem("token") ){
                 next()
+            }
+            else{
+                to("/")
             }
 		}
 	},
@@ -43,6 +49,9 @@ export default [
 		beforeEnter(to, from, next) {
 			if(!localStorage.getItem("token")){
                 next()
+            }
+            else{
+                to("/")
             }
 		}
 	}

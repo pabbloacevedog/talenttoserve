@@ -20,6 +20,9 @@ const UsuarioList = new GraphQLInputObjectType ({
         // passphrase: {
         //     type: GraphQLString
         // },
+        path_default: {
+            type: GraphQLString
+        },
         avatar: {
 			type: GraphQLString
 		},

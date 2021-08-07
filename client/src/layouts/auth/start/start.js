@@ -50,10 +50,9 @@ export default Vue.component('Login', {
 						position: 'bottom',
 						icon: 'done_all'
 					})
-                    let data = JSON.parse(localStorage.getItem('rutas'))
-
-					// location.reload();debugger
-					this.$router.push(data[0].path)
+                    var ruta = localStorage.getItem('path_default')
+                    if(ruta == null || ruta == '') {ruta = '/'}
+					this.$router.push(ruta)
 				}
 			}).catch(err => {
 				console.log(err)

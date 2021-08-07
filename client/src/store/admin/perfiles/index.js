@@ -62,10 +62,10 @@ const actions = {
 	},
     async crearPerfil({commit}, credenciales) {
 		commit('CREAR')
-		const {nombre, descripcion , estado ,rutas } = credenciales
+		const {nombre, descripcion , path_default, estado ,rutas } = credenciales
 		await this.$apollo.defaultClient.mutate({
 			mutation: CREAR_PERFIL_MUTATION,
-			variables: {nombre, descripcion , estado, rutas }
+			variables: {nombre, descripcion , path_default,estado, rutas }
 		}).then(response => {
 			const datos = response.data.createPerfil.creado
 			commit('CREAR_SUCCESS', datos)
@@ -76,10 +76,10 @@ const actions = {
     },
     async editarPerfil({commit}, credenciales) {
 		commit('EDITAR')
-		const {id_perfil, nombre, descripcion , estado, rutas } = credenciales
+		const {id_perfil, nombre, descripcion , path_default , estado, rutas } = credenciales
 		await this.$apollo.defaultClient.mutate({
 			mutation: EDITAR_PERFIL_MUTATION,
-			variables: {id_perfil, nombre, descripcion , estado, rutas }
+			variables: {id_perfil, nombre, descripcion , path_default, estado, rutas }
 		}).then(response => {
 			const datos = response.data.editPerfil.editado
 			commit('EDITAR_SUCCESS', datos)

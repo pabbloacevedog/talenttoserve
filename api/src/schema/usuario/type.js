@@ -18,9 +18,9 @@ const UsuarioType = new GraphQLObjectType({
         // password_new: {
         //     type: GraphQLString
         // },
-        // passphrase: {
-        //     type: GraphQLString
-        // },
+        path_default: {
+            type: GraphQLString
+        },
         avatar: {
 			type: GraphQLString
 		},

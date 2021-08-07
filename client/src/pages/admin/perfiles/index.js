@@ -11,6 +11,7 @@ export default Vue.component('Perfil', {
             img:'/statics/login.jpg',
             nuevo_nombre:'',
             nuevo_descripcion:'',
+            nuevo_path_default:'',
             nuevo_estado : 
                 {
                 label: 'Activo',
@@ -20,6 +21,7 @@ export default Vue.component('Perfil', {
             editar_id_perfil: '',
             editar_nombre:'',
             editar_descripcion:'',
+            editar_path_default:'',
             editar_estado : 
                 {
                 label: 'Activo',
@@ -46,6 +48,7 @@ export default Vue.component('Perfil', {
                 columns: [
                   { name: 'nombre', align: 'center', label: 'Nombre', field: 'nombre', sortable: true },
                   { name: 'descripcion', align: 'center', label: 'Descripción', field: 'descripcion', sortable: true },
+                  { name: 'path_default', align: 'center', label: 'Ruta por defecto', field: 'path_default', sortable: true },
                   { name: 'estado', align: 'center', label: 'Estado', field: 'estado' , sortable: true},
                 ],
                 data: [
@@ -69,7 +72,8 @@ export default Vue.component('Perfil', {
 				label: 'Inactivo',
 				value: false
 				}
-			]
+			],
+            select_path_default:[],
         }
 	},
 	computed: {
@@ -80,6 +84,7 @@ export default Vue.component('Perfil', {
             registro_creado: "Perfil/getCreado",
             registro_editado: "Perfil/getEditado",
             registro_eliminado: "Perfil/getEliminado",
+            dataSelector: "Usuario/getSelector", 
             error: "Perfil/error" , 
         })
 	},
@@ -155,6 +160,13 @@ export default Vue.component('Perfil', {
                 this.editar_id_perfil = this.parametros_tabla.selected[0].id_perfil
                 this.editar_nombre = this.parametros_tabla.selected[0].nombre
                 this.editar_descripcion = this.parametros_tabla.selected[0].descripcion
+                // this.editar_path_default = this.parametros_tabla.selected[0].path_default
+                if(this.parametros_tabla.selected[0].path_default != ''){
+                    this.editar_path_default = {
+                        label: this.parametros_tabla.selected[0].path_default,
+                        value: this.parametros_tabla.selected[0].path_default
+                    }
+                }
                 if(this.parametros_tabla.selected[0].estado){
                     this.editar_estado = {
                         label: 'Activo',
@@ -190,6 +202,13 @@ export default Vue.component('Perfil', {
                     this.editar_id_perfil = this.parametros_tabla.data[index].id_perfil
                     this.editar_nombre = this.parametros_tabla.data[index].nombre
                     this.editar_descripcion = this.parametros_tabla.data[index].descripcion
+                    // this.editar_path_default = this.parametros_tabla.data[index].path_default
+                    if(this.parametros_tabla.data[index].path_default != ''){
+                        this.editar_path_default = {
+                            label: this.parametros_tabla.data[index].path_default,
+                            value: this.parametros_tabla.data[index].path_default
+                        }
+                    }
                     if(this.parametros_tabla.data[index].estado){
                         this.editar_estado = {
                             label: 'Activo',
@@ -243,9 +262,16 @@ export default Vue.component('Perfil', {
         },
         async guardar_editar(){
 			this.$q.loading.show()
-            const {editar_nombre, editar_descripcion , editar_estado} = this
+            const {editar_nombre, editar_descripcion ,editar_path_default, editar_estado} = this
             var est = editar_estado.value
-            await this.$store.dispatch("Perfil/editarPerfil", { id_perfil : this.editar_id_perfil, nombre : editar_nombre, descripcion:editar_descripcion , estado:est , rutas:this.rutas_guardar}).then(res => {
+            await this.$store.dispatch("Perfil/editarPerfil", { 
+                id_perfil : this.editar_id_perfil, 
+                nombre : editar_nombre, 
+                descripcion:editar_descripcion , 
+                path_default:editar_path_default.value , 
+                estado:est , 
+                rutas:this.rutas_guardar
+            }).then(res => {
                 console.log(res)
                 this.$q.loading.hide()
                 if(this.error){
@@ -284,6 +310,7 @@ export default Vue.component('Perfil', {
             this.editar_id_perfil = ''
             this.editar_nombre = ''
             this.editar_descripcion = ''
+            this.editar_path_default = ''
             this.editar_estado = {
                 label: 'Activo',
                 value: true
@@ -294,6 +321,7 @@ export default Vue.component('Perfil', {
             this.nuevo_id_perfil = ''
             this.nuevo_nombre = ''
             this.nuevo_descripcion = ''
+            this.nuevo_path_default = ''
             this.nuevo_estado = {
                 label: 'Activo',
                 value: true
@@ -301,36 +329,66 @@ export default Vue.component('Perfil', {
 
         },
         async guardar_nuevo() {
-			this.$q.loading.show()
-            const {nuevo_nombre, nuevo_descripcion , nuevo_estado} = this
+			
+            const {nuevo_nombre, nuevo_descripcion ,nuevo_path_default, nuevo_estado} = this
             var est = nuevo_estado.value
-            await this.$store.dispatch("Perfil/crearPerfil", { nombre : nuevo_nombre, descripcion:nuevo_descripcion , estado:est ,rutas:this.rutas_guardar_nuevo}).then(res => {
-                this.$q.loading.hide()
-                if(this.error){
-                    var message = this.error.message.replace('GraphQL error: ','')
-                    this.$q.notify({
-                        message: message,
-                        timeout: 3000,
-                        type: 'negative',// Available values: 'positive', 'negative', 'warning', 'info'
-                        position: 'bottom',
-                        icon: 'report_problem'
-                    })
-                }
-                else{
-                    this.$q.notify({
-                        message: "Registro creado",
-                        timeout: 3000,
-                        type: 'positive',// Available values: 'positive', 'negative', 'warning', 'info'
-                        position: 'bottom',
-                        icon: 'done_all'
-                    })
-                    this.modal_nuevo = false
-                    this.limpiar_nuevo()
-                    // this.iniciar()
-                }
-            }).catch(err => {
-                console.log(err)
-            })
+            if(nuevo_nombre == ''){
+                this.$q.notify({
+                    message: 'El nombre es obligatorio',
+                    timeout: 3000,
+                    type: 'negative',// Available values: 'positive', 'negative', 'warning', 'info'
+                    position: 'bottom',
+                    icon: 'report_problem'
+                })
+            }
+            else if(nuevo_descripcion == ''){
+                this.$q.notify({
+                    message: 'Ingrese una descripción',
+                    timeout: 3000,
+                    type: 'negative',// Available values: 'positive', 'negative', 'warning', 'info'
+                    position: 'bottom',
+                    icon: 'report_problem'
+                })
+            }
+            else if(nuevo_path_default == '' || nuevo_path_default.length == 0){
+                this.$q.notify({
+                    message: 'Ingrese ruta por defecto',
+                    timeout: 3000,
+                    type: 'negative',// Available values: 'positive', 'negative', 'warning', 'info'
+                    position: 'bottom',
+                    icon: 'report_problem'
+                })
+            }
+            else{
+                this.$q.loading.show()
+                await this.$store.dispatch("Perfil/crearPerfil", { nombre : nuevo_nombre, descripcion:nuevo_descripcion,path_default:nuevo_path_default.value , estado:est ,rutas:this.rutas_guardar_nuevo}).then(res => {
+                    this.$q.loading.hide()
+                    if(this.error){
+                        var message = this.error.message.replace('GraphQL error: ','')
+                        this.$q.notify({
+                            message: message,
+                            timeout: 3000,
+                            type: 'negative',// Available values: 'positive', 'negative', 'warning', 'info'
+                            position: 'bottom',
+                            icon: 'report_problem'
+                        })
+                    }
+                    else{
+                        this.$q.notify({
+                            message: "Registro creado",
+                            timeout: 3000,
+                            type: 'positive',// Available values: 'positive', 'negative', 'warning', 'info'
+                            position: 'bottom',
+                            icon: 'done_all'
+                        })
+                        this.modal_nuevo = false
+                        this.limpiar_nuevo()
+                        // this.iniciar()
+                    }
+                }).catch(err => {
+                    console.log(err)
+                })
+            }
         },
         eliminar(){
             // //replace
@@ -430,6 +488,35 @@ export default Vue.component('Perfil', {
             }
 
         },
+        async selectores(){
+            this.select_path_default = await this.getSelector('rutas')
+            
+            console.log('select_path_default',this.select_path_default)
+        },
+        async getSelector (tipo) {
+            var retorno = []
+            this.$q.loading.show()
+			await this.$store.dispatch("Usuario/cargarSelector",{tipo}).then(res => {
+				this.$q.loading.hide()
+				if(this.error){
+					var message = this.error.message.replace('GraphQL error: ','')
+					this.$q.notify({
+						message: message,
+						timeout: 3000,
+						type: 'negative',// Available values: 'positive', 'negative', 'warning', 'info'
+						position: 'bottom',
+						icon: 'report_problem'
+					})
+				}
+				else{
+                    // console.log('dataSelector',this.dataSelector)
+                    retorno = this.dataSelector
+				}
+			}).catch(err => {
+				console.log(err)
+			})
+            return retorno
+        },
 	},
 	created () {
 		const token = localStorage.getItem('token')
@@ -448,36 +535,38 @@ export default Vue.component('Perfil', {
     watch: {
         'modal_nuevo': function () {
             if(this.modal_nuevo){
-                var element = document.getElementById("q-app");
-                element.classList.add("modal-open");
+                this.selectores()
+                // var element = document.getElementById("q-app");
+                // element.classList.add("modal-open");
             }
             else{
-                var element = document.getElementById("q-app");
-                element.classList.remove("modal-open");
+                // var element = document.getElementById("q-app");
+                // element.classList.remove("modal-open");
                 this.parametros_tabla.data.length = 0
                 this.iniciar()
             }
         },
         'modal_editar': function () {
             if(this.modal_editar){
-                var element = document.getElementById("q-app");
-                element.classList.add("modal-open");
+                this.selectores()
+                // var element = document.getElementById("q-app");
+                // element.classList.add("modal-open");
             }
             else{
-                var element = document.getElementById("q-app");
-                element.classList.remove("modal-open");
+                // var element = document.getElementById("q-app");
+                // element.classList.remove("modal-open");
                 this.parametros_tabla.data.length = 0
                 this.iniciar()
             }
         },
         'modal_eliminar': function () {
             if(this.modal_eliminar){
-                var element = document.getElementById("q-app");
-                element.classList.add("modal-open");
+                // var element = document.getElementById("q-app");
+                // element.classList.add("modal-open");
             }
             else{
-                var element = document.getElementById("q-app");
-                element.classList.remove("modal-open");
+                // var element = document.getElementById("q-app");
+                // element.classList.remove("modal-open");
                 this.parametros_tabla.data.length = 0
                 this.iniciar()
             }

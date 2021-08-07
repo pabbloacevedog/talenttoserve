@@ -1,9 +1,11 @@
 import {crearRouter} from "@utils/crearRouter";
-
+import CryptoJS from 'crypto-js'
 export default ({router}) => {
 	let user = localStorage.getItem("token")
 	if(user){
-		let data = JSON.parse(localStorage.getItem("rutas"))
+        var d = localStorage.getItem("rutas")
+        var decrypted = d ? CryptoJS.AES.decrypt(s, process.env.PASSPHRASE) : null
+		let data = JSON.parse(decrypted)
 		if (data) {
 			//Aquí es para evitar que los usuarios actualicen manualmente la página, la aplicación completa se recargue, la ruta agregada de forma dinámica desaparecerá, por lo que volveremos a agregarla una vez.
 			let routes = [];
@@ -13,7 +15,9 @@ export default ({router}) => {
 		}
 	}
 	router.beforeEach((route, redirect, next) => {
-		let data = JSON.parse(localStorage.getItem("rutas"))
+        var d = localStorage.getItem("rutas")
+        var decrypted = d ? CryptoJS.AES.decrypt(s, process.env.PASSPHRASE) : null
+		let data = JSON.parse(decrypted)
 		if (data && route.path === "/login") {
 			// Aquí no se usa el enrutador para saltar, porque, al saltar a la página de inicio de sesión, debe volver a iniciar sesión, obtener los datos, esta vez, agregará las reglas de enrutamiento a la instancia del enrutador nuevamente,
 			// Cuando next () salta, la página no se actualiza, las reglas anteriores aún existen, pero con la ubicación, la página se puede actualizar. Cuando se actualiza la página, se vuelve a cargar la aplicación completa.

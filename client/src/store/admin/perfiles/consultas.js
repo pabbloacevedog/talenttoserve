@@ -9,6 +9,7 @@ export const GET_PERFIL_QUERY = gql`
             id_perfil,
             nombre,
             descripcion,
+            path_default,
             estado
         }
     }
@@ -34,15 +35,15 @@ export const GET_RUTAS_PERFIL_QUERY = gql`
 //espacio definido para las mutaciones, las mutaciones son consultas tipo "update o delete"
 // 			<-------------- MUTACIONES -------------->
 export const CREAR_PERFIL_MUTATION = gql`
-    mutation createPerfil($nombre: String!, $descripcion: String!, $estado: Boolean!, $rutas: [RouterList]){
-        createPerfil(nombre: $nombre,descripcion: $descripcion,estado: $estado, rutas: $rutas){
+    mutation createPerfil($nombre: String!, $descripcion: String!, $path_default:String!, $estado: Boolean!, $rutas: [RouterList]){
+        createPerfil(nombre: $nombre,descripcion: $descripcion,path_default: $path_default, estado: $estado, rutas: $rutas){
             creado
         }
     }
 `
 export const EDITAR_PERFIL_MUTATION = gql`
-    mutation editPerfil($id_perfil: Int!,  $nombre: String!, $descripcion: String!, $estado: Boolean!, $rutas: [RouterList]){
-        editPerfil(id_perfil : $id_perfil, nombre: $nombre,descripcion: $descripcion,estado: $estado, rutas: $rutas){
+    mutation editPerfil($id_perfil: Int!,  $nombre: String!, $descripcion: String!, $path_default:String!, $estado: Boolean!, $rutas: [RouterList]){
+        editPerfil(id_perfil : $id_perfil, nombre: $nombre,descripcion: $descripcion,path_default: $path_default, estado: $estado, rutas: $rutas){
             editado
         }
     }

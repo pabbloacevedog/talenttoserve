@@ -195,7 +195,7 @@ export default Vue.component('Networking', {
                 console.log(err)
             })
             // if(this.registro_editado){
-            //     await this.iniciar()
+                await this.iniciar()
             // }
         },
         limpiar_editar(){
@@ -221,36 +221,58 @@ export default Vue.component('Networking', {
 
         },
         async guardar_nuevo() {
-			this.$q.loading.show()
+		
             const {nuevo_titulo, nuevo_descripcion , nuevo_estado} = this
             var est = nuevo_estado.value
-            await this.$store.dispatch("Networking/crearNetworking", { titulo: nuevo_titulo, descripcion:nuevo_descripcion , estado:est }).then(res => {
-                this.$q.loading.hide()
-                if(this.error){
-                    var message = this.error.message.replace('GraphQL error: ','')
+            if(nuevo_titulo == ''){
                     this.$q.notify({
-                        message: message,
-                        timeout: 3000,
-                        type: 'negative',// Available values: 'positive', 'negative', 'warning', 'info'
-                        position: 'bottom',
-                        icon: 'report_problem'
-                    })
-                }
-                else{
-                    this.$q.notify({
-                        message: "Registro creado",
-                        timeout: 3000,
-                        type: 'positive',// Available values: 'positive', 'negative', 'warning', 'info'
-                        position: 'bottom',
-                        icon: 'done_all'
-                    })
-                    this.modal_nuevo = false
-                    this.limpiar_nuevo()
-                    // this.iniciar()
-                }
-            }).catch(err => {
-                console.log(err)
-            })
+                    message: 'El titulo es obligatorio',
+                    timeout: 3000,
+                    type: 'negative',// Available values: 'positive', 'negative', 'warning', 'info'
+                    position: 'bottom',
+                    icon: 'report_problem'
+                })
+            }
+            else if(nuevo_descripcion == ''){
+                this.$q.notify({
+                    message: 'Ingrese una descripción',
+                    timeout: 3000,
+                    type: 'negative',// Available values: 'positive', 'negative', 'warning', 'info'
+                    position: 'bottom',
+                    icon: 'report_problem'
+                })
+            }
+            else{
+                this.$q.loading.show()
+                await this.$store.dispatch("Networking/crearNetworking", { titulo: nuevo_titulo, descripcion:nuevo_descripcion , estado:est }).then(res => {
+                    this.$q.loading.hide()
+                    if(this.error){
+                        var message = this.error.message.replace('GraphQL error: ','')
+                        this.$q.notify({
+                            message: message,
+                            timeout: 3000,
+                            type: 'negative',// Available values: 'positive', 'negative', 'warning', 'info'
+                            position: 'bottom',
+                            icon: 'report_problem'
+                        })
+                    }
+                    else{
+                        this.$q.notify({
+                            message: "Registro creado",
+                            timeout: 3000,
+                            type: 'positive',// Available values: 'positive', 'negative', 'warning', 'info'
+                            position: 'bottom',
+                            icon: 'done_all'
+                        })
+                        this.modal_nuevo = false
+                        this.limpiar_nuevo()
+                        // this.iniciar()
+                    }
+                }).catch(err => {
+                    console.log(err)
+                })
+            }
+            await this.iniciar()
         },
         eliminar(){
             // //replace
@@ -303,6 +325,7 @@ export default Vue.component('Networking', {
             }).catch(err => {
                 console.log(err)
             })
+            await this.iniciar()
         },
         solo_numeros(e){
             var key = e.keyCode || e.which;
@@ -367,40 +390,40 @@ export default Vue.component('Networking', {
 	},
     watch: {
         'modal_nuevo': function () {
-            if(this.modal_nuevo){
-                var element = document.getElementById("q-app");
-                element.classList.add("modal-open");
-            }
-            else{
-                var element = document.getElementById("q-app");
-                element.classList.remove("modal-open");
-                this.parametros_tabla.data.length = 0
-                this.iniciar()
-            }
+            // if(this.modal_nuevo){
+            //     var element = document.getElementById("q-app");
+            //     element.classList.add("modal-open");
+            // }
+            // else{
+            //     var element = document.getElementById("q-app");
+            //     element.classList.remove("modal-open");
+            //     this.parametros_tabla.data.length = 0
+            //     this.iniciar()
+            // }
         },
         'modal_editar': function () {
-            if(this.modal_editar){
-                var element = document.getElementById("q-app");
-                element.classList.add("modal-open");
-            }
-            else{
-                var element = document.getElementById("q-app");
-                element.classList.remove("modal-open");
-                this.parametros_tabla.data.length = 0
-                this.iniciar()
-            }
+            // if(this.modal_editar){
+            //     var element = document.getElementById("q-app");
+            //     element.classList.add("modal-open");
+            // }
+            // else{
+            //     var element = document.getElementById("q-app");
+            //     element.classList.remove("modal-open");
+            //     this.parametros_tabla.data.length = 0
+            //     this.iniciar()
+            // }
         },
         'modal_eliminar': function () {
-            if(this.modal_eliminar){
-                var element = document.getElementById("q-app");
-                element.classList.add("modal-open");
-            }
-            else{
-                var element = document.getElementById("q-app");
-                element.classList.remove("modal-open");
-                this.parametros_tabla.data.length = 0
-                this.iniciar()
-            }
+            // if(this.modal_eliminar){
+            //     var element = document.getElementById("q-app");
+            //     element.classList.add("modal-open");
+            // }
+            // else{
+            //     var element = document.getElementById("q-app");
+            //     element.classList.remove("modal-open");
+            //     this.parametros_tabla.data.length = 0
+            //     this.iniciar()
+            // }
         },
     }
 

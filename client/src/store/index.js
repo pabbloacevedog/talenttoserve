@@ -6,7 +6,6 @@ import VuexPersist from 'vuex-persist'
 import Auth from './auth'
 import Registry from './registry'
 import Menu from './menu'
-import Home from './admin/home'
 import Asesoria from './admin/asesoria'
 import Capacitacion from './admin/capacitacion'
 import Inscribete from './admin/inscribete'
@@ -36,7 +35,6 @@ export default function (/* { ssrContext } */) {
 			Auth: Auth,
 			Registry:Registry,
 			Menu: Menu,
-            Home,
             Asesoria,
             Capacitacion,
             Inscribete,

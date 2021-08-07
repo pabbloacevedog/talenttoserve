@@ -137,6 +137,7 @@
                 </q-td>
                 <q-td key="nombre" :props="props">{{ props.row.nombre }}</q-td>
                 <q-td key="descripcion" :props="props">{{ props.row.descripcion }}</q-td>
+                <q-td key="path_default" :props="props">{{ props.row.path_default }}</q-td>
                 <q-td key="estado" :props="props" v-if="props.row.estado">
                     <q-chip color="green" text-color="white">
                         Activo

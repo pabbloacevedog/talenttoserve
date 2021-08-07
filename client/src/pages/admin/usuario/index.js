@@ -457,7 +457,7 @@ export default Vue.component('Usuario', {
 
         },
         async guardar_nuevo() {
-			this.$q.loading.show()
+			
             const {
                 nuevo_email,
                 nuevo_perfil,
@@ -475,47 +475,113 @@ export default Vue.component('Usuario', {
             var pass = process.env.PASSPHRASE;
             var encrypted = CryptoJS.AES.encrypt(nuevo_password, pass);
             var est = nuevo_estado.value
-            await this.$store.dispatch("Usuario/crearUsuario", { 
-                email : nuevo_email,
-                id_perfil : parseInt(nuevo_perfil.value),
-                nombre : nuevo_nombre,
-                password: encrypted.toString(),
-                telefono : nuevo_telefono,
-                id_pais : parseInt(nuevo_id_pais.value),
-                nombre_empresa : nuevo_nombre_empresa,
-                cargo : nuevo_cargo.label,
-                producto_empresa : nuevo_producto_empresa,
-                universidad : nuevo_universidad,
-                carrera : nuevo_carrera,
-                suscrito_mail : true,
-                estado : est
-            }).then(res => {
-                this.$q.loading.hide()
-                if(this.error){
-                    var message = this.error.message.replace('GraphQL error: ','')
-                    this.$q.notify({
-                        message: message,
-                        timeout: 3000,
-                        type: 'negative',// Available values: 'positive', 'negative', 'warning', 'info'
-                        position: 'bottom',
-                        icon: 'report_problem'
-                    })
-                }
-                else{
-                    this.$q.notify({
-                        message: "Registro creado",
-                        timeout: 3000,
-                        type: 'positive',// Available values: 'positive', 'negative', 'warning', 'info'
-                        position: 'bottom',
-                        icon: 'done_all'
-                    })
-                    this.modal_nuevo = false
-                    this.limpiar_nuevo()
-                    // this.iniciar()
-                }
-            }).catch(err => {
-                console.log(err)
-            })
+            if(nuevo_nombre == ''){
+                this.$q.notify({
+                    message: 'El nombre es obligatorio',
+                    timeout: 3000,
+                    type: 'negative',// Available values: 'positive', 'negative', 'warning', 'info'
+                    position: 'bottom',
+                    icon: 'report_problem'
+                })
+            }
+            else if(nuevo_email == ''){
+                this.$q.notify({
+                    message: 'Ingrese una descripción',
+                    timeout: 3000,
+                    type: 'negative',// Available values: 'positive', 'negative', 'warning', 'info'
+                    position: 'bottom',
+                    icon: 'report_problem'
+                })
+            }
+            else if(nuevo_perfil == '' || nuevo_perfil.length == 0){
+                this.$q.notify({
+                    message: 'Debe seleccionar un perfil',
+                    timeout: 3000,
+                    type: 'negative',// Available values: 'positive', 'negative', 'warning', 'info'
+                    position: 'bottom',
+                    icon: 'report_problem'
+                })
+            }
+            else if(nuevo_pais == '' || nuevo_pais.length == 0){
+                this.$q.notify({
+                    message: 'Debe seleccionar un pais',
+                    timeout: 3000,
+                    type: 'negative',// Available values: 'positive', 'negative', 'warning', 'info'
+                    position: 'bottom',
+                    icon: 'report_problem'
+                })
+            }
+            else if(nuevo_password == ''){
+                this.$q.notify({
+                    message: 'Ingrese password',
+                    timeout: 3000,
+                    type: 'negative',// Available values: 'positive', 'negative', 'warning', 'info'
+                    position: 'bottom',
+                    icon: 'report_problem'
+                })
+            }
+            // else if(nuevo_telefono == ''){
+            //     this.$q.notify({
+            //         message: 'Ingrese telefono',
+            //         timeout: 3000,
+            //         type: 'negative',// Available values: 'positive', 'negative', 'warning', 'info'
+            //         position: 'bottom',
+            //         icon: 'report_problem'
+            //     })
+            // }
+            else if(nuevo_email == ''){
+                this.$q.notify({
+                    message: 'Ingrese email',
+                    timeout: 3000,
+                    type: 'negative',// Available values: 'positive', 'negative', 'warning', 'info'
+                    position: 'bottom',
+                    icon: 'report_problem'
+                })
+            }
+            else{
+                this.$q.loading.show()
+                await this.$store.dispatch("Usuario/crearUsuario", { 
+                    email : nuevo_email,
+                    id_perfil : parseInt(nuevo_perfil.value),
+                    nombre : nuevo_nombre,
+                    password: encrypted.toString(),
+                    telefono : nuevo_telefono,
+                    id_pais : parseInt(nuevo_id_pais.value),
+                    nombre_empresa : nuevo_nombre_empresa,
+                    cargo : nuevo_cargo.label,
+                    producto_empresa : nuevo_producto_empresa,
+                    universidad : nuevo_universidad,
+                    carrera : nuevo_carrera,
+                    suscrito_mail : true,
+                    estado : est
+                }).then(res => {
+                    this.$q.loading.hide()
+                    if(this.error){
+                        var message = this.error.message.replace('GraphQL error: ','')
+                        this.$q.notify({
+                            message: message,
+                            timeout: 3000,
+                            type: 'negative',// Available values: 'positive', 'negative', 'warning', 'info'
+                            position: 'bottom',
+                            icon: 'report_problem'
+                        })
+                    }
+                    else{
+                        this.$q.notify({
+                            message: "Registro creado",
+                            timeout: 3000,
+                            type: 'positive',// Available values: 'positive', 'negative', 'warning', 'info'
+                            position: 'bottom',
+                            icon: 'done_all'
+                        })
+                        this.modal_nuevo = false
+                        this.limpiar_nuevo()
+                        // this.iniciar()
+                    }
+                }).catch(err => {
+                    console.log(err)
+                })
+            }
             await this.iniciar()
         },
         eliminar(){

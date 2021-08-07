@@ -8,7 +8,9 @@ export default [
 		component : OpPractica,
 		name: 'OpPractica',
 		beforeEnter(to, from, next) {
-			if (!localStorage.getItem("isAdmin") ){
+            var isadmin = localStorage.getItem("perm")
+var decrypted = isadmin ? CryptoJS.AES.decrypt(isadmin, process.env.PASSPHRASE) : false
+			if (!decrypted){
                 next('/login')
 			}
 			else{

@@ -204,6 +204,7 @@ export default Vue.component('OpPractica', {
             }).catch(err => {
                 console.log(err)
             })
+            await this.iniciar()
             // if(this.registro_editado){
             //     await this.iniciar()
             // }
@@ -233,36 +234,76 @@ export default Vue.component('OpPractica', {
 
         },
         async guardar_nuevo() {
-			this.$q.loading.show()
+			
             const {nuevo_cargo, nuevo_descripcion , nuevo_link, nuevo_hotel, nuevo_estado} = this
             var est = nuevo_estado.value
-            await this.$store.dispatch("OpPractica/crearOpPractica", { cargo: nuevo_cargo, descripcion:nuevo_descripcion , link: nuevo_link, hotel: nuevo_hotel,  estado:est }).then(res => {
-                this.$q.loading.hide()
-                if(this.error){
-                    var message = this.error.message.replace('GraphQL error: ','')
-                    this.$q.notify({
-                        message: message,
-                        timeout: 3000,
-                        type: 'negative',// Available values: 'positive', 'negative', 'warning', 'info'
-                        position: 'bottom',
-                        icon: 'report_problem'
-                    })
-                }
-                else{
-                    this.$q.notify({
-                        message: "Registro creado",
-                        timeout: 3000,
-                        type: 'positive',// Available values: 'positive', 'negative', 'warning', 'info'
-                        position: 'bottom',
-                        icon: 'done_all'
-                    })
-                    this.modal_nuevo = false
-                    this.limpiar_nuevo()
-                    // this.iniciar()
-                }
-            }).catch(err => {
-                console.log(err)
-            })
+            if(nuevo_cargo == ''){
+                this.$q.notify({
+                    message: 'El cargo es obligatorio',
+                    timeout: 3000,
+                    type: 'negative',// Available values: 'positive', 'negative', 'warning', 'info'
+                    position: 'bottom',
+                    icon: 'report_problem'
+                })
+            }
+            else if(nuevo_descripcion == ''){
+                this.$q.notify({
+                    message: 'Ingrese una descripción',
+                    timeout: 3000,
+                    type: 'negative',// Available values: 'positive', 'negative', 'warning', 'info'
+                    position: 'bottom',
+                    icon: 'report_problem'
+                })
+            }
+            else if(nuevo_link == ''){
+                this.$q.notify({
+                    message: 'Ingrese link para rideccionar',
+                    timeout: 3000,
+                    type: 'negative',// Available values: 'positive', 'negative', 'warning', 'info'
+                    position: 'bottom',
+                    icon: 'report_problem'
+                })
+            }
+            else if(nuevo_hotel == ''){
+                this.$q.notify({
+                    message: 'Ingrese Hotel',
+                    timeout: 3000,
+                    type: 'negative',// Available values: 'positive', 'negative', 'warning', 'info'
+                    position: 'bottom',
+                    icon: 'report_problem'
+                })
+            }
+            else{
+                this.$q.loading.show()
+                await this.$store.dispatch("OpPractica/crearOpPractica", { cargo: nuevo_cargo, descripcion:nuevo_descripcion , link: nuevo_link, hotel: nuevo_hotel,  estado:est }).then(res => {
+                    this.$q.loading.hide()
+                    if(this.error){
+                        var message = this.error.message.replace('GraphQL error: ','')
+                        this.$q.notify({
+                            message: message,
+                            timeout: 3000,
+                            type: 'negative',// Available values: 'positive', 'negative', 'warning', 'info'
+                            position: 'bottom',
+                            icon: 'report_problem'
+                        })
+                    }
+                    else{
+                        this.$q.notify({
+                            message: "Registro creado",
+                            timeout: 3000,
+                            type: 'positive',// Available values: 'positive', 'negative', 'warning', 'info'
+                            position: 'bottom',
+                            icon: 'done_all'
+                        })
+                        this.modal_nuevo = false
+                        this.limpiar_nuevo()
+                        // this.iniciar()
+                    }
+                }).catch(err => {
+                    console.log(err)
+                })
+            }
+            await this.iniciar()
         },
         eliminar(){
             // //replace
@@ -315,6 +356,7 @@ export default Vue.component('OpPractica', {
             }).catch(err => {
                 console.log(err)
             })
+            await this.iniciar()
         },
         solo_numeros(e){
             var key = e.keyCode || e.which;
@@ -379,40 +421,40 @@ export default Vue.component('OpPractica', {
 	},
     watch: {
         'modal_nuevo': function () {
-            if(this.modal_nuevo){
-                var element = document.getElementById("q-app");
-                element.classList.add("modal-open");
-            }
-            else{
-                var element = document.getElementById("q-app");
-                element.classList.remove("modal-open");
-                this.parametros_tabla.data.length = 0
-                this.iniciar()
-            }
+            // if(this.modal_nuevo){
+            //     var element = document.getElementById("q-app");
+            //     element.classList.add("modal-open");
+            // }
+            // else{
+            //     var element = document.getElementById("q-app");
+            //     element.classList.remove("modal-open");
+            //     this.parametros_tabla.data.length = 0
+            //     this.iniciar()
+            // }
         },
         'modal_editar': function () {
-            if(this.modal_editar){
-                var element = document.getElementById("q-app");
-                element.classList.add("modal-open");
-            }
-            else{
-                var element = document.getElementById("q-app");
-                element.classList.remove("modal-open");
-                this.parametros_tabla.data.length = 0
-                this.iniciar()
-            }
+            // if(this.modal_editar){
+            //     var element = document.getElementById("q-app");
+            //     element.classList.add("modal-open");
+            // }
+            // else{
+            //     // var element = document.getElementById("q-app");
+            //     // element.classList.remove("modal-open");
+            //     // this.parametros_tabla.data.length = 0
+            //     // this.iniciar()
+            // }
         },
         'modal_eliminar': function () {
-            if(this.modal_eliminar){
-                var element = document.getElementById("q-app");
-                element.classList.add("modal-open");
-            }
-            else{
-                var element = document.getElementById("q-app");
-                element.classList.remove("modal-open");
-                this.parametros_tabla.data.length = 0
-                this.iniciar()
-            }
+            // if(this.modal_eliminar){
+            //     // var element = document.getElementById("q-app");
+            //     // element.classList.add("modal-open");
+            // }
+            // else{
+            //     // var element = document.getElementById("q-app");
+            //     // element.classList.remove("modal-open");
+            //     this.parametros_tabla.data.length = 0
+            //     this.iniciar()
+            // }
         },
     }
 

@@ -34,7 +34,7 @@ export default Vue.component('Capacitacion', {
             modal_eliminar: false,
             modal_editar: false,
             parametros_tabla:{
-                tittle: 'Cpacitaciones',
+                tittle: 'Capacitaciones',
                 acciones:[
                     { accion: 'Eliminar', icon: 'delete', cmd: 'eliminar'},
                     { accion: 'Editar', icon: 'update', cmd: 'editar' },
@@ -253,7 +253,7 @@ export default Vue.component('Capacitacion', {
 
         },
         async guardar_nuevo() {
-			this.$q.loading.show()
+			
             const {nuevo_titulo, nuevo_descripcion , nuevo_link, nuevo_banner, nuevo_estado} = this
             var est = nuevo_estado.value
             if(nuevo_titulo == ''){
@@ -284,6 +284,7 @@ export default Vue.component('Capacitacion', {
                 })
             }
             else{
+                this.$q.loading.show()
                 await this.$store.dispatch("Capacitacion/crearCapacitacion", { 
                     titulo: nuevo_titulo, 
                     descripcion:nuevo_descripcion , 

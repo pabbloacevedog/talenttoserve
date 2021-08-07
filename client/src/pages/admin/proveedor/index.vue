@@ -39,7 +39,7 @@
         transition-hide="slide-down"
         
         >
-            <q-card class="modales" style="width: 500px !important;" color="primary">
+            <q-card class="modales" style="width: 900px; max-width: 90vw !important;" color="primary">
                 <q-card-section align="center">
                     <div class="text-h6 titulo_crear" color="text">Nuevo Item</div>
                 </q-card-section>
@@ -55,7 +55,7 @@
                     <q-input  dense standout required label='Web' v-model='nuevo_web' class="input-reg q-mx-lg">
 					</q-input>
                     <q-select dense standout required v-model="nuevo_categoria" :options="select_categoria" label="Categoría" class="input-reg q-mx-lg"/>
-					<q-input  dense standout required label='Descripción' v-model='nuevo_descripcion' class="input-reg q-mx-lg">
+					<q-input  dense standout required label='Descripción' v-model='nuevo_descripcion'  type="textarea"  class="input-reg q-mx-lg">
 					</q-input>
                     <q-input
                         dense standout
@@ -81,7 +81,7 @@
         transition-hide="slide-down"
         
         >
-            <q-card class="modales" style="width: 500px !important;">
+            <q-card class="modales" style="width: 900px; max-width: 90vw !important;">
                 <q-card-section align="center">
                     <div class="text-h6 titulo_crear" color="text">Editar Registro</div>
                 </q-card-section>
@@ -97,7 +97,7 @@
                     <q-input  dense standout required label='Web' v-model='editar_web' class="input-reg q-mx-lg">
                     </q-input>
                     <q-select dense standout required v-model="editar_categoria" :options="select_categoria" label="Categoría" class="input-reg q-mx-lg"/>
-                    <q-input  dense standout required label='Descripción' v-model='editar_descripcion' class="input-reg q-mx-lg">
+                    <q-input  dense standout required label='Descripción' v-model='editar_descripcion' rows="9"  type="textarea"  class="input-reg q-mx-lg">
                     </q-input>
                     <q-input
                         dense standout

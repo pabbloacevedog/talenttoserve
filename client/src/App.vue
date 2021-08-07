@@ -1,7 +1,8 @@
 <template>
 	<div id="q-app" dark>
-		<Auth v-if="!isLogin" />
-		<Menu v-if="isLogin" />
+        <MenuPublico v-if="!isAdmin && !isOnLoginPage()" />
+		<Auth v-if="isOnLoginPage()" />
+		<Menu v-if="isAdmin" />
 
 	</div>
 </template>
@@ -12,8 +13,13 @@
 	export default {
 		name: "App",
 		computed: {
-			...mapGetters({ isLogin: "Auth/isLogin", error: "Auth/error" })
-		}
+			...mapGetters({ isLogin: "Auth/isLogin", isAdmin: "Auth/isAdmin", error: "Auth/error" })
+		},
+        methods: {
+            isOnLoginPage(){
+                if(this.$route.path === '/login' || this.$route.path === '/registry') return true
+            }
+        }
 	}
 </script>
 

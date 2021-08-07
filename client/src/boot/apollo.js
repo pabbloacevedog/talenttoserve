@@ -106,7 +106,7 @@ const apolloClient = new ApolloClient({
         // omitTypenameLink,
         terminatingLink
     ]),
-	cache: new InMemoryCache(),
+	cache: new InMemoryCache({addTypename: false}),
 	connectToDevTools: true
 })
 

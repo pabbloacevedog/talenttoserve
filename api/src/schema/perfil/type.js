@@ -15,6 +15,9 @@ const PerfilType = new GraphQLObjectType({
 		descripcion:{
 			type: GraphQLString
 		},
+        path_default: {
+            type: GraphQLString
+        },
 		estado:{
 			type: GraphQLBoolean
         },

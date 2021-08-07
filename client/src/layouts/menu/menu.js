@@ -80,7 +80,9 @@ export default Vue.component('Menu', {
 	},
 	created() {
 		if (!this.isLogin) {
-            let data = JSON.parse(localStorage.getItem('rutas'))
+            var d = localStorage.getItem("rutas")
+            var decrypted = d ? CryptoJS.AES.decrypt(s, process.env.PASSPHRASE) : null
+            let data = JSON.parse(decrypted)
 			this.nodes.push(...data)
 			localStorage.setItem('isLoadNodes', 'true')
 			const token = localStorage.getItem('token')

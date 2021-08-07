@@ -12,17 +12,17 @@ export const GET_USER_QUERY = gql`
 		}
 	}
 `
-export const GET_ALL_PASS_USERS = gql`
-	query{
-		Usuarios{
-            usuario_id,
-            nombre,
-            email,
-            password, 
-            password_new
-		}
-	}
-`
+// export const GET_ALL_PASS_USERS = gql`
+// 	query{
+// 		Usuarios{
+//             usuario_id,
+//             nombre,
+//             email,
+//             password, 
+//             password_new
+// 		}
+// 	}
+// `
 export const LOGIN_QUERY = gql`
 	query userLogin($email: String!, $password: String!){
 		userLogin(email: $email, password: $password){

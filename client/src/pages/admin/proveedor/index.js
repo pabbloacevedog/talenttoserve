@@ -265,7 +265,6 @@ export default Vue.component('Proveedor', {
             const {editar_proveedor,editar_direccion,editar_telefono,editar_email,editar_web,editar_categoria, editar_descripcion , editar_banner, editar_estado} = this
             var est = editar_estado.value
             var cat = parseInt(editar_categoria.value)
-            debugger
             var fi = editar_banner
             if( typeof editar_banner == 'object'){
                 fi = editar_banner[0]

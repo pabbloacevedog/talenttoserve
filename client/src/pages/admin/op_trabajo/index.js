@@ -269,7 +269,7 @@ export default Vue.component('OpTrabajo', {
 
         },
         async guardar_nuevo() {
-			this.$q.loading.show()
+			
             const {nuevo_cargo, nuevo_descripcion , nuevo_link, nuevo_hotel, nuevo_web, nuevo_banner, nuevo_estado} = this
             var est = nuevo_estado.value
             if(nuevo_cargo == ''){
@@ -309,6 +309,7 @@ export default Vue.component('OpTrabajo', {
                 })
             }
             else{
+                this.$q.loading.show()
                 await this.$store.dispatch("OpTrabajo/crearOpTrabajo", { 
                     cargo: nuevo_cargo, 
                     descripcion:nuevo_descripcion , 

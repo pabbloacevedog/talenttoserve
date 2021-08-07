@@ -1,5 +1,5 @@
 import Usuario from '@/pages/admin/usuario/index.vue'
-
+import CryptoJS from 'crypto-js'
 
 export default [
 
@@ -8,7 +8,9 @@ export default [
 		component : Usuario,
 		name: 'Usuario',
 		beforeEnter(to, from, next) {
-			if (!localStorage.getItem("isAdmin") ){
+            var isadmin = localStorage.getItem("perm")
+var decrypted = isadmin ? CryptoJS.AES.decrypt(isadmin, process.env.PASSPHRASE) : false
+			if (!decrypted){
                 next('/login')
 			}
 			else{

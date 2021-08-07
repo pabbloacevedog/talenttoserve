@@ -53,6 +53,18 @@ export async function getSelect(parentValue, {tipo}) {
                     }
                 )
                 break;
+        case 'rutas':
+            resp =  await models.sequelize.query(
+                    "   SELECT  " +
+                    "       u.path as value,   " +
+                    "       u.path as label   " +
+                    "   FROM    " +
+                    "       router u   ",
+                    {
+                        type: QueryTypes.SELECT
+                    }
+                )
+                break;
     }
     console.log('resp', resp)
 	return resp

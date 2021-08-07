@@ -83,14 +83,15 @@ export async function rutasPerfil(parentValue,{id_perfil}) {
 	return ruta
 }
 // Create user
-export async function create(parentValue,{nombre, descripcion, estado, rutas  }, { pubsub }) {
+export async function create(parentValue,{nombre, descripcion, estado,path_default, rutas  }, { pubsub }) {
     var create = false
     var error = ''
     let id_perfil = 0
 	await models.Perfil.create({
-        nombre, descripcion, estado
+        nombre, descripcion, path_default,estado
 	}).then(perfil => {
 		id_perfil = perfil.id_perfil
+        console.log('perfil',perfil)
         create = true
         
 	}).catch(err => {
@@ -98,9 +99,9 @@ export async function create(parentValue,{nombre, descripcion, estado, rutas  },
 		error = err
 	})
     rutas.forEach(element => {
-        console.log(element)
+        // console.log(element)
         if(element.value){
-            console.log('insertar', element.path)
+            // console.log('insertar', element.path)
             models.PerfilRouter.create({id_perfil :id_perfil, path: element.path}).then(perfil => {
             }).catch(err => {
                 console.log(err)
@@ -118,11 +119,11 @@ export async function create(parentValue,{nombre, descripcion, estado, rutas  },
 		throw new Error(`Error al crear el perfil ` + error)
 	}
 }
-export async function edit(parentValue,{  nombre, descripcion, estado, id_perfil, rutas  }, { pubsub }) {
+export async function edit(parentValue,{  nombre, descripcion, estado, path_default,id_perfil, rutas  }, { pubsub }) {
     var editado = false
     var error = ''
     var editar = {
-        nombre, descripcion, estado
+        nombre, descripcion, path_default, estado
     }
     await models.Perfil.update(editar, { where: { id_perfil } }).then(act => {
         editado = true
@@ -132,9 +133,9 @@ export async function edit(parentValue,{  nombre, descripcion, estado, id_perfil
     })
     models.PerfilRouter.destroy({where: {id_perfil : id_perfil}})
     rutas.forEach(element => {
-        console.log(element)
+        // console.log(element)
         if(element.value){
-            console.log('insertar', element.path)
+            // console.log('insertar', element.path)
             models.PerfilRouter.create({id_perfil :element.id_perfil, path: element.path}).then(perfil => {
             }).catch(err => {
                 console.log(err)

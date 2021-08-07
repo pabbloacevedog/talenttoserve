@@ -61,14 +61,14 @@
         transition-hide="slide-down"
         
         >
-            <q-card class="modales" style="width: 500px !important;" color="primary">
+            <q-card class="modales" style="width: 800px; max-width: 90vw !important;" color="primary">
                 <q-card-section align="center">
                     <div class="text-h6 titulo_crear" color="text">Nueva Asesoría</div>
                 </q-card-section>
                 <q-card-section class="area_comment">                   
 					<q-input  dense standout required label='Titulo' v-model='nuevo_titulo' class="input-reg">
 					</q-input>
-					<q-input  dense standout required label='Descripción' v-model='nuevo_descripcion' class="input-reg">
+					<q-input  dense standout required label='Descripción' v-model='nuevo_descripcion'  type="textarea" rows="9" class="input-reg">
 					</q-input>
                     <q-select dense standout required v-model="nuevo_estado" :options="estados" label="Estado" class="input-reg"/>
                 </q-card-section>
@@ -85,14 +85,14 @@
         transition-hide="slide-down"
         
         >
-            <q-card class="modales" style="width: 500px !important;">
+            <q-card class="modales" :style="'width:' + (editar_descripcion.length * 2)+ 'px; max-width: 90vw !important;'">
                 <q-card-section align="center">
                     <div class="text-h6 titulo_crear" color="text">Editar Asesoría</div>
                 </q-card-section>
                 <q-card-section class="area_comment">                      
 					<q-input  dense standout required label='Nombre' v-model='editar_titulo' class="input-reg">
 					</q-input>
-					<q-input  dense standout required label='Descripción' v-model='editar_descripcion' class="input-reg">
+					<q-input  dense standout required label='Descripción' v-model='editar_descripcion' rows="9"  type="textarea"  class="input-reg">
 					</q-input>
                     <q-select dense standout required v-model="editar_estado" :options="estados" label="Estado" class="input-reg"/>
                 </q-card-section>

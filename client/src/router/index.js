@@ -4,8 +4,10 @@ import VueRouter from 'vue-router'
 import error from './routes'
 import notFound from './notFound/notFound'
 import menu from './menu/menu'
+import MenuPublico from './menu_publico/menu_publico'
 import Auth from './auth/auth'
-import Home from './admin/home/home'
+// import Home from './admin/home/home'
+// import Portada from './web/portada/portada'
 import Asesoria from './admin/asesoria/asesoria'
 import Pais from './admin/pais/pais'
 import Cargo from './admin/cargo/cargo'
@@ -17,6 +19,12 @@ import Op_trabajo from './admin/op_trabajo/op_trabajo'
 import Proveedor from './admin/proveedor/proveedor'
 import Perfiles from './admin/perfiles/perfiles'
 import Usuario from './admin/usuario/usuario'
+
+import Areas from './web/areas/areas'
+import Clientes from './web/clientes/clientes'
+import Contacto from './web/contacto/contacto'
+import Empleos from './web/empleos/empleos'
+import Inicio from './web/inicio/inicio'
 // import Auth from './olvido/olvido'
 // import Registry from './registry/registry'
 
@@ -26,6 +34,7 @@ const auxiliar = [];
 const routes = auxiliar.concat(
   //aqui se agregan las rutas de los archivos o paginas del sistema
   error,
+//   Portada,
   Pais,
   Cargo,
   Asesoria,
@@ -35,12 +44,19 @@ const routes = auxiliar.concat(
   OpPractica,
   Op_trabajo,
   Proveedor,
-  Home,
+//   Home,
   Perfiles,
   Usuario,
   notFound,
   menu,
+  MenuPublico,
   Auth,
+  Areas,
+  Clientes,
+  Contacto,
+  Empleos,
+  Inicio,
+
 )
 Vue.use(VueRouter)
 

@@ -36,89 +36,129 @@ export async function rutas(id_perfil) {
     )
 	return ruta
 }
-export async function login(parentValue, { email, password }, context) {
-    console.log('context', context)
-	const usuario = await models.Usuario.findOne({ attributes: { exclude: ['password','passphrase'] },where: { email } })
-		if (!usuario) {
-                throw new Error(`No tenemos ningún usuario registrado con el email ${ email }. Por favor regístrese.`)
-		} 
-        else {
-            var pass = config.passphrase;
-            var decrypted = CryptoJS.AES.decrypt(password, pass)
-            var passDecryp = decrypted.toString(CryptoJS.enc.Utf8)
-			const datosUsuarioDetalles = usuario.get()
-            if(usuario.estado){
-                const router = await rutas(usuario.id_perfil)
-                return await bcrypt.compare(passDecryp, datosUsuarioDetalles.password_new).then(result => {
-                    console.log('result',result)
-                    if(result){
-                        var data = {
-                            datosUsuario:datosUsuarioDetalles,
-                            routers:router
-                        }
-                        return {
-                            token: jwt.sign(data, config.secret)
-                        }
-                    }
-                    else{
-                        throw new Error(`Lo sentimos, la contraseña que ingresaste es incorrecta. Inténtalo de nuevo.`)
-                    }
-                }).catch(err => {
-                    throw new Error(`${err}`)
-                })
-            }
-            else{
-                throw new Error(`El usuario se encuentra inactivo, favor ponte en contacto con pborges@talenttoserve.com para activarlo.`)
-            }
-		}
+async function buscar_usuario(email) {
+    console.log(email)
+    var usuarios = await models.sequelize.query(
+        "   SELECT  " +
+        "      u.usuario_id,   " +
+        "      u.nombre,   " +
+        "      u.email,    " +
+        "      pe.nombre AS perfil,    " +
+        "      pe.path_default," +
+        "      u.id_perfil,    " +
+        "      u.telefono, " +
+        "      pa.nombre AS pais,  " +
+        "      u.id_pais,  " +
+        "      u.nombre_empresa,   " +
+        "      u.cargo,   " +
+        "      u.producto_empresa, " +
+        "      u.universidad,  " +
+        "      u.carrera,  " +
+        "      u.suscrito_mail,    " +
+        "      u.estado    " +
+        "   FROM    " +
+        "      usuario u   " +
+        "          RIGHT JOIN  " +
+        "      perfil pe ON u.id_perfil = pe.id_perfil " +
+        "          LEFT JOIN  " +
+        "      pais pa ON u.id_pais = pa.id     " +
+        "   where u.email = :email   " ,
+        {
+            replacements: { email },
+            type: QueryTypes.SELECT
+        }
+    )
+    console.log(usuarios[0])
+	return usuarios[0]
 }
-
-export async function loginGoogle(parentValue, { token}) {
-    const user = decode(token)
-	// const usuario = await models.Usuario.findOne({ where: { email: user.email } })
-    const usuario = await models.Usuario.findOne({ attributes: { exclude: ['password','passphrase'] },where: { email: user.email } })
-    if (usuario) {
-        const datosUsuarioDetalles = usuario.get()
-        // const empresa = await models.Empresa.findOne({ where: { empresa_id: datosUsuarioDetalles.empresa_id } })
-        const router = await rutas(usuario.id_perfil)
-        var data = {
-            datosUsuario:datosUsuarioDetalles,
-            datosEmpresa: empresa,
-            routers:router
-        }
-        return {
-            token: jwt.sign(data, config.secret)
-        }
+export async function login(parentValue, { email, password }, context) {
+    // console.log('context', context)
+	
+    const usuario_bd = await models.Usuario.findOne({ attributes: { exclude: ['password','passphrase'] },where: { email } })
+    if (!usuario_bd) {
+            throw new Error(`No tenemos ningún usuario registrado con el email ${ email }. Por favor regístrese.`)
+    } 
+    else {
         
-    } else {
-        console.log(user)
-        var creado = false
-        var crear = {
-            nombre : user.name, 
-            email : user.email, 
-            avatar: user.picture
-        }
-        await models.Usuario.create(crear).then(cre => {
-            creado = true
-        }).catch(err => {
-            console.log(err)
-            error = err
-        })
-        if(creado){
-            var nuevo_usuario = await models.Usuario.findOne({ where: { email: user.email } })
-            const datosUsuarioDetalles = nuevo_usuario.get()
+        var pass = config.passphrase;
+        var decrypted = CryptoJS.AES.decrypt(password, pass)
+        var passDecryp = decrypted.toString(CryptoJS.enc.Utf8)
+        const datosUsuarioDetalles = usuario_bd.get()
+        const usuario = await buscar_usuario(email)
+        console.log('usuario', usuario)
+        if(usuario.estado){
             const router = await rutas(usuario.id_perfil)
-            var data = {
-                datosUsuario:datosUsuarioDetalles,
-                routers:router
-            }
-            return {
-                token: jwt.sign(data, config.secret)
-            }
+            return await bcrypt.compare(passDecryp, datosUsuarioDetalles.password_new).then(result => {
+                console.log('result',result)
+                if(result){
+                    
+                    var data = {
+                        datosUsuario:usuario,
+                        routers:router
+                    }
+                    return {
+                        token: jwt.sign(data, config.secret)
+                    }
+                }
+                else{
+                    throw new Error(`Lo sentimos, la contraseña que ingresaste es incorrecta. Inténtalo de nuevo.`)
+                }
+            }).catch(err => {
+                throw new Error(`${err}`)
+            })
         }
         else{
-            throw new Error(`Error al crear el usuario ` + error)
+            throw new Error(`El usuario se encuentra inactivo, favor ponte en contacto con pborges@talenttoserve.com para activar la cuenta.`)
         }
-
     }
 }
+
+// export async function loginGoogle(parentValue, { token}) {
+//     const user = decode(token)
+// 	// const usuario = await models.Usuario.findOne({ where: { email: user.email } })
+//     const usuario = await models.Usuario.findOne({ attributes: { exclude: ['password','passphrase'] },where: { email: user.email } })
+//     if (usuario) {
+//         const datosUsuarioDetalles = usuario.get()
+//         // const empresa = await models.Empresa.findOne({ where: { empresa_id: datosUsuarioDetalles.empresa_id } })
+//         const router = await rutas(usuario.id_perfil)
+//         var data = {
+//             datosUsuario:datosUsuarioDetalles,
+//             datosEmpresa: empresa,
+//             routers:router
+//         }
+//         return {
+//             token: jwt.sign(data, config.secret)
+//         }
+        
+//     } else {
+//         console.log(user)
+//         var creado = false
+//         var crear = {
+//             nombre : user.name, 
+//             email : user.email, 
+//             avatar: user.picture
+//         }
+//         await models.Usuario.create(crear).then(cre => {
+//             creado = true
+//         }).catch(err => {
+//             console.log(err)
+//             error = err
+//         })
+//         if(creado){
+//             var nuevo_usuario = await models.Usuario.findOne({ where: { email: user.email } })
+//             const datosUsuarioDetalles = nuevo_usuario.get()
+//             const router = await rutas(usuario.id_perfil)
+//             var data = {
+//                 datosUsuario:datosUsuarioDetalles,
+//                 routers:router
+//             }
+//             return {
+//                 token: jwt.sign(data, config.secret)
+//             }
+//         }
+//         else{
+//             throw new Error(`Error al crear el usuario ` + error)
+//         }
+
+//     }
+// }
