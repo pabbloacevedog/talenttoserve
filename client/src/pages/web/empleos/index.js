@@ -7,6 +7,7 @@ export default Vue.component('Empleos', {
     },
 	data () {
 		return {
+            src_fondo:'statics/img/empleos.png',
         }
 	},
 	computed: {
@@ -18,7 +19,8 @@ export default Vue.component('Empleos', {
 
 	},
 	created () {
-
+        
+        console.log('en compontente')
 	},
 	mounted () {
 	},

@@ -1,12 +1,13 @@
 import Vue from 'vue'
 import { mapGetters } from 'vuex'
-export default Vue.component('Practicas', {
+export default Vue.component('Clientes', {
     $validates: 1,
     components:{
         // tabla:() => import('./tabla/tabla.vue')
     },
 	data () {
 		return {
+            src_fondo:'statics/img/cliente.png',
         }
 	},
 	computed: {
@@ -18,7 +19,8 @@ export default Vue.component('Practicas', {
 
 	},
 	created () {
-
+        
+        console.log('en compontente')
 	},
 	mounted () {
 	},

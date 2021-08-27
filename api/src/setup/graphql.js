@@ -65,7 +65,6 @@ const storeUpload = async (upload) => {
 
 };
 
-
 const autoCall = async (fn, ...context) =>{
     if (typeof fn === 'function') {
         return fn(...context)

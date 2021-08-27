@@ -3,10 +3,16 @@ import { mapGetters } from 'vuex'
 export default Vue.component('Inicio', {
     $validates: 1,
     components:{
-        // tabla:() => import('./tabla/tabla.vue')
+        Portada:() => import('../portada/index.vue'),
+        Historia:() => import('../historia/index.vue'),
+        Areas:() => import('../areas/index.vue'),
+        Nosotros:() => import('../nosotros/index.vue'),
+        Clientes:() => import('../clientes/index.vue'),
+        Contacto:() => import('../contacto/index.vue'),
     },
 	data () {
 		return {
+            src_fondo:'statics/img/inicio.png',
         }
 	},
 	computed: {

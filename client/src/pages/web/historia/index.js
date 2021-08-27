@@ -1,13 +1,14 @@
 import Vue from 'vue'
 import { mapGetters } from 'vuex'
-export default Vue.component('Areas', {
+export default Vue.component('Historia', {
     $validates: 1,
     components:{
         // tabla:() => import('./tabla/tabla.vue')
     },
 	data () {
 		return {
-            src_fondo:'statics/img/fondo_areas.png',
+            src_fondo:'statics/img/fondo_historia.png',
+            src_persona:'statics/img/cocinero.png',
         }
 	},
 	computed: {

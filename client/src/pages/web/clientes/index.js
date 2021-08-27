@@ -7,6 +7,7 @@ export default Vue.component('Clientes', {
     },
 	data () {
 		return {
+            src_fondo:'statics/img/1.jpg',
         }
 	},
 	computed: {
@@ -18,7 +19,8 @@ export default Vue.component('Clientes', {
 
 	},
 	created () {
-
+        
+        console.log('en compontente')
 	},
 	mounted () {
 	},

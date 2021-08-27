@@ -7,6 +7,7 @@ export default Vue.component('Contacto', {
     },
 	data () {
 		return {
+            src_fondo:'statics/img/contacto.png',
         }
 	},
 	computed: {
@@ -18,7 +19,8 @@ export default Vue.component('Contacto', {
 
 	},
 	created () {
-
+        
+        console.log('en compontente')
 	},
 	mounted () {
 	},

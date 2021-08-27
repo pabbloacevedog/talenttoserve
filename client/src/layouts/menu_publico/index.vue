@@ -15,11 +15,8 @@
                             v-ripple
                             :active="link === menuItem.tag"
                             :to="menuItem.tag"
-                            @click="link = menuItem.tag"
+                            @click="scrollToElement(menuItem.tag)"
                             >
-                        <q-item-section avatar style="min-width: 24px !important;">
-                            <q-icon :name="menuItem.icon" />
-                        </q-item-section>
                         <q-item-section class="n_usuario">{{ menuItem.name }}</q-item-section>
                     </q-item>
                 </div>
@@ -38,8 +35,10 @@
 			</q-toolbar>
 		</q-header>
 
-		<q-page-container>
-			<router-view />
+        <q-page-container style="padding-top: 0px !important;">
+            <q-page>
+                <router-view />
+            </q-page>
 		</q-page-container>
 
 		</q-layout>
