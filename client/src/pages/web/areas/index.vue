@@ -1,36 +1,31 @@
 <template>
-  <div class="div_fondo_areas row" :style="{ backgroundImage: 'url(' + src_fondo + ')' }">
+  <div class="div_fondo_areas row">
       <div class="col-6">
-            <div class="column flex-center" style="font-size: 4em;">ÁREAS DE SERVICIO</div>
+            <div class="column flex-center titulo-areas text-white">ÁREAS DE SERVICIO</div>
             <div class="row" >
                 <div class="col-6">
-                    <q-card
-                    class="my-card text-white"
-                    style="background: radial-gradient(circle, #ff8235 0%, #de3b11 100%);width: 280px;margin-left: 5%;margin-top: 5%;border-radius: 25px;"
+                                        <q-card
+                    class="my-card card-areas text-white"
                     >
-                    <q-card-section style="padding-bottom: 0px;">
-                        <div class="text-h6">CONSULTORIA INTEGRAL HOTELERA</div>
+
+                    <q-card-section class="card-titulo">
+                        <div>OPORTUNIDADES LABORALES</div>
                     </q-card-section>
                     <q-card-section class="q-pt-none">
                         <ul className='p-none'>
-                            <li className='li_areas'>Habitaciones</li>
-                            <li className='li_areas'>Alimentos y Bebidas</li>
-                            <li className='li_areas'>Finanzas, Compras y Costos</li>
-                            <li className='li_areas'>Gestión de Personas</li>
-                            <li className='li_areas'>Análisis Técnico</li>
-                            <li className='li_areas'>Ventas, Marketing y Revenue Management</li>
-                            <li className='li_areas'>Gestión de Calidad</li>
+                            <li className='li_areas'>Encuentra en esta sección todos los avisos que los hoteles publican.</li>
                         </ul>
+                        
                     </q-card-section>
                     </q-card>
+
                 </div>
                 <div class="col-6">
                     <q-card
-                    class="my-card text-white"
-                    style="background: radial-gradient(circle, #ff8235 0%, #de3b11 100%);width: 280px;margin-left: 5%;margin-top: 5%;border-radius: 25px;"
+                    class="my-card card-areas text-white"
                     >
-                    <q-card-section style="padding-bottom: 0px;">
-                        <div class="text-h6">HEADHUNTING</div>
+                    <q-card-section class="card-titulo">
+                        <div>HEADHUNTING</div>
                     </q-card-section>
                     <q-card-section class="q-pt-none">
                         <ul className='p-none'>
@@ -43,24 +38,35 @@
             <div class="row" >
                 <div class="col-6">
                     <q-card
-                    class="my-card text-white"
-                    style="background: radial-gradient(circle, #ff8235 0%, #de3b11 100%);width: 280px;margin-left: 5%;margin-top: 5%;border-radius: 25px;"
+                    class="my-card card-areas text-white"
                     >
-                    <q-card-section style="padding-bottom: 0px;">
-                        <div class="text-h6">OPORTUNIDADES LABORALES</div>
-                    </q-card-section>
-                    <q-card-section class="q-pt-none">
-                        Encuentra en esta sección todos los avisos que los hoteles publican.
-                    </q-card-section>
+<!--                         <q-card-section class="avatar-sect">
+                            <q-avatar class="avatar-cont">
+                                <img :src="icon_consultoria" size="md">
+                            </q-avatar>
+                        </q-card-section> -->
+                        <q-card-section class="card-titulo">
+                            <div>CONSULTORIA INTEGRAL HOTELERA</div>
+                        </q-card-section>
+                        <q-card-section class="q-pt-none">
+                            <ul className='p-none'>
+                                <li className='li_areas'>Habitaciones</li>
+                                <li className='li_areas'>Alimentos y Bebidas</li>
+                                <li className='li_areas'>Finanzas, Compras y Costos</li>
+                                <li className='li_areas'>Gestión de Personas</li>
+                                <li className='li_areas'>Análisis Técnico</li>
+                                <li className='li_areas'>Ventas, Marketing y Revenue Management</li>
+                                <li className='li_areas'>Gestión de Calidad</li>
+                            </ul>
+                        </q-card-section>
                     </q-card>
                 </div>
                 <div class="col-6">
                     <q-card
-                    class="my-card text-white"
-                    style="background: radial-gradient(circle, #ff8235 0%, #de3b11 100%);width: 280px;margin-left: 5%;margin-top: 5%;border-radius: 25px;"
+                    class="my-card card-areas text-white" 
                     >
-                    <q-card-section style="padding-bottom: 0px;">
-                        <div class="text-h6">CLIENTE INCÓGNITO<</div>
+                    <q-card-section class="card-titulo">
+                        <div>CLIENTE INCÓGNITO</div>
                     </q-card-section>
                     <q-card-section class="q-pt-none">
                         <ul className='p-none'>
@@ -74,7 +80,7 @@
             </div>
       </div>
         <div class="col-6">
-            <img :src="src_persona" style="width: 12vw !important;margin-left: 35%;">
+            <img :src="src_persona" style="height: 111vh;">
       </div>
   </div>
     <!-- <q-parallax style="height: 100vh;">

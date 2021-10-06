@@ -16,8 +16,6 @@ import schema from '../schema'
 if (!fs.existsSync(UPLOAD_DIR)){
 	mkdirp.sync(UPLOAD_DIR);
 }
-
-
 const storeUpload = async (upload) => {
 	try{
         console.log('upload',upload)

@@ -234,6 +234,22 @@ body
 @font-face
   font-family quicksand_book_oblique
   src url(./font/Quicksand_Book_Oblique.otf)
+
+@font-face
+  font-family monserrat_regular
+  src url(./font/Montserrat-Regular.ttf)
+
+@font-face
+  font-family monserrat_thin
+  src url(./font/Montserrat-Thin.ttf)
+
+@font-face
+  font-family monserrat_bold
+  src url(./font/Montserrat-Bold.ttf)
+
+@font-face
+  font-family monserrat_medium
+  src url(./font/Montserrat-Medium.ttf)
 //declaración de la clase css para usar la font
 .f_debby
   font-family 'debby'
@@ -409,12 +425,23 @@ body
 .f_quicksand_light
   font-family 'quicksand_light'
 
+.f_monserrat_l
+  font-family 'monserrat_thin'
+
+.f_monserrat_b
+  font-family 'monserrat_bold'
+
+.f_monserrat_r
+  font-family 'monserrat_regular'
 .modal-open .q-layout--standard, .modal-open .q-layout {
     -webkit-filter: blur(6px);
     -moz-filter: blur(2px);
     -o-filter: blur(2px);
     -ms-filter: blur(2px);
     filter: blur(5px);
+}
+body{
+  font-family 'monserrat_regular'
 }
 .q-field__messages > div {
     color: #00abf6;

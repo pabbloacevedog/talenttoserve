@@ -18,7 +18,9 @@ export default Vue.component('MenuPublico', {
                 {name: 'Practicas laborales', path:'/practicas', icon: '', tag: '#practicas'},
                 {name: 'Nosotros', path:'#nosotros', icon: '', tag: '#nosotros'},
             ],
+            ir_home: '',
             src_logo: '../../statics/icono.png',
+            scrollPosition: null
         }
 	},
 	computed: {
@@ -27,6 +29,9 @@ export default Vue.component('MenuPublico', {
         })
 	},
 	methods: {
+        updateScroll() {
+            this.scrollPosition = window.scrollY
+        },
         scrollToElement(id) {
             let el = document.getElementById(id)
             const target = getScrollTarget(el)
@@ -38,8 +43,9 @@ export default Vue.component('MenuPublico', {
 	created () {
 
 	},
-	mounted () {
-	},
+    mounted() {
+        window.addEventListener('scroll', this.updateScroll);
+    },
 	updated () {
 	},
     watch: {
