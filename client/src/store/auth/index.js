@@ -28,6 +28,7 @@ const actions = {
 		commit('LOGIN')
 		var email = credenciales.email
 		var password =  credenciales.password
+        var pass = process.env.PASSPHRASE
 		await this.$apollo.defaultClient.query({
 			query: LOGIN_QUERY,
 			variables: {
@@ -35,7 +36,7 @@ const actions = {
 				password
 			}
 		}).then(response => {
-
+            debugger
 			const token = response.data.userLogin.token
             console.log('token', token)
             const data = getUserFromToken(token)
@@ -46,18 +47,19 @@ const actions = {
 			const rutas = data.routers
 			rutes = crearRutas(rutas)
             if(user.id_perfil == 1){
-                var enc_perm = CryptoJS.AES.encrypt(true, pass);
-                localStorage.setItem('perm', enc_perm)
+                // var enc_perm = CryptoJS.AES.encrypt(true, pass);
+                localStorage.setItem('perm', true)
             }
             
             var enc_path_default = CryptoJS.AES.encrypt(user.path_default, pass);
             localStorage.setItem('path_default', enc_path_default)
 			localStorage.removeItem("token")
 			// localStorage.removeItem("rutas")
-            var enc_rutes = CryptoJS.AES.encrypt(rutes, pass);
-			localStorage.setItem('rutas', JSON.stringify(enc_rutes))
-            var enc_rutas = CryptoJS.AES.encrypt(rutas, pass);
-			localStorage.setItem('menu', JSON.stringify(enc_rutas))
+            var rutes_js = JSON.stringify(rutes)
+            var enc_rutes = CryptoJS.AES.encrypt(rutes_js, pass);
+			localStorage.setItem('rutas',enc_rutes)
+            var enc_rutas = CryptoJS.AES.encrypt(JSON.stringify(rutas), pass);
+			localStorage.setItem('menu', enc_rutas)
 			routers = crearRouter(rutas)
 			this.$router.addRoutes(routers)
             // localStorage.setItem('ss_u', user.usuario_id)
@@ -66,6 +68,7 @@ const actions = {
 			commit('LOGIN_SUCCESS', user)
 
 		}).catch(response => {
+            debugger
 			commit('LOGIN_ERROR', response)
 		})
     },

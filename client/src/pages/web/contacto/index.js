@@ -7,7 +7,12 @@ export default Vue.component('Contacto', {
     },
 	data () {
 		return {
-            src_fondo:'statics/img/contacto.png',
+			src_fondo:'statics/img/fondo_historia.png',
+            src_persona:'statics/img/cocinero.png',
+			nombre:'',
+			email:'',
+			telefono:'',
+			mensaje:''
         }
 	},
 	computed: {

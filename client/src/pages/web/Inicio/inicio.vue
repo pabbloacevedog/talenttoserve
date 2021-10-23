@@ -4,7 +4,7 @@
         <Historia id="#historia"/>
         <Areas id="#areas"/>
         <Nosotros id="#nosotros"/>
-        <Clientes id="#clientes"/>
+        <!-- <Clientes id="#clientes"/> -->
         <Contacto id="#contacto"/>
     </div>
 </template>

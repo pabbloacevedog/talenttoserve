@@ -11,13 +11,14 @@ export default Vue.component('MenuPublico', {
 	data () {
 		return {
             menu:[
-                {name: 'Areas', path:'/areas', icon: '', tag: ' '},
-                {name: 'Clientes', path:'/clientes', icon: '', tag: '#clientes'},
+                {name: 'Areas', path:'/areas', icon: '', tag: '#areas'},
+                // {name: 'Clientes', path:'/clientes', icon: '', tag: '#clientes'},
                 {name: 'Contacto', path:'/Contacto', icon: '', tag: '#contacto'},
                 {name: 'Empleos', path:'/empleos', icon: '', tag: '#empleos'},
                 {name: 'Practicas laborales', path:'/practicas', icon: '', tag: '#practicas'},
                 {name: 'Nosotros', path:'#nosotros', icon: '', tag: '#nosotros'},
             ],
+            link:'',
             ir_home: '',
             src_logo: '../../statics/icono.png',
             scrollPosition: null

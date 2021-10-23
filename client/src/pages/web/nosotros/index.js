@@ -2,18 +2,19 @@ import Vue from 'vue'
 import { mapGetters } from 'vuex'
 export default Vue.component('Nosotros', {
     $validates: 1,
-    components:{
+    components: {
         // tabla:() => import('./tabla/tabla.vue')
     },
-	data () {
-		return {
-            src_fondo:'statics/img/fondo_nosotros_final.png',
+    data() {
+        return {
+            src_fondo: 'statics/img/fondo_nosotros_final.png',
             // src_persona:'statics/img/nosotros.png',
-            items : [
+            slide: 1,
+            items: [
                 {
                     src: 'statics/img/julie.jpg',
                     nombre: "Patricia Borges da Gama",
-                        cargo:'Administrador Hotelero / Diplomado en Gestión Hotelera y Turismo',
+                    cargo: 'Administrador Hotelero / Diplomado en Gestión Hotelera y Turismo',
                     descripcion: `
                         32 Años en Hotelería/ Asume cargos a nivel gerencial en Área de
                         Operaciones en Chile, Portugal y Brasil. Participación en 3 aperturas
@@ -30,9 +31,9 @@ export default Vue.component('Nosotros', {
                         Brasil(Upscale)`,
                 },
                 {
-                    src:'statics/img/eva.jpg',
+                    src: 'statics/img/eva.jpg',
                     nombre: "Velia Orozco del Valle",
-                        cargo:`Licenciada en Ciencias de la Comunicación / MBA Master en
+                    cargo: `Licenciada en Ciencias de la Comunicación / MBA Master en
                     administración de negocios`,
                     descripcion: `
                     Mas de 22 Años de experiencia profesional en comunicación y
@@ -52,7 +53,7 @@ export default Vue.component('Nosotros', {
                 {
                     src: 'statics/img/julie.jpg',
                     nombre: "Natalia Ortiz",
-                        cargo:`Administradora de Empresas Turísticas y Hoteleras`,
+                    cargo: `Administradora de Empresas Turísticas y Hoteleras`,
                     descripcion: `
                     17 años de experiencia., comenzó su carrera en el área operativa
                     para luego continuar en el área de Ventas y Mercadeo. Ha trabajado
@@ -72,7 +73,7 @@ export default Vue.component('Nosotros', {
                 {
                     src: 'statics/img/ryan.jpg',
                     nombre: "Emilio Bissoni",
-                        cargo:`Administrador de Empresas`,
+                    cargo: `Administrador de Empresas`,
                     descripcion: `
                     30 años en Hotelería/.Ha gestionado restaurantes y hoteles de
                     lujo, de servicio completo y de servicio limitado, en cinco cadenas
@@ -87,12 +88,12 @@ export default Vue.component('Nosotros', {
                     Ha trabajado en todas las áreas operativas de un hotel hasta
                     alcanzar la posición de Gerente General en algunas de las
                     cadenas y hoteles más relevantes de América Latina`,
-                    },
-                    {
-                        src: 'statics/img/julie.jpg',
-                        nombre: "Roberto Castillo",
-                            cargo:`Contador Auditor`,
-                        descripcion: `
+                },
+                {
+                    src: 'statics/img/julie.jpg',
+                    nombre: "Roberto Castillo",
+                    cargo: `Contador Auditor`,
+                    descripcion: `
                         Mas de 30 años de experiencia en Hoteles de cadenas internacionales
                         y nacionales.
                         Aperturas, Puesta en Marcha, Implementación, Contabilidad.
@@ -104,12 +105,12 @@ export default Vue.component('Nosotros', {
                         Hotel Sheraton Santiago ( Luxury ), Hotel Ritz Carlton Santiago
                         (Luxury), Hotel The Singular ( Luxury) , Hotel Noi ( Upper Upscale),
                         Hotel Hilton Garden Inn( Upscale)`,
-                    },
-                    {
-                        src: 'statics/img/julie.jpg',
-                        nombre: "Katherine Rodriguez",
-                            cargo:`Administradora de Empresas mencion Ventas y Marketing`,
-                        descripcion: `
+                },
+                {
+                    src: 'statics/img/julie.jpg',
+                    nombre: "Katherine Rodriguez",
+                    cargo: `Administradora de Empresas mencion Ventas y Marketing`,
+                    descripcion: `
                         Posee una experiencia de 20 años en la hotelería, trabajando en
                         las mejores cadenas internacionales del país
                         Inició su carrera en Sheraton Santiago Hotel by Starwood.
@@ -121,26 +122,26 @@ export default Vue.component('Nosotros', {
                         Alimentos y bebidas, Spa and fitness center, Concierge y como
                         manager on duty.
                         `,
-                    },
-                ],
+                },
+            ],
         }
-	},
-	computed: {
-		...mapGetters({ 
+    },
+    computed: {
+        ...mapGetters({
             isLogin: "Auth/isLogin", isAdmin: "Auth/isAdmin"
         })
-	},
-	methods: {
+    },
+    methods: {
 
-	},
-	created () {
-        
+    },
+    created() {
+
         console.log('en compontente')
-	},
-	mounted () {
-	},
-	updated () {
-	},
+    },
+    mounted() {
+    },
+    updated() {
+    },
     watch: {
 
     }

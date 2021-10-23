@@ -7,8 +7,8 @@ export default Vue.component('Areas', {
     },
 	data () {
 		return {
-            src_persona:'statics/img/areas_img.png',
-			icon_consultoria:'statics/icons/message-glass.png'
+            src_persona:'statics/img/8.png',
+			src_fondo:'statics/img/burbujas.png'
         }
 	},
 	computed: {

@@ -32,6 +32,7 @@ export default Vue.component('Login', {
 				password: encrypted.toString()
 			}).then(res => {
 				this.$q.loading.hide()
+				debugger
 				if(this.error){
 					var message = this.error.message.replace('GraphQL error: ','')
 					this.$q.notify({
