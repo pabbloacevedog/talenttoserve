@@ -39,6 +39,9 @@ export default Vue.component('MenuPublico', {
             const offset = el.offsetTop - 65
             const duration = 800
             setScrollPosition(target, offset, duration)
+        },
+        login(){
+            this.$router.push('/login')
         }
 	},
 	created () {
