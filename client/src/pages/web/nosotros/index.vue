@@ -5,7 +5,7 @@
     >
         <div class="col-7" style="display: table; padding: 2%">
             <div class="column flex-center titulo-areas text-white">
-                Nosotros
+                Nuestro equipo
             </div>
             <q-carousel
                 v-model="slide"

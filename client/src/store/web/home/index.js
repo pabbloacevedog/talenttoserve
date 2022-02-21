@@ -16,79 +16,102 @@ const state = {
 }
 
 const actions = {
-
-    async loadHome({commit}, datos) {
-        commit('HOME')
-        let uuid_user = datos.uuid_user
-        let offset = datos.offset
-        // console.log('home store', this)
-		await this.$apollo.defaultClient.query({
-			query: POST_HOME_QUERY,
-			variables: {
-				uuid_user, offset
-			}
-		}).then(response => {
-			const dataHome = response.data.dataHome
-			commit('HOME_SUCCESS', dataHome)
-
-		}).catch(response => {
-			commit('HOME_ERROR', response)
-		})
+	async loadHome({ commit }, datos) {
+		commit("HOME");
+		let uuid_user = datos.uuid_user;
+		let offset = datos.offset;
+		// console.log('home store', this)
+		await this.$apollo.defaultClient
+			.query({
+				query: POST_HOME_QUERY,
+				variables: {
+					uuid_user,
+					offset
+				}
+			})
+			.then(response => {
+				const dataHome = response.data.dataHome;
+				commit("HOME_SUCCESS", dataHome);
+			})
+			.catch(response => {
+				commit("HOME_ERROR", response);
+			});
 	},
-	async uploadFile({commit}, file) {
-		console.log('file store',file)
-		commit('UPLOAD')
-		await this.$apollo.defaultClient.mutate({
-			mutation: UPLOAD_POST_MUTATION,
-			variables: {file}
-		}).then(response => {
-
-			const id = response.data.singleUpload.id
-			commit('UPLOAD_SUCCESS', id)
-
-
-		}).catch(response => {
-			console.log('response', response)
-			commit('UPLOAD_ERROR', response)
-		})
+	async uploadFile({ commit }, file) {
+		console.log("file store", file);
+		commit("UPLOAD");
+		await this.$apollo.defaultClient
+			.mutate({
+				mutation: UPLOAD_POST_MUTATION,
+				variables: { file }
+			})
+			.then(response => {
+				const id = response.data.singleUpload.id;
+				commit("UPLOAD_SUCCESS", id);
+			})
+			.catch(response => {
+				console.log("response", response);
+				commit("UPLOAD_ERROR", response);
+			});
 	},
-	async uploadFiles({commit}, files) {
-		console.log('files store',files)
-		commit('UPLOAD')
-		await this.$apollo.defaultClient.mutate({
-			mutation: UPLOAD_MULTIPLE_MUTATION,
-			variables: {files}
-		}).then(response => {
-
-			const id = response.data.multipleUpload.id
-			commit('UPLOAD_SUCCESS', id)
-
-
-		}).catch(response => {
-			console.log('response', response)
-			commit('UPLOAD_ERROR', response)
-		})
+	async uploadFiles({ commit }, files) {
+		console.log("files store", files);
+		commit("UPLOAD");
+		await this.$apollo.defaultClient
+			.mutate({
+				mutation: UPLOAD_MULTIPLE_MUTATION,
+				variables: { files }
+			})
+			.then(response => {
+				const id = response.data.multipleUpload.id;
+				commit("UPLOAD_SUCCESS", id);
+			})
+			.catch(response => {
+				console.log("response", response);
+				commit("UPLOAD_ERROR", response);
+			});
 	},
-	async createPost({commit}, datPost) {
-		var files = datPost.files
-		var text =  datPost.text
-		var uuid_user = datPost.uuid_user
+	async createPost({ commit }, datPost) {
+		var files = datPost.files;
+		var text = datPost.text;
+		var uuid_user = datPost.uuid_user;
 
-		commit('CREATE_POST')
-		await this.$apollo.defaultClient.mutate({
-			mutation: CREATE_POST_MUTATION,
-			variables: {files, text, uuid_user}
-		}).then(response => {
-			const id = response.data.createPost.id_post
-			commit('CREATE_POST_SUCCESS', id)
+		commit("CREATE_POST");
+		await this.$apollo.defaultClient
+			.mutate({
+				mutation: CREATE_POST_MUTATION,
+				variables: { files, text, uuid_user }
+			})
+			.then(response => {
+				const id = response.data.createPost.id_post;
+				commit("CREATE_POST_SUCCESS", id);
+			})
+			.catch(response => {
+				console.log("response", response);
+				commit("CREATE_POST_ERROR", response);
+			});
+	},
+	async createPost({ commit }, datPost) {
+		var files = datPost.files;
+		var text = datPost.text;
+		var uuid_user = datPost.uuid_user;
 
-
-		}).catch(response => {
-			console.log('response', response)
-			commit('CREATE_POST_ERROR', response)
-		})
-    },
-    // async createComment({commit}, datComment) {
+		commit("CREATE_POST");
+		await this.$apollo.defaultClient
+			.mutate({
+				mutation: CREATE_POST_MUTATION,
+				variables: { files, text, uuid_user }
+			})
+			.then(response => {
+				const id = response.data.createPost.id_post;
+				commit("CREATE_POST_SUCCESS", id);
+			})
+			.catch(response => {
+				console.log("response", response);
+				commit("CREATE_POST_ERROR", response);
+			});
+	}
+	// async createComment({commit}, datComment) {
 	// 	var id_post = datComment.id_post
 	// 	var text =  datComment.text
 	// 	var uuid_user = datComment.uuid_user
@@ -101,13 +124,12 @@ const actions = {
 	// 		const id = response.data.createComment.id_comment
 	// 		commit('CREATE_COMMENT_SUCCESS', id)
 
-
 	// 	}).catch(response => {
 	// 		console.log('response', response)
 	// 		commit('CREATE_COMMENT_ERROR', response)
 	// 	})
-    // },
-    // async createRespComment({commit}, datComment) {
+	// },
+	// async createRespComment({commit}, datComment) {
 	// 	var id_comment = datComment.id_comment
 	// 	var text =  datComment.text
 	// 	var uuid_user = datComment.uuid_user
@@ -120,15 +142,14 @@ const actions = {
 	// 		const id = response.data.createComment.id_resp_comment
 	// 		commit('CREATE_RESPCOMMENT_SUCCESS', id)
 
-
 	// 	}).catch(response => {
 	// 		console.log('response', response)
 	// 		commit('CREATE_RESPCOMMENT_ERROR', response)
 	// 	})
-    // },
-    // async liked({commit}, data) {
-    //     commit('LIKE')
-    //     console.log('data',data)
+	// },
+	// async liked({commit}, data) {
+	//     commit('LIKE')
+	//     console.log('data',data)
 	// 	var id_post = data.id_post
 	// 	var uuid_user =  data.uuid_user
 	// 	await this.$apollo.defaultClient.mutate({
@@ -140,11 +161,11 @@ const actions = {
 	// 		const user = response.data.like.like
 	// 		commit('LIKE_SUCCESS', user)
 	// 	}).catch(response => {
-    //         console.log(response)
+	//         console.log(response)
 	// 		commit('LIKE_ERROR', response)
 	// 	})
-    // },
-    // async disliked({commit}, data) {
+	// },
+	// async disliked({commit}, data) {
 	// 	commit('DISLIKE')
 	// 	var id_post = data.id_post
 	// 	var uuid_user =  data.uuid_user
@@ -159,8 +180,8 @@ const actions = {
 	// 	}).catch(response => {
 	// 		commit('DISLIKE_ERROR', response)
 	// 	})
-    // }
-}
+	// }
+};
 
 const mutations = {
 

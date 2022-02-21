@@ -13,7 +13,7 @@ export default Vue.component('OpPractica', {
             nuevo_descripcion:'',
             nuevo_link:'',
             nuevo_hotel:'',
-            nuevo_estado : 
+            nuevo_estado :
                 {
                 label: 'Activo',
                 value: true
@@ -24,7 +24,7 @@ export default Vue.component('OpPractica', {
             editar_descripcion:'',
             editar_link:'',
             editar_hotel:'',
-            editar_estado : 
+            editar_estado :
                 {
                 label: 'Activo',
                 value: true
@@ -43,9 +43,9 @@ export default Vue.component('OpPractica', {
                 filter: '',
                 selected: [],
                 pagination: {
-                    rowsPerPage: 10 
+                    rowsPerPage: 10
                 },
-                selectedkey: 'codigo', 
+                selectedkey: 'codigo',
                 columns: [
                   {
                     name: 'cargo',
@@ -81,12 +81,12 @@ export default Vue.component('OpPractica', {
         }
 	},
 	computed: {
-		...mapGetters({ 
-            dataOpPractica: "OpPractica/getData", 
+		...mapGetters({
+            dataOpPractica: "OpPractica/getData",
             registro_creado: "OpPractica/getCreado",
             registro_editado: "OpPractica/getEditado",
             registro_eliminado: "OpPractica/getEliminado",
-            error: "OpPractica/error" , 
+            error: "OpPractica/error" ,
         })
 	},
 	methods: {
@@ -234,7 +234,7 @@ export default Vue.component('OpPractica', {
 
         },
         async guardar_nuevo() {
-			
+
             const {nuevo_cargo, nuevo_descripcion , nuevo_link, nuevo_hotel, nuevo_estado} = this
             var est = nuevo_estado.value
             if(nuevo_cargo == ''){
@@ -365,42 +365,42 @@ export default Vue.component('OpPractica', {
             var especiales = "8-16-20-80-186";
             var valor = especiales.split('-');
             var tecla_especial = false;
-        
+
             for(var j in valor){
                 if(key == valor[j]){
                     tecla_especial = true;
                     break;
                 }
             }
-            
+
             var charStr = String.fromCharCode(key)
 
-            if(letras.indexOf(charStr)==-1 && !tecla_especial){  
+            if(letras.indexOf(charStr)==-1 && !tecla_especial){
                 e.preventDefault()
-                e.stopPropagation()                
+                e.stopPropagation()
             }
         },
         solo_letras(e){
-                    
+
             var key = e.keyCode || e.which;
             var tecla = String.fromCharCode(key).toLowerCase();
             var letras = "aeiouáéíóúabcdefghijklmnñopqrstuvwxyzAEIOUÁÉÍÓÚABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
             var especiales = "8-16-20-32-80-186";
             var valor = especiales.split('-');
             var tecla_especial = false;
-        
+
             for(var j in valor){
                 if(key == valor[j]){
                     tecla_especial = true;
                     break;
                 }
             }
-            
+
             var charStr = String.fromCharCode(key)
 
-            if(letras.indexOf(charStr)==-1 && !tecla_especial){  
+            if(letras.indexOf(charStr)==-1 && !tecla_especial){
                 e.preventDefault()
-                e.stopPropagation()                
+                e.stopPropagation()
             }
 
         },

@@ -2,9 +2,10 @@
     <div>
         <Portada id="#portada" />
         <Historia id="#historia"/>
+		<Sobrenosotros id="#sobrenosotros"/>
         <Areas id="#areas"/>
         <Nosotros id="#nosotros"/>
-        <!-- <Clientes id="#clientes"/> -->
+        <Clientes id="#clientes"/>
         <Contacto id="#contacto"/>
     </div>
 </template>

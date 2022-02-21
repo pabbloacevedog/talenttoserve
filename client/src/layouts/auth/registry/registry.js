@@ -6,33 +6,39 @@ export default Vue.component('Registry', {
 	$validates: 1,
 	data () {
 		return {
-			email: '',
-			password: '',
-			nombre: '',
-			apellido:'',
-            usuario: '',
-            id_perfil: [],
-            rut:'',
-            telefono: '',
-            confirm: '',
-            title: 'Registro',
+			email: "",
+			avatar_default: "../statics/image55.png",
+			avatar_clean: "../statics/icono.png",
+			password: "",
+			nombre: "",
+			apellido: "",
+			usuario: "",
+			id_perfil: [],
+			rut: "",
+			telefono: "",
+			confirm: "",
+			title: "Registro",
 			items: [],
-            isPwd: true,
-            error_rut: false,
+			isPwd: true,
+			error_rut: false,
 			alert: false,
-			date: '2019/02/01',
-            
+			date: "2019/02/01",
+
 			perfiles: [
 				{
-				label: 'Administrador',
-				value: '1'
+					label: "Postulante",
+					value: "1"
 				},
 				{
-				label: 'Creador cortes',
-				value: '2'
+					label: "Proveedor",
+					value: "3"
+				},
+				{
+					label: "Hotel",
+					value: "4"
 				}
 			]
-		}
+		};
 	},
 	props: {
 	},
@@ -73,14 +79,14 @@ export default Vue.component('Registry', {
             }).catch(err => {
                 console.log(err)
             })
-			
+
 
         },
         async SetNewPass () {
 			// this.$q.loading.show()
             var todos = []
             // array.forEach(element => {
-                
+
             // });
             var newObj = this.allPass.map(user => {
                 user.password_new = user.password
@@ -112,7 +118,7 @@ export default Vue.component('Registry', {
             }).catch(err => {
                 console.log(err)
             })
-			
+
 
         },
         perfil_view(){
@@ -145,7 +151,7 @@ export default Vue.component('Registry', {
         validarRut () {
             if (this.rut != ""){
                 var valido = this.$general.validar_rut(this.rut.split('.').join('').split('-').join(''))
-            
+
                 if(valido){
                     this.error_rut = false
                 }else{

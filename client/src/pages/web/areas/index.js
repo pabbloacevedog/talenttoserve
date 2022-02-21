@@ -7,12 +7,11 @@ export default Vue.component('Areas', {
     },
 	data () {
 		return {
-            src_persona:'statics/img/8.png',
-			src_fondo:'statics/img/burbujas.png'
-        }
+			src_persona: "statics/img/8.png",
+		};
 	},
 	computed: {
-		...mapGetters({ 
+		...mapGetters({
             isLogin: "Auth/isLogin", isAdmin: "Auth/isAdmin"
         })
 	},
@@ -20,7 +19,7 @@ export default Vue.component('Areas', {
 
 	},
 	created () {
-        
+
         console.log('en compontente')
 	},
 	mounted () {

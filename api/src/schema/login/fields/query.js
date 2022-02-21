@@ -3,7 +3,7 @@ import {GraphQLString} from 'graphql'
 
 // App Imports
 import UserLoginType from '../type.js'
-import {login, loginGoogle} from '../resolvers.js'
+import {login, sendPass} from '../resolvers.js'
 
 // Auth
 export const userLogin = {
@@ -21,6 +21,16 @@ export const userLogin = {
     },
     resolve: login
 }
+export const forget = {
+	type: UserLoginType,
+	args: {
+		email: {
+			name: "email",
+			type: GraphQLString,
+		},
+	},
+	resolve: sendPass,
+};
 // export const userLoginGoogle = {
 //     type: UserLoginType,
 //     args: {

@@ -1,5 +1,6 @@
 // App Imports
 import models from '../../models'
+const ColorThief = require("colorthief");
 // Get users by ID
 export async function getById(parentValue, {codigo}) {
 	return await models.OpTrabajo.findOne({ where: { codigo } })
@@ -10,6 +11,14 @@ export async function getAll(parentValue, {}) {
 	return await models.OpTrabajo.findAll({order: [
         ['codigo', 'DESC']
     ],})
+	// datos.forEach((element) => {
+	// 	element.color = getColor(element.banner);
+	// });
+	// return datos
+}
+async function getColor(banner){
+	const img = resolve(process.cwd(), banner);
+	return ColorThief.getColor(img);
 }
 
 // Delete user
@@ -24,13 +33,13 @@ export async function create(parentValue,{ cargo, descripcion, link, hotel,web,f
     if(typeof file=== 'object'){
         banner = await storeUpload(file)
     }
-    
+
     console.log('banner',banner)
 	await models.OpTrabajo.create({
         cargo, descripcion, link, hotel, web,banner,estado
 	}).then(optrabajo => {
         create = true
-        
+
 	}).catch(err => {
 		console.log(err)
 		error = err

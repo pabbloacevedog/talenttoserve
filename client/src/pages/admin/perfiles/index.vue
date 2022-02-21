@@ -1,6 +1,6 @@
 <template>
     <div>
-        
+
         <!-- <q-breadcrumbs v-if="$q.platform.is.mobile" active-color="accent">
             <div class="flex items-center justify-end q-gutter-sm">
                 <q-btn
@@ -62,28 +62,28 @@
             </q-bar>
             <q-card-section align="center" v-if="$q.platform.is.desktop">
                 <div class="row">
-                    <div class="col-6">       
-                        <div class="text-h6 titulo_crear" color="text">Datos del Perfil</div>     
+                    <div class="col-6">
+                        <div class="text-h6 titulo_crear" color="text">Datos del Perfil</div>
                     </div>
-                    <div class="col-6">  
-                        <div class="text-h6 titulo_crear" color="text">Rutas del Perfil</div>     
-                    </div>      
-                </div>   
+                    <div class="col-6">
+                        <div class="text-h6 titulo_crear" color="text">Rutas del Perfil</div>
+                    </div>
+                </div>
             </q-card-section>
             <q-card-section align="center" v-else>
                 <div class="text-h5 titulo_crear" color="text">Nuevo Perfil</div>
             </q-card-section>
             <q-card-section class="q-pt-none" v-if="$q.platform.is.desktop" style="padding: 0px !important;">
                     <div class="row">
-                        <div class="col-6" style="padding: 1% 7%;">       
+                        <div class="col-6" style="padding: 1% 7%;">
                             <q-input  dense standout required label='Nombre' v-model='nuevo_nombre' class="input-reg">
                             </q-input>
                             <q-input  dense standout required label='Descripción' v-model='nuevo_descripcion'  type="textarea"  class="input-reg">
-                            </q-input>   
-                            <q-select dense standout required v-model="nuevo_path_default" :options="select_path_default" label="Ruta por defecto" class="input-reg"/>  
-                            <q-select dense standout required v-model="nuevo_estado" :options="estados" label="Estado"/>      
+                            </q-input>
+                            <q-select dense standout required v-model="nuevo_path_default" :options="select_path_default" label="Ruta por defecto" class="input-reg"/>
+                            <q-select dense standout required v-model="nuevo_estado" :options="estados" label="Estado"/>
                         </div>
-                        <div class="col-6" style="padding:1% 3% 0%;">  
+                        <div class="col-6" style="padding:1% 3% 0%;">
                             <div class="row ">
                                 <div  class="col-5 text-subtitle1 titulo_crear">Nombre</div>
                                 <div  class="col-5 text-subtitle1 titulo_crear">Ruta</div>
@@ -102,30 +102,30 @@
                                 </div>
                                 <q-separator />
                             </div>
-                        </div>      
+                        </div>
                     </div>
             </q-card-section>
             <q-card-section align="center" v-else>
                 <div class="row">
-                    <div class="col-12">       
+                    <div class="col-12">
                         <q-input  dense standout required label='Nombre' v-model='nuevo_nombre' class="input-reg">
                         </q-input>
                         <q-input  dense standout required label='Descripción' v-model='nuevo_descripcion'  type="textarea"  class="input-reg">
-                        </q-input>   
-                        <q-select dense standout required v-model="nuevo_path_default" :options="select_path_default" label="Ruta por defecto" class="input-reg"/>  
-                        <q-select dense standout required v-model="nuevo_estado" :options="estados" label="Estado" class="input-reg"/>      
+                        </q-input>
+                        <q-select dense standout required v-model="nuevo_path_default" :options="select_path_default" label="Ruta por defecto" class="input-reg"/>
+                        <q-select dense standout required v-model="nuevo_estado" :options="estados" label="Estado" class="input-reg"/>
                     </div>
-                    <div class="col-12" style="padding-bottom: 5%;">  
-                        <div class="text-h6 titulo_crear" color="text">Rutas del Perfil</div>     
-                    </div>     
-                    <div class="col-12" >  
+                    <div class="col-12" style="padding-bottom: 5%;">
+                        <div class="text-h6 titulo_crear" color="text">Rutas del Perfil</div>
+                    </div>
+                    <div class="col-12" >
                         <div class="row ">
                             <div  class="col-4 text-subtitle1 titulo_crear">Nombre</div>
                             <div  class="col-4 text-subtitle1 titulo_crear">Ruta</div>
                             <div class="col-4 text-subtitle1 titulo_crear">Asignado</div>
                         </div>
                     </div>
-                    <div class="col-12"> 
+                    <div class="col-12">
                         <div v-for="(dim) in rutas_guardar_nuevo" :key="dim.path" class="row">
                             <div  class="col-4 " >{{dim.name}}</div>
                             <div  class="col-4 ">{{dim.path}}</div>
@@ -133,7 +133,7 @@
                                 <q-checkbox v-model="dim.value" color="accent"></q-checkbox>
                             </div>
                         </div>
-                    </div>      
+                    </div>
                 </div>
             </q-card-section>
             <q-card-section align="center">
@@ -155,34 +155,34 @@
                 <div class="text-h4 titulo_crear" style="padding-left: 46%;" color="text">Editar Perfil</div>
                 <q-space></q-space>
                 <q-btn dense flat icon="close" v-close-popup>
-                    
+
                 <q-tooltip content-class="bg-white text-primary">Close</q-tooltip>
                 </q-btn>
             </q-bar>
             <q-card-section align="center" v-if="$q.platform.is.desktop">
                 <div class="row">
-                    <div class="col-6">       
-                        <div class="text-h6 titulo_crear" color="text">Datos del Perfil</div>     
+                    <div class="col-6">
+                        <div class="text-h6 titulo_crear" color="text">Datos del Perfil</div>
                     </div>
-                    <div class="col-6">  
-                        <div class="text-h6 titulo_crear" color="text">Rutas del Perfil</div>     
-                    </div>      
-                </div>   
+                    <div class="col-6">
+                        <div class="text-h6 titulo_crear" color="text">Rutas del Perfil</div>
+                    </div>
+                </div>
             </q-card-section>
             <q-card-section align="center" v-else>
                 <div class="text-h5 titulo_crear" color="text">Editar Perfil</div>
             </q-card-section>
             <q-card-section class="q-pt-none" v-if="$q.platform.is.desktop" style="padding: 0px !important;">
                     <div class="row">
-                        <div class="col-6" style="padding: 1% 7%;">       
+                        <div class="col-6" style="padding: 1% 7%;">
                             <q-input  dense standout required label='Nombre' v-model='editar_nombre' class="input-reg">
                             </q-input>
                             <q-input  dense standout required label='Descripción' v-model='editar_descripcion' rows="9"  type="textarea"  class="input-reg">
                             </q-input>
-                            <q-select dense standout required v-model="editar_path_default" :options="select_path_default" label="Ruta por defecto" class="input-reg"/>  
-                            <q-select dense standout required v-model="editar_estado" :options="estados" label="Estado"/>      
+                            <q-select dense standout required v-model="editar_path_default" :options="select_path_default" label="Ruta por defecto" class="input-reg"/>
+                            <q-select dense standout required v-model="editar_estado" :options="estados" label="Estado"/>
                         </div>
-                        <div class="col-6" style="padding:1% 3% 0%;">  
+                        <div class="col-6" style="padding:1% 3% 0%;">
                             <div class="row ">
                                 <div  class="col-5 text-subtitle1 titulo_crear">Nombre</div>
                                 <div  class="col-5 text-subtitle1 titulo_crear">Ruta</div>
@@ -201,30 +201,30 @@
                                 </div>
                                 <q-separator />
                             </div>
-                        </div>      
+                        </div>
                     </div>
             </q-card-section>
             <q-card-section align="center" v-else>
                 <div class="row">
-                    <div class="col-12">       
+                    <div class="col-12">
                         <q-input  dense standout required label='Nombre' v-model='editar_nombre' class="input-reg">
                         </q-input>
                         <q-input  dense standout required label='Descripción' v-model='editar_descripcion' rows="9"  type="textarea"  class="input-reg">
-                        </q-input>   
-                        <q-select dense standout required v-model="editar_path_default" :options="select_path_default" label="Ruta por defecto" class="input-reg"/>  
-                        <q-select dense standout required v-model="editar_estado" :options="estados" label="Estado" class="input-reg"/>      
+                        </q-input>
+                        <q-select dense standout required v-model="editar_path_default" :options="select_path_default" label="Ruta por defecto" class="input-reg"/>
+                        <q-select dense standout required v-model="editar_estado" :options="estados" label="Estado" class="input-reg"/>
                     </div>
-                    <div class="col-12" style="padding-bottom: 5%;">  
-                        <div class="text-h6 titulo_crear" color="text">Rutas del Perfil</div>     
-                    </div>     
-                    <div class="col-12" >  
+                    <div class="col-12" style="padding-bottom: 5%;">
+                        <div class="text-h6 titulo_crear" color="text">Rutas del Perfil</div>
+                    </div>
+                    <div class="col-12" >
                         <div class="row ">
                             <div  class="col-4 text-subtitle1 titulo_crear">Nombre</div>
                             <div  class="col-4 text-subtitle1 titulo_crear">Ruta</div>
                             <div class="col-4 text-subtitle1 titulo_crear">Asignado</div>
                         </div>
                     </div>
-                    <div class="col-12"> 
+                    <div class="col-12">
                         <div v-for="(dim) in rutas_guardar" :key="dim.path" class="row">
                             <div  class="col-4 " >{{dim.name}}</div>
                             <div  class="col-4 ">{{dim.path}}</div>
@@ -232,7 +232,7 @@
                                 <q-checkbox v-model="dim.value" color="accent"></q-checkbox>
                             </div>
                         </div>
-                    </div>      
+                    </div>
                 </div>
             </q-card-section>
             <q-card-section align="center">
@@ -256,11 +256,11 @@
                     <div class="text-h6 b_eliminar" color="text">
                         ¿Está seguro que desea eliminar el registro
                         <div class="text-h6 n_eliminar" color="text">
-                            {{parametros_tabla.selected[0].nombre}} 
+                            {{parametros_tabla.selected[0].nombre}}
                         </div>
                         ?
                     </div>
-                    
+
                 </q-card-section>
                 <div class="q-mt-md q-pb-md q-pr-lg q-pl-lg" style="text-align: right;">
                     <q-btn rounded @click.native="modal_eliminar = false" class="cancelar">Cancelar</q-btn>
