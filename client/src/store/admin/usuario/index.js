@@ -1,5 +1,6 @@
 import {
 	GET_USUARIO_QUERY,
+	GET_NUSUARIO_QUERY,
 	GET_SELECTOR_QUERY,
 	CREAR_USUARIO_MUTATION,
 	EDITAR_USUARIO_MUTATION,
@@ -15,7 +16,8 @@ const state = {
 	dataSelector: [],
 	creado: "",
 	editado: "",
-	eliminado: ""
+	eliminado: "",
+	n_usuarios: ""
 };
 
 const actions = {
@@ -33,6 +35,21 @@ const actions = {
 			})
 			.catch(response => {
 				commit("CARGAR_ERROR", response);
+			});
+	},
+	async contarUsuarios({ commit }) {
+		commit("CONTAR");
+		await this.$apollo.defaultClient.resetStore();
+		await this.$apollo.defaultClient
+			.query({
+				query: GET_NUSUARIO_QUERY
+			})
+			.then(response => {
+				const datos = response.data.ContarUsuarios;
+				commit("CONTAR_SUCCESS", datos);
+			})
+			.catch(response => {
+				commit("CONTAR_ERROR", response);
 			});
 	},
 	async cargarSelector({ commit }, cred) {
@@ -177,6 +194,18 @@ const mutations = {
 	CARGAR_ERROR: (state, err) => {
 		state.error = err;
 	},
+	CONTAR: state => {
+		state.pending = true;
+	},
+	CONTAR_SUCCESS: (state, data) => {
+		state.pending = false;
+		state.error = null;
+		state.n_usuarios = data;
+	},
+
+	CONTAR_ERROR: (state, err) => {
+		state.error = err;
+	},
 	SELECTOR: state => {
 		state.pending = true;
 	},
@@ -227,6 +256,9 @@ const mutations = {
 const getters = {
 	getData: state => {
 		return state.dataGS;
+	},
+	getNUsuarios: state => {
+		return state.n_usuarios;
 	},
 	getSelector: state => {
 		return state.dataSelector;

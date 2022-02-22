@@ -8,25 +8,31 @@
 			</div>
 		</div>
 		<div class="col-12">
-			<div class="column flex-center">
-				<p
-					class="text-white column flex-center"
-					style="padding: 0px 10%;font-size: 1.6em;"
-				>
-					Nuestro equipo está constituido por profesionales
-					multidiciplinarios con más de 20 años de trayectoria en
-					hotelería de cadenas internacionales y nacionales de cinco
-					estrellas y en la docencia. Desde nuestros inicios,
-					asesoramos a empresas hoteleras y a empresarios del servicio
-					en la implementación de las nuevas tecnologías,
-					administración, comercialización, gestión de hoteles,
-					calidad y servicio de excelencia en etapa de pre-apertura y
-					en operación. Ofrecemos varios cursos de inducción y
-					capacitación acreditados por la Universidad Finis Terrae
-					(Santiago, Chile), logrando un alto nivel de servicio con el
-					fin de generar ventajas competitivas en un mercado actual de
-					alta exigencia
-				</p>
+			<div class="q-px-xl">
+				<q-btn
+					push
+					color="teal"
+					label="Trigger"
+					@click="trigger"
+					class="q-mb-md"
+				/>
+
+				<div class="q-gutter-md q-px-xl row items-start">
+					<q-img
+						v-for="transition in transitions"
+						:key="transition"
+						:transition="transition"
+						:src="url"
+						style="width: 200px"
+						ratio="1"
+						spinner-color="white"
+						class="rounded-borders"
+					>
+						<div class="absolute-bottom text-center text-body2">
+							{{ transition }}
+						</div>
+					</q-img>
+				</div>
 			</div>
 		</div>
 	</div>

@@ -5,10 +5,9 @@ import gql from 'graphql-tag'
 // 			<-------------- QUERIES -------------->
 export const GET_PAIS_QUERY = gql`
     query{
-        paiss{
-            id,
-            iso,
-            nombre,
+        paises{
+            label,
+            value
         }
     }
 `

@@ -15,6 +15,7 @@ import OpPractica from './admin/op_practica'
 import Proveedor from './admin/proveedor'
 import Usuario from './admin/usuario'
 import Perfil from './admin/perfiles'
+import Pais from "./admin/pais";
 
 Vue.use(Vuex)
 const vuexLocalStorage = new VuexPersist({
@@ -33,20 +34,20 @@ export default function (/* { ssrContext } */) {
 		plugins: [vuexLocalStorage.plugin],
 		modules: {
 			Auth: Auth,
-			Registry:Registry,
+			Registry: Registry,
 			Menu: Menu,
-            Asesoria,
-            Capacitacion,
-            Inscribete,
-            Networking,
-            OpPractica,
-            OpTrabajo,
-            Proveedor,
-            Usuario,
-            Perfil,
+			Asesoria,
+			Capacitacion,
+			Inscribete,
+			Networking,
+			OpPractica,
+			OpTrabajo,
+			Proveedor,
+			Usuario,
+			Perfil,
+			Pais
 		},
-		state: {
-		},
+		state: {},
 		mutations: {
 			// agregarElemento (state, obj) {
 			// 	state.postulantesConfirmados.push(obj)
@@ -71,7 +72,7 @@ export default function (/* { ssrContext } */) {
 			// }
 		},
 		strict: false
-	})
+  });
 
   return Store
 }

@@ -906,6 +906,58 @@ export async function login(parentValue, { email, password }, context) {
 		}
 	}
 }
+export async function create(
+	parentValue,
+	{
+		email,
+		password,
+		id_perfil,
+		nombre,
+		telefono,
+		id_pais,
+		nombre_empresa,
+		cargo,
+		producto_empresa,
+		universidad,
+		carrera,
+	}
+) {
+	// Users exists with same email check
+	const user = await models.User.findOne({ where: { email } });
+
+	if (!user) {
+		// User no existe
+		const passwordHashed = await bcrypt.hash(password, config.saltRounds);
+
+		await models.User.create({
+			email,
+			id_perfil,
+			nombre,
+			telefono,
+			id_pais,
+			nombre_empresa,
+			cargo,
+			producto_empresa,
+			universidad,
+			carrera,
+			password_new: passwordHashed,
+		});
+		const router = await rutas(usuario.id_perfil);
+		const usuario = await buscar_usuario(email);
+		var data = {
+			datosUsuario: usuario,
+			routers: router,
+		};
+		return {
+			token: jwt.sign(data, config.secret),
+		};
+	} else {
+		// User existe
+		throw new Error(
+			`El email ${email} ya esta registrado. Intenta iniciar sesión.`
+		);
+	}
+}
 export async function sendPass(parentValue, { email }, context) {
 	// console.log('context', context)
 

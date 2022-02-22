@@ -25,7 +25,7 @@ const actions = {
 				query: GET_PAIS_QUERY
 			})
 			.then(response => {
-				const datos = response.data.paiss;
+				const datos = response.data.paises;
 
 				commit("CARGAR_SUCCESS", datos);
 			})

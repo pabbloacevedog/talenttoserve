@@ -141,7 +141,7 @@
 								dense
 								standout
 								required
-								v-model="id_servicio"
+								v-model="producto_empresa"
 								:options="perfiles"
 								v-if="id_perfil.value == '3'"
 								label="Seleccione producto o servicio"
@@ -230,7 +230,7 @@
 								standout
 								required
 								v-model="id_pais"
-								:options="perfiles"
+								:options="paises"
 								label="Selecciones su País"
 								class="q-ml-md input-register"
 								@change="perfil_view"

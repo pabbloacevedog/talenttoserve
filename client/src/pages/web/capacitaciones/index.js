@@ -27,8 +27,10 @@ export default Vue.component("Capacitaciones", {
 				filter: "",
 				selected: [],
 				pagination: {
+					sortBy: "desc",
+					descending: false,
 					page: 1,
-					rowsPerPage: 8
+					rowsPerPage: 6
 				},
 				selectedkey: "codigo",
 				columns: [
@@ -110,6 +112,20 @@ export default Vue.component("Capacitaciones", {
 			}
 
 			return [3];
+		},
+		pagesNumber() {
+			console.log(
+				"this.parametros_tabla.data.length",
+				this.parametros_tabla.data.length
+			);
+			console.log(
+				"this.parametros_tabla.pagination.rowsPerPage",
+				this.parametros_tabla.pagination.rowsPerPage
+			);
+			return Math.ceil(
+				this.parametros_tabla.data.length /
+					this.parametros_tabla.pagination.rowsPerPage
+			);
 		}
 	},
 	methods: {
@@ -134,7 +150,9 @@ export default Vue.component("Capacitaciones", {
 					} else {
 						console.log("dataCapacitacion", this.dataCapacitacion);
 						this.parametros_tabla.data = this.dataCapacitacion;
-						this.parametros_tabla.data = this.parametros_tabla.data.concat(this.dataCapacitacion);
+						this.parametros_tabla.data = this.parametros_tabla.data.concat(
+							this.dataCapacitacion
+						);
 					}
 				})
 				.catch(err => {
@@ -162,7 +180,7 @@ export default Vue.component("Capacitaciones", {
 			else return newW;
 		},
 		limpiar_cargo(input) {
-			if(input){
+			if (input) {
 				var newWord = input.replace(/<b>/g, "");
 				var newW = newWord.replace("</b>", "");
 				return newW;
@@ -178,7 +196,7 @@ export default Vue.component("Capacitaciones", {
 		ver_mas(info) {
 			this.info = info;
 			this.modal_ver_mas = true;
-		},
+		}
 	},
 	created() {
 		this.iniciar();

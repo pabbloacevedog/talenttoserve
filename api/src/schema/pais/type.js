@@ -3,32 +3,38 @@ import {GraphQLObjectType, GraphQLString ,GraphQLInt, GraphQLBoolean, GraphQLLis
 
 // Pais type
 const PaisType = new GraphQLObjectType({
-	name: 'Pais',
-	description: '...',
+	name: "Pais",
+	description: "...",
 	fields: () => ({
 		id: {
-			type: GraphQLInt
+			type: GraphQLInt,
 		},
 		iso: {
-			type: GraphQLString
+			type: GraphQLString,
 		},
-		nombre:{
-			type: GraphQLString
+		nombre: {
+			type: GraphQLString,
 		},
-        creado:{
-			type: GraphQLBoolean
-        },
-        editado:{
-			type: GraphQLBoolean
-        },
-        eliminado:{
-			type: GraphQLBoolean
-        },
-        codigo:{
-            type: new GraphQLList(GraphQLString)
-        }
-	})
-})
+		label: {
+			type: GraphQLString,
+		},
+		value: {
+			type: GraphQLString,
+		},
+		creado: {
+			type: GraphQLBoolean,
+		},
+		editado: {
+			type: GraphQLBoolean,
+		},
+		eliminado: {
+			type: GraphQLBoolean,
+		},
+		codigo: {
+			type: new GraphQLList(GraphQLString),
+		},
+	}),
+});
 
 export default PaisType
 

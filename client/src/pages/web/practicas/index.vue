@@ -1,6 +1,6 @@
 <template>
 	<div
-		class="div_fondo_op row"
+		class="row"
 		style="padding-top: 50px;"
 		:style="{ backgroundImage: 'url(' + src_fondo + ')' }"
 	>

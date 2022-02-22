@@ -32,6 +32,13 @@ export const GET_SELECTOR_QUERY = gql`
         }
     }
 `
+export const GET_NUSUARIO_QUERY = gql`
+    query ContarUsuarios  {
+        ContarUsuarios{
+            total
+        }
+    }
+`
 //espacio definido para las mutaciones, las mutaciones son consultas tipo "update o delete"
 // 			<-------------- MUTACIONES -------------->
 export const CREAR_USUARIO_MUTATION = gql`
@@ -71,8 +78,8 @@ export const CREAR_USUARIO_MUTATION = gql`
 `
 export const EDITAR_USUARIO_MUTATION = gql`
     mutation ActualizarUsuario(
-        $usuario_id: String!, 
-        $nombre: String!, 
+        $usuario_id: String!,
+        $nombre: String!,
         $email: String!,
         $id_perfil: Int!,
         $telefono: String!,

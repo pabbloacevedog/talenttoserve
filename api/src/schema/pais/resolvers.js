@@ -1,5 +1,7 @@
 // App Imports
 import models from '../../models'
+import seq from "sequelize";
+const { QueryTypes } = seq;
 // Get users by ID
 export async function getById(parentValue, {codigo}) {
 	return await models.Pais.findOne({ where: { codigo } })
@@ -7,10 +9,18 @@ export async function getById(parentValue, {codigo}) {
 
 // Get all users
 export async function getAll(parentValue, {}) {
-    var as = await models.Pais.findAll({order: [
-        ['codigo', 'DESC']
-    ]})
-	return as
+		var as = await models.sequelize.query(
+		"   SELECT  " +
+			"       u.id as value,   " +
+			"       u.nombre as label    " +
+			"   FROM    " +
+			"       pais u   " ,
+		{
+			type: QueryTypes.SELECT,
+		}
+	);
+	console.log(as);
+	return as;
 }
 
 // Delete user
@@ -27,7 +37,7 @@ export async function create(parentValue,{iso, nombre }) {
 	}).then(pais => {
 		codigo = pais.id
         create = true
-        
+
 	}).catch(err => {
 		console.log(err)
 		error = err

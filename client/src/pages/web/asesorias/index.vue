@@ -1,85 +1,81 @@
 <template>
 	<div
-		class="div_fondo_op row"
-		style="padding-top: 50px;padding-left: 5px;;background-size: cover;height: 100vh;"
-		:style="{ backgroundImage: 'url(' + src_fondo + ')' }"
+		class="row"
+		style="padding-top: 50px;background-size: cover;height: 100vh;background-color: #121212  !important;"
 	>
 		<q-dialog persistent width="800" v-model="modal_ver_mas">
-			<q-card
-				class="my-card text-white card-empleos modales"
-				style=" max-width: 60vw; max-height:90vh"
-			>
-				<q-card-section horizontal>
-					<q-card-section class="q-pt-xs">
-						<div class="text-h5 q-mt-sm q-mb-xs">{{ info.titulo }}</div>
-						<div class="text-h7 text-grey">
-							{{ info.descripcion }}
-						</div>
-					</q-card-section>
+			<q-card class="card-dialog">
+				<q-card-section class="q-pa-lg" align="center">
+					<div class="text-h6 text-white">
+						{{ info.titulo }}
+					</div>
 				</q-card-section>
-				<q-separator />
-				<q-card-actions>
+				<q-card-section class="q-pa-lg " align="center">
+					<div class="text-subtitle2 text-blue-grey-4">
+						{{ info.descripcion }}
+					</div>
+				</q-card-section>
+				<q-card-actions align="right" class="q-pa-lg ">
 					<q-btn
 						rounded
 						@click.native="modal_ver_mas = false"
-						color="accent"
+						class="btn_aceptar"
+						text-color="white"
 						>Aceptar</q-btn
 					>
 				</q-card-actions>
 			</q-card>
 		</q-dialog>
-		<div class="col-3">
-			<div class="q-pa-sm filtros">
-			<template class="buscador">
-				<q-input
-					dense
-					standout
-					required
-					v-model="parametros_tabla.filter"
-					rounded
-					placeholder="Buscar"
-				>
-					<template v-slot:append>
-						<q-icon name="search" />
-					</template>
-				</q-input>
-				<q-space />
-			</template>
-			</div>
-		</div>
-		<div class="col-9">
+		<div class="back_cap">
 			<q-table
 				grid
-				:card-container-class="cardContainerClass"
+				card-class="bg-primary text-white"
+				title="Asesorias"
+				style="color: #ffffff;"
+				class="tabla_capacitaciones"
 				:data="parametros_tabla.data"
 				:columns="parametros_tabla.columns"
-				:row-key="parametros_tabla.selectedkey"
-				hide-header
-				:rows-per-page-options="rowsPerPageOptions"
-				:selected.sync="parametros_tabla.selected"
+				row-key="name"
 				:pagination.sync="parametros_tabla.pagination"
 				:filter="parametros_tabla.filter"
+				hide-header
 			>
+				<template v-slot:top-right>
+					<q-input
+						dense
+						standout
+						required
+						dark
+						rounded
+						v-model="parametros_tabla.filter"
+						placeholder="Buscar"
+						style="color: #ffffff;width: 23vw;"
+					>
+						<template v-slot:append class="">
+							<q-icon class="icon-buscar" name="search" />
+						</template>
+					</q-input>
+				</template>
 				<template v-slot:item="props">
+					<transition appear enter-active-class="animated fadeInLeft">
 					<div class="q-pa-xs col-xs-12 col-sm-6 col-md-4">
-						<q-card class="my-card text-white card-empleos">
-							<q-card-section class="q-pb-none q-pt-none">
-								<div class="text-h6">
+						<q-card class="my-card card-capacitacion">
+							<q-card-section>
+								<div class="text-h6 q-px-sm">
 									{{ truncate_cargo(props.row.titulo) }}
 								</div>
 							</q-card-section>
-							<q-card-section class="q-pt-xs">
+							<q-card-section class="q-px-lg q-py-xs">
 								<div class="text-caption">
 									{{ truncate(props.row.descripcion) }}
 								</div>
 							</q-card-section>
-							<q-separator />
 
-							<q-card-actions>
+							<q-card-actions align="right">
 								<q-chip
 									@click="ver_mas(props.row)"
 									clickable
-									color="green"
+									class="ver_mas"
 									text-color="white"
 									style="padding: 16px;"
 								>
@@ -88,8 +84,17 @@
 							</q-card-actions>
 						</q-card>
 					</div>
+					</transition>
 				</template>
 			</q-table>
+			<div class="row justify-center q-mt-md">
+				<q-pagination
+					v-model="parametros_tabla.pagination.page"
+					color="secondary"
+					:max="pagesNumber"
+					size="md"
+				/>
+			</div>
 		</div>
 	</div>
 </template>

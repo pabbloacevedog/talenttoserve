@@ -13,6 +13,14 @@ export default Vue.component("Empleos", {
 			filter: "",
 			info: {},
 			modal_ver_mas: false,
+			cargos: [],
+			webs: [],
+			links: [],
+			hoteles: [],
+			filtro_cargo: "",
+			filtro_web: "",
+			filtro_link: "",
+			filtro_hotel: "",
 			parametros_tabla: {
 				title: "Oportunidades laborales",
 				acciones: [
@@ -126,20 +134,48 @@ export default Vue.component("Empleos", {
 						// );
 						// console.log("dataOpTrabajo", this.dataOpTrabajo);
 						this.parametros_tabla.data = this.dataOpTrabajo;
+						this.cargar_filtros(this.dataOpTrabajo);
 					}
 				})
 				.catch(err => {
 					console.log(err);
 				});
 		},
-		getItemsPerPage() {4;
+		getItemsPerPage() {
+			4;
 			if (this.$q.screen.gt.lg) {
 				return 5;
 			} else {
 				return 4;
 			}
 		},
-
+		filtrar(filtro, input) {
+			this.clean_filters(input);
+			this.parametros_tabla.data = this.dataOpTrabajo;
+			const data = this.parametros_tabla.data.filter(obj =>
+				Object.keys(obj).some(key => obj[key] == filtro)
+			);
+			this.parametros_tabla.data = data;
+		},
+		clean_filters(input) {
+			if (input === "cargo") {
+				this.filtro_link = "";
+				this.filtro_hotel = "";
+				this.filtro_web = "";
+			} else if (input === "hotel") {
+				this.filtro_cargo = "";
+				this.filtro_link = "";
+				this.filtro_web = "";
+			} else if (input === "link") {
+				this.filtro_cargo = "";
+				this.filtro_web = "";
+				this.filtro_hotel = "";
+			} else {
+				this.filtro_cargo = "";
+				this.filtro_link = "";
+				this.filtro_hotel = "";
+			}
+		},
 		rowsPerPage() {
 			if (this.$q.screen.gt.lg) {
 				return 5;
@@ -148,7 +184,7 @@ export default Vue.component("Empleos", {
 			}
 		},
 		truncate(input) {
-			if (input.length > 250) return input.substring(0, 250) + "...";
+			if (input.length > 235) return input.substring(0, 235) + "...";
 			else return input;
 		},
 		truncate_cargo(input) {
@@ -157,6 +193,10 @@ export default Vue.component("Empleos", {
 		},
 		truncate_hotel(input) {
 			if (input.length > 35) return input.substring(0, 35) + "...";
+			else return input;
+		},
+		truncate_web(input) {
+			if (input.length > 25) return input.substring(0, 25) + "...";
 			else return input;
 		},
 		mostrar_banner(banner) {
@@ -186,6 +226,17 @@ export default Vue.component("Empleos", {
 				}
 			}
 		},
+		cargar_filtros(data) {
+			this.cargos = [...new Set(data.map(d => d.cargo))];
+			this.links = [...new Set(data.map(d => d.link))];
+			this.hoteles = [...new Set(data.map(d => d.hotel))];
+			this.webs = [...new Set(data.map(d => d.web))];
+		},
+		filtrar_datos() {
+			return this.parametros_tabla.data.filter(
+				d => (d.cargo = this.filtro_cargo)
+			);
+		}
 		// getColorBanner(data){
 		// 	const colorThief = new ColorThief();
 		// 	data.forEach(element => {
@@ -212,8 +263,7 @@ export default Vue.component("Empleos", {
 		// }
 	},
 	created() {
-		this.iniciar()
-
+		this.iniciar();
 	},
 	mounted() {
 		// this.$nextTick(() => {

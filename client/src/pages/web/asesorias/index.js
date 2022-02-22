@@ -26,8 +26,10 @@ export default Vue.component("Asesorias", {
 				filter: "",
 				selected: [],
 				pagination: {
+					sortBy: "desc",
+					descending: false,
 					page: 1,
-					rowsPerPage: this.getItemsPerPage()
+					rowsPerPage: 6
 				},
 				selectedkey: "codigo",
 				columns: [
@@ -109,6 +111,20 @@ export default Vue.component("Asesorias", {
 			}
 
 			return [3];
+		},
+		pagesNumber() {
+			console.log(
+				"this.parametros_tabla.data.length",
+				this.parametros_tabla.data.length
+			);
+			console.log(
+				"this.parametros_tabla.pagination.rowsPerPage",
+				this.parametros_tabla.pagination.rowsPerPage
+			);
+			return Math.ceil(
+				this.parametros_tabla.data.length /
+					this.parametros_tabla.pagination.rowsPerPage
+			);
 		}
 	},
 	methods: {
@@ -154,10 +170,9 @@ export default Vue.component("Asesorias", {
 			else return input;
 		},
 		truncate_cargo(input) {
-			var newWord = input.replace(/<b>/g,'');
+			var newWord = input.replace(/<b>/g, "");
 			var newW = newWord.replace("</b>", "");
-			if (newW.length > 27)
-				return newW.substring(0, 27) + "...";
+			if (newW.length > 27) return newW.substring(0, 27) + "...";
 			else return newW;
 		},
 		truncate_hotel(input) {

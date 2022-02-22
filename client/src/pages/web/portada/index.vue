@@ -33,14 +33,26 @@
 						</div>
 					</transition>
 					<transition appear enter-active-class="animated fadeInUp">
-						<q-btn
-							size="md"
-							rounded
-							color="accent"
-							label="Conózcanos"
-							class="btn-portada"
-							@click="scrollToElement('#historia')"
-						/>
+						<div class="q-mt-md column flex-center text-miembros">
+							<q-chip
+								style="font-size: 20px !important;"
+								:label="'🎉 ¡Ya somos ' + total.total +' usuarios! 🥳'"
+								text-color="white"
+								color="red"
+							/>
+						</div>
+					</transition>
+					<transition appear enter-active-class="animated fadeInUp">
+						<div class="q-mt-md column flex-center text-miembros">
+							<q-chip
+								size="md"
+								label="Conózcanos"
+								class="ver_mas"
+								text-color="white"
+								clickable
+								@click="scrollToElement('#historia')"
+							/>
+						</div>
 					</transition>
 				</div>
 			</div>

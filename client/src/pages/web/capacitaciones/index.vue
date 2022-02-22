@@ -1,8 +1,7 @@
 <template>
 	<div
-		class="div_fondo_op row"
-		style="padding-top: 50px;background-size: cover;height: 100vh;"
-		:style="{ backgroundImage: 'url(' + src_fondo + ')' }"
+		class="row"
+		style="padding-top: 50px;background-size: cover;height: 100vh;background-color: #121212  !important;"
 	>
 		<q-dialog persistent v-model="modal_ver_mas">
 			<q-card class="card-dialog">
@@ -26,45 +25,46 @@
 				</q-card-actions>
 			</q-card>
 		</q-dialog>
+
 		<div class="back_cap">
 			<q-table
 				grid
-				:card-container-class="cardContainerClass"
+				card-class="bg-primary text-white"
 				title="Capacitaciones"
+				style="color: #ffffff;"
 				class="tabla_capacitaciones"
 				:data="parametros_tabla.data"
 				:columns="parametros_tabla.columns"
 				row-key="name"
+				:pagination.sync="parametros_tabla.pagination"
 				:filter="parametros_tabla.filter"
 				hide-header
-				:pagination.sync="parametros_tabla.pagination"
-				:rows-per-page-options="rowsPerPageOptions"
 			>
 				<template v-slot:top-right>
 					<q-input
-						borderless
 						dense
-						debounce="300"
-						v-model="filter"
+						standout
+						required
+						dark
+						rounded
+						v-model="parametros_tabla.filter"
 						placeholder="Buscar"
+						style="color: #ffffff;width: 23vw;"
 					>
-						<template v-slot:append>
-							<q-icon name="search"></q-icon>
+						<template v-slot:append class="">
+							<q-icon class="icon-buscar" name="search" />
 						</template>
 					</q-input>
 				</template>
-				<template v-slot:top-row>
-					top row
-					<q-tr>
-						<q-td colspan="100%">
-							Top row
-						</q-td>
-					</q-tr>
-				</template>
 				<template v-slot:item="props">
-					<div class="q-pa-xs col-xs-12 col-sm-6 col-md-3">
+					<transition appear enter-active-class="animated fadeInRight">
+					<div class="q-pa-xs col-xs-12 col-sm-6 col-md-4">
 						<q-card class="my-card card-capacitacion">
-							<q-img :src="mostrar_banner(props.row.banner)">
+							<q-img
+								:src="mostrar_banner(props.row.banner)"
+								class="img-capacitacion"
+								:ratio="16 / 9"
+							>
 								<div class="absolute-bottom back_info">
 									<div
 										class="text-h7"
@@ -94,9 +94,19 @@
 							</q-card-actions>
 						</q-card>
 					</div>
+					</transition>
 				</template>
 			</q-table>
+			<div class="row justify-center q-mt-md">
+				<q-pagination
+					v-model="parametros_tabla.pagination.page"
+					color="secondary"
+					:max="pagesNumber"
+					size="md"
+				/>
+			</div>
 		</div>
+
 	</div>
 </template>
 
