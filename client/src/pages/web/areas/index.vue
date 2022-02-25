@@ -1,6 +1,6 @@
 <template>
 	<div class="div_fondo_areas row">
-		<div class="col-6 div_cont">
+		<div class="col-6 col-md-6 col-xs-12 div_cont">
 			<transition
 				appear
 				enter-active-class="animated slideInLeft"
@@ -11,7 +11,7 @@
 						ÁREAS DE SERVICIO
 					</div>
 					<div class="row">
-						<div class="col-6">
+						<div class="col-6 col-md-6 col-xs-12">
 							<q-card class="my-card card-areas text-white">
 								<q-card-section class="card-titulo">
 									<div>CAPACITACIONES E INDUCCIONES</div>
@@ -44,7 +44,7 @@
 								</q-card-actions>
 							</q-card>
 						</div>
-						<div class="col-6">
+						<div class="col-6 col-md-6 col-xs-12">
 							<q-card class="my-card card-areas text-white">
 								<q-card-section class="card-titulo">
 									<div>OPORTUNIDADES LABORALES</div>
@@ -72,7 +72,7 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-6">
+						<div class="col-6 col-md-6 col-xs-12">
 							<q-card class="my-card card-areas text-white">
 								<q-card-section class="card-titulo">
 									<div>CONSULTORIA INTEGRAL HOTELERA</div>
@@ -116,7 +116,7 @@
 								</q-card-actions>
 							</q-card>
 						</div>
-						<div class="col-6">
+						<div class="col-6 col-md-6 col-xs-12">
 							<q-card class="my-card card-areas text-white">
 								<q-card-section class="card-titulo">
 									<div>CLIENTE INCÓGNITO</div>
@@ -153,7 +153,7 @@
 				</div>
 			</transition>
 		</div>
-		<div class="col-6">
+		<div class="col-6 col-md-6 col-xs-12" v-if="$q.platform.is.desktop">
 			<transition
 				appear
 				enter-active-class="animated slideInRight"

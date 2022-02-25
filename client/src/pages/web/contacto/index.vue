@@ -4,10 +4,10 @@
 			<div
 				class="row "
 				style="
-                    height: 100vh !important;
+                    height: 100% !important;
                 "
 			>
-				<div class="col-4 bloq_cont_iz">
+				<div class="col-4 col-md-4 col-xs-12 bloq_cont_iz">
 					<div class="q-pa-lg">
 						<q-toolbar>
 							<div class="titulo_contacto">Contacto</div>
@@ -25,24 +25,24 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-8 bloq_cont_der q-pa-xl">
+				<div class="col-8 col-md-8 col-xs-12  bloq_cont_der">
 					<div class="row q-pa-md">
-						<div class="col-3"></div>
-						<div class="col-5">
+						<div class="col-3 col-md-3 col-xs-12 "></div>
+						<div class="col-5 col-md-5 col-xs-4">
 							<q-img
 								:src="bandera_chile"
 								spinner-color="white"
-								style="max-width: 150px"
+								style="width: 150px"
 								img-class="my-custom-image"
 								class="rounded-borders"
 							>
 							</q-img>
 						</div>
-						<div class="col-4">
+						<div class="col-4 col-md-4 col-xs-4">
 							<q-img
 								:src="bandera_mexico"
 								spinner-color="white"
-								style="max-width: 150px"
+								style="width: 150px"
 								img-class="my-custom-image"
 								class="rounded-borders"
 							>
@@ -54,7 +54,7 @@
 							:data="data"
 							:columns="columns"
 							row-key="name"
-							class="tabla_contacto q-pa-lg"
+							class="tabla_contacto"
 							hide-bottom
 							separator="none"
 							dark

@@ -1,97 +1,5 @@
 @import '../../css/quasar.variables.styl'
 
-.toolbar_theme_white
-  background-color: #FFFFFF;
-  color: #570758 !important
-  .separador_toolbar
-    background: #f0f0f0
-
-.toolbar_theme_dark
-  background: linear-gradient(45deg, #303f9f, #1976d2) !important;
-  color: white !important
-  .separador_toolbar
-    background: white
-
-.drawer_theme_white .q-drawer__content
-  background: linear-gradient(180deg, #drawer_theme_white, #drawer_theme_white);
-  .icon_menu
-	  color:#570758;
-  .menu-active-link
-    color:#570758 !important;
-    background: #fff !important;
-    border-radius: 10px !important;
-    margin: 0px 4px 0px 3px !important;
-    font-weight: bold
-
-  .q-item:hover
-    border-radius: 10px !important;
-    margin: 0px 4px 0px 3px !important;
-  .q-item
-    margin: 0px 4px 0px 3px !important;
-
-.drawer_theme_blue .q-drawer__content
-  background: linear-gradient(180deg, #FFFFFF, #F7F7F7);
-  .icon_menu
-	  color:#696969;
-  .menu-active-link
-    color:#fff !important
-    background: linear-gradient(45deg, #303f9f, #1976d2) !important
-    box-shadow: -3px 3px 10px 0px rgba(0,0,0,0.5) !important
-    border-radius: 10px !important
-    margin: 0px 4px 0px 3px !important
-    font-weight: bold
-
-  .q-item:hover
-    border-radius: 10px !important;
-    margin: 0px 4px 0px 3px !important;
-  .q-item
-    margin: 0px 4px 0px 3px !important;
-
-
-.full-height
-  height: -webkit-fill-available !important
-
-.tooltip-error
-  font-size: 12px
-  color:#FFFFFF
-  background: #F35D52
-
-.tooltip-menu
-  font-size: 12px
-  color:#FFFFFF
-
-.full-size
-  width: 100% !important
-
-.btn-dropdown-user
-  box-shadow: none
-  border-radius: 15px
-  height: 40px
-  margin-right: 7px
-  text-transform: capitalize
-
-.rotate360-animation
-  -webkit-transition: -webkit-transform 0.1s ease-in-out 0s
-  transition: transform 0.5s ease-in-out 0s
-
-.rotate360-animation:hover
-  -webkit-transform: rotate(360deg)
-  width: 50px;
-  height: 50px;
-  margin: 0 auto;
-  position: absolute;
-  transform: rotate(360deg)
-
-.btn-dropdown-user .q-btn__content .on-left
-  animation: spin 0.6s linear infinite
-  animation-play-state: paused
-
-.btn-dropdown-user:hover .q-btn__content .on-left
-  animation-play-state: running
-
-@keyframes spin
-  100% {transform: rotate(1turn)}
-
 .logo_toolbar
 	font-size: 28px
 	background: -webkit-gradient(linear, left top, left bottom, from(#1c074e), to(#570758))
@@ -112,65 +20,67 @@
 	width: 250px;
 
 .color-container
-    background-color: $secondary;
-    // padding: 0px !important;
+	background-color: $secondary;
 
 .color-container-mobile
-    background-color: $primary;
+	background-color: $primary;
 
 .doter {
-    padding: 6%;
-    height: 70px;
-    width: 70px;
-    background-color: $accent;
-    border-radius: 50%;
-    display: inline-block;
+	padding: 6%;
+	height: 70px;
+	width: 70px;
+	background-color: $accent;
+	border-radius: 50%;
+	display: inline-block;
 }
 .q-field__label
-    color: $text !important;
+	color: $text !important;
 .q-drawer__content
-    background: $primary !important;
+	background: #000000bf !important;
+	background: rgba(10,10,10,0.78);
+	-webkit-backdrop-filter: blur(8.5px);
+	backdrop-filter: blur(8.5px);
 
 
 .nombre-menu
-    background: #343640 !important;
-    color: #fff;
-    padding: 0px 0px 0px 15px;
-    border-radius: 20px;
+	background: #343640 !important;
+	color: #fff;
+	padding: 0px 0px 0px 15px;
+	border-radius: 20px;
 
 
 
 .q-item.q-router-link--active, .q-item--active
-    color: $text;
-    background: $primary !important;
+	color: $text;
+	background: $primary !important;
 
 .n_usuario
-    font-family: comfortaa_l
-    font-size: 15px;
+	font-family: comfortaa_l
+	font-size: 15px;
 
 .menu_list
-    padding-top: 10%;
-    color: $text;
-    font-family: comfortaa_l;
+	padding-top: 10%;
+	color: $text;
+	font-family: comfortaa_l;
 
 .menu_item
 	padding: 5px;
 
-.drawer_list
-    background: $primary !important;
-
-
 .q-item.q-router-link--active, .q-item--active {
-    color: $accent;
-    background: #20222a !important;
+	color: $accent;
+	background: #20222a !important;
 }
 .titulo_bar
-    color: $text;
-    font-size: 22px;
-    font-family: comfortaa_l;
-	
+	color: $text;
+	font-size: 1.2vw;
+	font-family: comfortaa_l;
+
 .change_color {
-    background: rgba( 0, 0, 0, 0.65 );
-    backdrop-filter: blur( 8.5px );
-    -webkit-backdrop-filter: blur( 8.5px );
+	background: rgba( 0, 0, 0, 0.65 );
+	backdrop-filter: blur( 8.5px );
+	-webkit-backdrop-filter: blur( 8.5px );
+}
+.q-drawer {
+	background: #fff0;
+	z-index: 1000 !important;
 }

@@ -7,15 +7,16 @@ export default Vue.component('Nosotros', {
     },
     data() {
         return {
-            src_fondo: 'statics/img/fondo_nosotros_final.png',
-            // src_persona:'statics/img/nosotros.png',
-            slide: 1,
-            items: [
-                {
-                    src: 'statics/img/julie.jpg',
-                    nombre: "Patricia Borges da Gama",
-                    cargo: 'Administrador Hotelero / Diplomado en Gestión Hotelera y Turismo',
-                    descripcion: `
+			src_fondo: "statics/img/fondo_nosotros_final.png",
+			// src_persona:'statics/img/nosotros.png',
+			slide: 1,
+			items: [
+				{
+					src: "statics/nosotros/patricia_borgues.png",
+					nombre: "Patricia Borges da Gama",
+					cargo:
+						"Administrador Hotelero / Diplomado en Gestión Hotelera y Turismo",
+					descripcion: `
                         32 Años en Hotelería/ Asume cargos a nivel gerencial en Área de
                         Operaciones en Chile, Portugal y Brasil. Participación en 3 aperturas
                         de Hoteles y en 4 de preaperturas y aperturas como asesora.
@@ -28,14 +29,14 @@ export default Vue.component('Nosotros', {
                         Grand Hyatt Santiago, Chile (Luxury), Hotel Renaissance Santiago,
                         Chile (Upper Upscale), Hoteles Park Plaza Santiago, Chile
                         (Upscale),Hoteis Transamerica, Brasil (Upscale) Hotel Maksoud,
-                        Brasil(Upscale)`,
-                },
-                {
-                    src: 'statics/img/eva.jpg',
-                    nombre: "Velia Orozco del Valle",
-                    cargo: `Licenciada en Ciencias de la Comunicación / MBA Master en
+                        Brasil(Upscale)`
+				},
+				{
+					src: "statics/nosotros/valeria_orozco.png",
+					nombre: "Velia Orozco del Valle",
+					cargo: `Licenciada en Ciencias de la Comunicación / MBA Master en
                     administración de negocios`,
-                    descripcion: `
+					descripcion: `
                     Mas de 22 Años de experiencia profesional en comunicación y
                     Hotelería/ Asume cargos a nivel gerencial en Área de ventas y mkg
                     en Chile dirigiendo equipos comerciales.
@@ -48,13 +49,13 @@ export default Vue.component('Nosotros', {
                     Boards - 14 años como Directora en la Cámara Chilena Mexicana y
                     Presidenta de comité de networking y desarrollo de nuevos negocios
                     y como Directora de Santiago convention Bureau
-                    `,
-                },
-                {
-                    src: 'statics/img/julie.jpg',
-                    nombre: "Natalia Ortiz",
-                    cargo: `Administradora de Empresas Turísticas y Hoteleras`,
-                    descripcion: `
+                    `
+				},
+				{
+					src: "statics/nosotros/natalia_ortiz.png",
+					nombre: "Natalia Ortiz",
+					cargo: `Administradora de Empresas Turísticas y Hoteleras`,
+					descripcion: `
                     17 años de experiencia., comenzó su carrera en el área operativa
                     para luego continuar en el área de Ventas y Mercadeo. Ha trabajado
                     en cadenas como Marriott y Hilton liderando equipos comerciales.
@@ -68,13 +69,13 @@ export default Vue.component('Nosotros', {
                     Mariott Bogotá, JW Marriott Bogotá, Hampton by Hilton
                     Barranquilla y Cartagena, Renaissance Santiago, Conrad
                     Cartagena, Hilton Garden Inn Barranquilla y Hilton Garden Inn
-                    Santa Marta.`,
-                },
-                {
-                    src: 'statics/img/ryan.jpg',
-                    nombre: "Emilio Bissoni",
-                    cargo: `Administrador de Empresas`,
-                    descripcion: `
+                    Santa Marta.`
+				},
+				{
+					src: "statics/nosotros/emilio_bissoni.png",
+					nombre: "Emilio Bissoni",
+					cargo: `Administrador de Empresas`,
+					descripcion: `
                     30 años en Hotelería/.Ha gestionado restaurantes y hoteles de
                     lujo, de servicio completo y de servicio limitado, en cinco cadenas
                     nternacionales. Como Gerente General o Gerente Corporativo de
@@ -87,13 +88,13 @@ export default Vue.component('Nosotros', {
                     bandera de hoteles en Argentina y Colombia.
                     Ha trabajado en todas las áreas operativas de un hotel hasta
                     alcanzar la posición de Gerente General en algunas de las
-                    cadenas y hoteles más relevantes de América Latina`,
-                },
-                {
-                    src: 'statics/img/julie.jpg',
-                    nombre: "Roberto Castillo",
-                    cargo: `Contador Auditor`,
-                    descripcion: `
+                    cadenas y hoteles más relevantes de América Latina`
+				},
+				{
+					src: "statics/nosotros/roberto_castillo.png",
+					nombre: "Roberto Castillo",
+					cargo: `Contador Auditor`,
+					descripcion: `
                         Mas de 30 años de experiencia en Hoteles de cadenas internacionales
                         y nacionales.
                         Aperturas, Puesta en Marcha, Implementación, Contabilidad.
@@ -104,13 +105,13 @@ export default Vue.component('Nosotros', {
                         Operacional.
                         Hotel Sheraton Santiago ( Luxury ), Hotel Ritz Carlton Santiago
                         (Luxury), Hotel The Singular ( Luxury) , Hotel Noi ( Upper Upscale),
-                        Hotel Hilton Garden Inn( Upscale)`,
-                },
-                {
-                    src: 'statics/img/julie.jpg',
-                    nombre: "Katherine Rodriguez",
-                    cargo: `Administradora de Empresas mencion Ventas y Marketing`,
-                    descripcion: `
+                        Hotel Hilton Garden Inn( Upscale)`
+				},
+				{
+					src: "statics/nosotros/katherin_rodrigez.png",
+					nombre: "Katherine Rodriguez",
+					cargo: `Administradora de Empresas mencion Ventas y Marketing`,
+					descripcion: `
                         Posee una experiencia de 20 años en la hotelería, trabajando en
                         las mejores cadenas internacionales del país
                         Inició su carrera en Sheraton Santiago Hotel by Starwood.
@@ -121,10 +122,10 @@ export default Vue.component('Nosotros', {
                         gerencia nocturna, Capacitación, Ventas y Marketing para
                         Alimentos y bebidas, Spa and fitness center, Concierge y como
                         manager on duty.
-                        `,
-                },
-            ],
-        }
+                        `
+				}
+			]
+		};
     },
     computed: {
         ...mapGetters({

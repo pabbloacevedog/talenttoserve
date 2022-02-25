@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div style="background-color: #121212  !important;">
         <Portada id="#portada" />
         <Historia id="#historia"/>
 		<Sobrenosotros id="#sobrenosotros"/>

@@ -7,12 +7,13 @@ export default Vue.component('Historia', {
     },
 	data () {
 		return {
-            src_fondo:'statics/img/fondo_historia.png',
-            src_persona:'statics/img/cocinero.png',
-        }
+			src_fondo: "statics/img/fondo_historia.png",
+			src_fondo_mobile: "statics/img/fondo_historia_mobile.png",
+			src_persona: "statics/img/cocinero.png"
+		};
 	},
 	computed: {
-		...mapGetters({ 
+		...mapGetters({
             isLogin: "Auth/isLogin", isAdmin: "Auth/isAdmin"
         })
 	},
@@ -20,7 +21,7 @@ export default Vue.component('Historia', {
 
 	},
 	created () {
-        
+
         console.log('en compontente')
 	},
 	mounted () {

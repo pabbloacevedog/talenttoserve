@@ -1,33 +1,98 @@
 @import '../../../css/quasar.variables.styl';
 
-.fondo_inicio{
-    background-image: url("https://mdn.mozillademos.org/files/6457/mdn_logo_only_color.png");
+.fondo_inicio {
+	background-image: url('https://mdn.mozillademos.org/files/6457/mdn_logo_only_color.png');
 }
-.text-portada
-    background: #000000ad;
-    padding: 3%;
-    width: 40vw;
-    border-radius: 25px;
-    color: #ff5e00 !important;
-    font-size: 1.6em;
+
+.text-portada {
+	background: #000000ad;
+	padding: 3%;
+	width: 40vw;
+	border-radius: 25px;
+	color: #ff5e00 !important;
+	font-size: 1.6em;
+}
 
 .contenedor {
-    position: relative;
+	position: relative;
 }
-.div_fondo_portada
-    height: 111vh !important;
-    background-size: cover;
-.contenedor img{
-    position: absolute;
-    left: 20vw;
-    top: 15vh;
-    transform: translate(-50%, -50%);
-    -webkit-transform: translate(-50%, -50%);
+
+.div_fondo_portada {
+	background-image: url('/statics/img/inicio.png');
+	height: 111vh !important;
+	background-size: cover;
 }
-.contenedor .btn-portada
-    position: absolute;
-    left: 20vw;
-    top: 28vw;
-    transform: translate(-50%, -50%);
-    -webkit-transform: translate(-50%, -50%);
-    font-family 'monserrat_medium'
+
+.contenedor img {
+	position: absolute;
+	left: 20vw;
+	top: 15vh;
+	transform: translate(-50%, -50%);
+	-webkit-transform: translate(-50%, -50%);
+}
+
+.contenedor .btn-portada {
+	position: absolute;
+	left: 20vw;
+	top: 28vw;
+	transform: translate(-50%, -50%);
+	-webkit-transform: translate(-50%, -50%);
+	font-family: 'monserrat_medium';
+}
+
+.logo-portada {
+	width: 8vw;
+}
+
+.data-portada {
+	padding-left: 15%;
+}
+
+@media only screen and (max-width: 767px) {
+	.text-portada {
+		padding: 4%;
+		width: 90vw;
+		color: white !important;
+	}
+
+	.data-portada {
+		padding-left: 0%;
+		padding-top: 55%;
+	}
+
+	.logo-portada {
+		width: 40vw;
+	}
+
+	.contenedor img {
+		position: absolute;
+		left: 50vw;
+		top: 9vh;
+		transform: translate(-50%, -50%);
+		-webkit-transform: translate(-50%, -50%);
+	}
+
+	.contenedor {
+		top: 7%;
+		position: absolute;
+		text-align: -webkit-center;
+	}
+
+	.div_fondo_portada {
+		background-image: url('/statics/img/inicio_mobile.png');
+		background-size: cover;
+		padding-top: 50px;
+		height: 100%;
+		min-height: 100vh !important;
+		background-color: #121212 !important;
+	}
+
+	.titulo-portada {
+		text-align: -webkit-center;
+		background: rgba(0, 0, 0, 0.678);
+		width: 90vw;
+		border-radius: 25px;
+		padding-bottom: 5%;
+		margin-bottom: 5%;
+	}
+}

@@ -1,7 +1,11 @@
 <template>
 	<q-layout view="hHh lpR fFf">
 		<q-header>
-			<q-toolbar :class="{ change_color: scrollPosition > 50 }" elevated style="padding-right: 0px; padding-left:8px">
+			<q-toolbar
+				:class="{ change_color: scrollPosition > 50 }"
+				elevated
+				style="padding-right: 0px; padding-left:8px"
+			>
 				<q-btn
 					dense
 					flat
@@ -58,14 +62,18 @@
 			:width="200"
 			:breakpoint="500"
 			color="text"
-			class="drawer_list"
+			class="drawer_list_public"
 			show-if-above
 			:mini="miniState"
 			@mouseover="miniState = false"
 			@mouseout="miniState = true"
 		>
 			<q-list class="menu_list">
-				<div v-for="(menuItem, index) in menuList" :key="index" class="menu_item">
+				<div
+					v-for="(menuItem, index) in menuList"
+					:key="index"
+					class="menu_item_public"
+				>
 					<q-item
 						clickable
 						v-ripple

@@ -10,10 +10,17 @@ export default Vue.component("MenuPublico", {
 	data() {
 		return {
 			menu: [
+				// {
+				// 	name: "Home",
+				// 	path: "/",
+				// 	icon: "fas fa-home",
+				// 	pag: false,
+				// 	tag: "/"
+				// },
 				{
 					name: "Areas",
 					path: "/",
-					icon: "",
+					icon: "fas fa-globe-africa",
 					pag: false,
 					tag: "/#areas"
 				},
@@ -21,14 +28,14 @@ export default Vue.component("MenuPublico", {
 				{
 					name: "Asesorias",
 					path: "/asesorias",
-					icon: "",
+					icon: "fas fa-chart-line",
 					pag: true,
 					tag: "/asesorias"
 				},
 				{
 					name: "Capacitaciones",
 					path: "/capacitaciones",
-					icon: "",
+					icon: "fas fa-chalkboard-teacher",
 					pag: true,
 					tag: "/capacitaciones"
 				},
@@ -36,7 +43,7 @@ export default Vue.component("MenuPublico", {
 					name: "Empleos",
 					path: "/empleos",
 					pag: true,
-					icon: "",
+					icon: "fas fa-briefcase",
 					tag: "/empleos"
 				},
 				// {
@@ -50,20 +57,20 @@ export default Vue.component("MenuPublico", {
 					name: "Clientes",
 					path: "/",
 					pag: false,
-					icon: "",
+					icon: "fas fa-ad",
 					tag: "/#clientes"
 				},
 				{
 					name: "Nosotros",
 					path: "/",
 					pag: false,
-					icon: "",
+					icon: "fas fa-house-user",
 					tag: "/#nosotros"
 				},
 				{
 					name: "Contacto",
 					path: "/Contacto",
-					icon: "",
+					icon: "fas fa-phone",
 					pag: false,
 					tag: "/#contacto"
 				}
@@ -71,7 +78,10 @@ export default Vue.component("MenuPublico", {
 			link: "",
 			ir_home: "",
 			src_logo: "../../statics/icono.png",
-			scrollPosition: null
+			scrollPosition: null,
+			miniState: true,
+			mostrarDrawer: false,
+			nombre:'',
 		};
 	},
 	computed: {
@@ -86,6 +96,7 @@ export default Vue.component("MenuPublico", {
 		},
 		scrollToElement(id, pag) {
 			if (!pag) {
+				this.mostrarDrawer = false;
 				const newID = id.slice(1);
 				let el = document.getElementById(newID);
 				const target = getScrollTarget(el);
@@ -97,8 +108,19 @@ export default Vue.component("MenuPublico", {
 		login() {
 			this.$router.push("/login");
 		},
-		irRegistro(){
+		irRegistro() {
 			this.$router.push("/registry");
+		},
+		mostrar_drawer(){
+			this.mostrarDrawer = !this.mostrarDrawer
+			if (this.mostrarDrawer){
+				const newID = "#portada";
+				let el = document.getElementById(newID);
+				const target = getScrollTarget(el);
+				const offset = el.offsetTop - 65;
+				const duration = 0;
+				setScrollPosition(target, offset, duration);
+			}
 		},
 		logout() {
 			this.$q.loading.show();
@@ -127,6 +149,9 @@ export default Vue.component("MenuPublico", {
 				ruta = "/";
 			}
 			this.$router.push(ruta);
+		},
+		irPublic() {
+			this.$router.push("/");
 		}
 	},
 	created() {

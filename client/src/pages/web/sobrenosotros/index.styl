@@ -1,15 +1,41 @@
 @import '../../../css/quasar.variables.styl';
 
-.fondo_inicio{
-    background-image: url("https://mdn.mozillademos.org/files/6457/mdn_logo_only_color.png");
+.fondo_inicio {
+	background-image: url('https://mdn.mozillademos.org/files/6457/mdn_logo_only_color.png');
 }
-.text-historia{
-    font-size: 1.2em;
-    background-color: #0000006b;
-    border-radius: 25px;
-    padding: 8%;    
+
+.img-snosotros {
+	width: 45vw !important;
+	margin-left: 10%;
+	border-radius: 50px;
 }
-.titulo-historia{
-    font-size: 3em;
-    font-family 'comfortaa_b' 
+
+.p-snosotros {
+	padding: 0px 9vw;
+	font-size: 1.3vw;
+	text-align: justify;
+}
+
+@media only screen and (max-width: 767px) {
+	.img-snosotros {
+		width: 90vw !important;
+		border-radius: 25px;
+		margin: 5%;
+	}
+
+	.titulo-snosotros {
+		margin-top: 5%;
+		font-size: 2.8em;
+		font-family: 'comfortaa_b';
+	}
+
+	.div_fondo_snosotros {
+		width: 100vw;
+	}
+
+	.p-snosotros {
+		padding: 0px 9vw;
+		font-size: 4vw;
+		text-align: justify;
+	}
 }

@@ -6,14 +6,30 @@
 				elevated
 				style="padding-right: 0px; padding-left: 8px"
 			>
-				<q-btn style="margin-left: 12px" flat round class="q-mr-sm">
+				<q-btn
+					dense
+					flat
+					round
+					icon="menu"
+					@click="mostrar_drawer()"
+					v-if="$q.platform.is.mobile"
+				/>
+				<q-btn
+					style="margin-left: 12px"
+					flat
+					round
+					class="q-mr-sm"
+					@click="irPublic"
+				>
 					<img
 						style="max-height: 40px"
 						:src="src_logo"
-						@click="ir_home"
+						@click="irPublic"
 					/>
 				</q-btn>
-				<div class="titulo_bar">Talent to serve</div>
+				<div class="titulo_bar" v-if="$q.platform.is.desktop">
+					Talent to serve
+				</div>
 				<q-toolbar-title
 					v-if="$q.platform.is.desktop"
 					class="row justify-center"
@@ -23,6 +39,7 @@
 					<q-item
 						clickable
 						v-ripple
+						v-if="$q.platform.is.desktop"
 						:active="link === menuItem.tag"
 						:to="menuItem.tag"
 						@click="scrollToElement(menuItem.tag, menuItem.pag)"
@@ -89,8 +106,44 @@
 				</div>
 			</q-toolbar>
 		</q-header>
-
-		<q-page-container style="padding-top: 0px !important">
+		<q-drawer
+			v-if="$q.platform.is.mobile"
+			v-model="mostrarDrawer"
+			side="left"
+			:width="200"
+			:breakpoint="500"
+			color="text"
+			class="drawer_list_public"
+			show-if-above
+			:mini="false"
+		>
+			<q-list class="menu_list_public">
+				<div
+					v-for="(menuItem, index) in menu"
+					:key="index"
+					class="menu_item"
+				>
+					<q-item
+						clickable
+						v-ripple
+						:active="link === menuItem.tag"
+						:to="menuItem.tag"
+						@click="scrollToElement(menuItem.tag, menuItem.pag)"
+					>
+						<q-item-section
+							avatar
+							style="min-width: 24px !important;"
+						>
+							<q-icon :name="menuItem.icon" />
+						</q-item-section>
+						<q-item-section class="n_usuario font_bar">{{
+							menuItem.name
+						}}</q-item-section>
+					</q-item>
+				</div>
+			</q-list>
+		</q-drawer>
+		<q-page-container style="padding-top: 0px !important;padding-left:0px !important;">
 			<q-page>
 				<router-view />
 			</q-page>

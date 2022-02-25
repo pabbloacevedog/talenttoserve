@@ -1,27 +1,29 @@
 @import '../../../css/quasar.variables.styl';
 
-.fondo_inicio{
-    background-image: url("https://mdn.mozillademos.org/files/6457/mdn_logo_only_color.png");
-}
-.text-historia{
-    font-size: 1.2em;
-    background-color: #0000006b;
-    border-radius: 25px;
-    padding: 8%;
-}
-.titulo-historia{
-    font-size: 3em;
-    font-family 'comfortaa_b'
+.fondo_inicio {
+	background-image: url('https://mdn.mozillademos.org/files/6457/mdn_logo_only_color.png');
 }
 
-.filtros
-	background: #161616bd
+
+.filtros {
+	background: #161616bd;
 	backdrop-filter: blur(8.5px);
 	border-radius: 21px;
 	margin-top: 10px;
 	padding: 20px;
 	height: 90vh;
 	margin-left: 10px;
+}
 
-.buscador
-	padding-top:30px
+.buscador-as {
+	color: #ffffff;
+	width: 23vw;
+}
+
+@media only screen and (max-width: 767px) {
+	.buscador-as {
+		width: 90vw;
+		padding: 2vw;
+	}
+
+}

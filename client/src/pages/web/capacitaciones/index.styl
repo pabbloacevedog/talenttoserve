@@ -1,99 +1,128 @@
 @import '../../../css/quasar.variables.styl';
 
-.fondo_inicio{
-    background-image: url("https://mdn.mozillademos.org/files/6457/mdn_logo_only_color.png");
+.fondo_inicio {
+	background-image: url('https://mdn.mozillademos.org/files/6457/mdn_logo_only_color.png');
 }
-.text-historia{
-    font-size: 1.2em;
-    background-color: #0000006b;
-    border-radius: 25px;
-    padding: 8%;
-}
-.titulo-historia{
-    font-size: 3em;
-    font-family 'comfortaa_b'
-}
-.card-capacitacion
+
+.card-capacitacion {
 	background: #393c4e96;
 	backdrop-filter: blur(8.5px);
 	margin: 5%;
 	border-radius: 21px;
+}
 
-.filtros
+.filtros {
 	background: #393c4e96;
 	backdrop-filter: blur(8.5px);
 	border-radius: 21px;
 	margin-top: 10px;
 	padding: 20px;
+}
 
-.buscador
-	padding-top:30px
+.buscador {
+	padding-top: 30px;
+}
 
-.back_info
+.back_info {
 	backdrop-filter: blur(2px) !important;
 	background: #000000cc;
+}
 
-.back_cap
+.back_cap {
 	margin-left: 11vw;
 	width: 78vw;
+}
 
-.ver_mas
+.ver_mas {
 	background: linear-gradient(to right, #f12711, #f5af19);
 	padding: 16px 23px !important;
+}
 
-.banner_cap div
+.banner_cap div {
 	padding-bottom: 0px !important;
 	min-height: 250px !important;
 	max-height: 250px !important;
+}
 
-.grid-masonry
-  flex-direction: column
-  height: 700px
+.grid-masonry {
+	flex-direction: column;
+	height: 700px;
 
-  &--2
-    > div
-      &:nth-child(2n + 1)
-        order: 1
-      &:nth-child(2n)
-        order: 2
+	&--2 {
+		> div {
+			&:nth-child(2n + 1) {
+				order: 1;
+			}
 
-    &:before
-      content: ''
-      flex: 1 0 100% !important
-      width: 0 !important
-      order: 1
-  &--3
-    > div
-      &:nth-child(4n + 1)
-        order: 1
-      &:nth-child(4n + 2)
-        order: 2
-      &:nth-child43n)
-        order: 3
+			&:nth-child(2n) {
+				order: 2;
+			}
+		}
 
-    &:before,
-    &:after
-      content: ''
-      flex: 1 0 100% !important
-      width: 0 !important
-      order: 2
+		&:before {
+			content: '';
+			flex: 1 0 100% !important;
+			width: 0 !important;
+			order: 1;
+		}
+	}
 
-.tabla_capacitaciones
+	&--3 {
+		> div {
+			&:nth-child(4n + 1) {
+				order: 1;
+			}
+
+			&:nth-child(4n + 2) {
+				order: 2;
+			}
+
+			&:nth-child43n) {
+				order: 3;
+			}
+		}
+
+		&:before, &:after {
+			content: '';
+			flex: 1 0 100% !important;
+			width: 0 !important;
+			order: 2;
+		}
+	}
+}
+
+.tabla_capacitaciones {
 	padding: 0 0.3vw;
+}
 
-.tabla_capacitaciones .q-table__bottom
+.tabla_capacitaciones .q-table__bottom {
 	display: none;
+}
 
-.btn_aceptar
+.btn_aceptar {
 	background: linear-gradient(to right, #f12711, #f5af19);
 	padding: 0px 23px !important;
+}
 
-.card-dialog
-	background: #0a0a0ac7
+.card-dialog {
+	background: #0a0a0ac7;
 	backdrop-filter: blur(8.5px);
 	border-radius: 21px;
-	max-width :50vw !important;
+	max-width: 50vw !important;
+}
 
-.img-capacitacion .q-img__image
+.img-capacitacion .q-img__image {
 	background-size: contain;
 	background-position: inherit;
+}
+
+@media only screen and (max-width: 767px) {
+	.back_cap {
+		margin-left: 0;
+		width: 100%;
+	}
+
+	.card-dialog {
+		max-width: 95vw !important;
+	}
+}

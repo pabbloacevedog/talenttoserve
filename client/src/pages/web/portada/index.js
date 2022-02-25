@@ -10,6 +10,7 @@ export default Vue.component("Portada", {
 	data() {
 		return {
 			src_fondo: "statics/img/inicio.png",
+			src_fondo_mobile: "statics/img/inicio_mobile.png",
 			src_logo: "statics/img/logo-clean.png"
 		};
 	},

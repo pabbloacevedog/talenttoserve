@@ -1,7 +1,7 @@
 <template>
 	<div
 		class="row"
-		style="padding-top: 50px;background-size: cover;height: 100vh;background-color: #121212  !important;"
+		style="padding-top: 50px;background-size: cover;height: 100%;min-height: 100vh !important;background-color: #121212  !important;"
 	>
 		<q-dialog persistent v-model="modal_ver_mas">
 			<q-card class="card-dialog">
@@ -49,7 +49,7 @@
 						rounded
 						v-model="parametros_tabla.filter"
 						placeholder="Buscar"
-						style="color: #ffffff;width: 23vw;"
+						class="buscador-as"
 					>
 						<template v-slot:append class="">
 							<q-icon class="icon-buscar" name="search" />

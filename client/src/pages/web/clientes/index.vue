@@ -1,35 +1,31 @@
 <template>
-	<div style="height: 100vh;background-color: #000000;" class="borroso row">
-		<div class="col-12" style="height: 20px;padding-top: 2%;">
+	<div style="height: 100%;background-color: #000000;" class="borroso row">
+		<div
+			class="col-12 col-md-12 col-xs-12"
+			style="height: 15vh;padding-top: 2%;"
+		>
 			<div class="column flex-center">
 				<div class="text-white column flex-center titulo-historia">
 					Nuestros Clentes
 				</div>
 			</div>
 		</div>
-		<div class="col-12">
-			<div class="q-px-xl">
-				<q-btn
-					push
-					color="teal"
-					label="Trigger"
-					@click="trigger"
-					class="q-mb-md"
-				/>
-
-				<div class="q-gutter-md q-px-xl row items-start">
+		<div class="col-12 col-md-12 col-xs-12">
+			<div class="q-px-xs row">
+				<div
+					class="q-gutter-md q-pa-md row items-start col-md-3"
+					v-for="transition in items"
+					:key="transition"
+				>
 					<q-img
-						v-for="transition in transitions"
-						:key="transition"
-						:transition="transition"
-						:src="url"
-						style="width: 200px"
-						ratio="1"
+						:src="transition.src"
+						:ratio="16 / 9"
 						spinner-color="white"
+						style="width: 380px"
 						class="rounded-borders"
 					>
 						<div class="absolute-bottom text-center text-body2">
-							{{ transition }}
+							{{ transition.nombre }}
 						</div>
 					</q-img>
 				</div>

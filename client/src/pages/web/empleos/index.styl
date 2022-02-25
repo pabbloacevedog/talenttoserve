@@ -1,75 +1,107 @@
 @import '../../../css/quasar.variables.styl';
 
-.fondo_inicio{
-    background-image: url("https://mdn.mozillademos.org/files/6457/mdn_logo_only_color.png");
+.fondo_inicio {
+	background-image: url('https://mdn.mozillademos.org/files/6457/mdn_logo_only_color.png');
 }
-.text-historia{
-    font-size: 1.2em;
-    background-color: #0000006b;
-    border-radius: 25px;
-    padding: 8%;
-}
-.titulo-historia{
-    font-size: 3em;
-    font-family 'comfortaa_b'
-}
+
 .div_fondo_op {
-	background-color: #121212  !important;
-    height: 100vh !important;
+	background-color: #121212 !important;
+	height: 100% !important;
+	min-height: 100vh !important;
 }
-.card-empleos
+
+.card-empleos {
 	background: #393c4e96;
 	margin-left: 5%;
 	border-radius: 25px;
+}
 
-.filtros_op
-	background: #393c4e96
+.filtros_op {
+	background: #393c4e96;
 	border-radius: 21px;
 	margin-top: 10px;
 	padding: 25px;
 	height: 85vh;
 	margin-left: 20px;
 	color: white !important;
+}
 
-.buscador
-	padding-top:30px
+.buscador {
+	padding-top: 30px;
+}
 
-.color_borde
-	padding : 10px;
+.color_borde {
+	padding: 10px;
 	backdrop-filter: blur(8.5px);
+}
 
-.q-table__bottom
+.q-table__bottom {
 	color: white !important;
 	font-size: 1vw !important;
-.field__native span
+}
+
+.field__native span {
 	font-size: 1vw !important;
 	color: white !important;
+}
 
 .contorno-img .q-img__image {
 	background-size: contain !important;
 }
 
-.icon-buscar
+.icon-buscar {
 	padding-top: 1vw;
-
-.card-dialog-empleos
-	background: #0a0a0ac7
+}
+.dialog-empleos{
+	padding: 0;
+}
+.card-dialog-empleos {
+	background: #0a0a0ac7;
 	backdrop-filter: blur(8.5px);
 	border-radius: 21px;
-	max-width : 70vw !important;
+	max-width: 70vw !important;
+}
 
-.img-modal
-	border-radius : 25px;
+.img-modal {
+	border-radius: 25px;
+}
+
 .img-modal .q-img__image {
 	background-size: contain !important;
 }
 
-.desc_empleo
-	color: #9babc1  !important
+.desc_empleo {
+	color: #9babc1 !important;
 	font-size: 1vw;
+}
+.desc_empleo_mobile {
+	color: #9babc1 !important;
+}
 
-.chip-web
+
+.chip-web {
 	color: #8ab4f8;
+}
 
-.chip-web .q-chip__icon
-    color: #8ab4f8  !important
+.chip-web .q-chip__icon {
+	color: #8ab4f8 !important;
+}
+
+@media only screen and (max-width: 767px) {
+	.filtros_op {
+		width: 85vw;
+		height: 95%;
+	}
+	.card-empleos {
+		margin: 0%;
+	}
+	.card-dialog-empleos{
+		max-width: 100vw !important;
+	}
+	.card-dialog-empleos {
+		width: 100vw !important;
+	}
+	.q-dialog__inner--minimized{
+		padding: 0;
+	}
+}
