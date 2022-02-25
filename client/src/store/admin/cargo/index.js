@@ -1,8 +1,9 @@
 import {
-	GET_ASESORIA_QUERY,
-	CREAR_ASESORIA_MUTATION,
-	EDITAR_ASESORIA_MUTATION,
-	ELIMINAR_ASESORIA_MUTATION
+	GET_CARGO_QUERY,
+	GET_PROVEEDORES_QUERY,
+	CREAR_CARGO_MUTATION,
+	EDITAR_CARGO_MUTATION,
+	ELIMINAR_CARGO_MUTATION
 } from "./consultas";
 
 const state = {
@@ -11,21 +12,22 @@ const state = {
 	isFetching: false,
 	alerta: false,
 	dataGS: {},
+	dataFP:{},
 	creado: "",
 	editado: "",
 	eliminado: ""
 };
 
 const actions = {
-	async cargarAsesoria({ commit }) {
+	async cargarCargo({ commit }) {
 		commit("CARGAR");
 		await this.$apollo.defaultClient.resetStore();
 		await this.$apollo.defaultClient
 			.query({
-				query: GET_ASESORIA_QUERY
+				query: GET_CARGO_QUERY
 			})
 			.then(response => {
-				const datos = response.data.asesorias;
+				const datos = response.data.cargos;
 
 				commit("CARGAR_SUCCESS", datos);
 			})
@@ -33,16 +35,32 @@ const actions = {
 				commit("CARGAR_ERROR", response);
 			});
 	},
-	async crearAsesoria({ commit }, credenciales) {
+	async cargarFiltroProveedores({ commit }) {
+		commit("CARGAR_FILTRO");
+		await this.$apollo.defaultClient.resetStore();
+		await this.$apollo.defaultClient
+			.query({
+				query: GET_PROVEEDORES_QUERY
+			})
+			.then(response => {
+				const datos = response.data.filtros_proveedores;
+
+				commit("CARGAR_FILTRO_SUCCESS", datos);
+			})
+			.catch(response => {
+				commit("CARGAR_FILTRO_ERROR", response);
+			});
+	},
+	async crearCargo({ commit }, credenciales) {
 		commit("CREAR");
 		const { titulo, descripcion, estado } = credenciales;
 		await this.$apollo.defaultClient
 			.mutate({
-				mutation: CREAR_ASESORIA_MUTATION,
+				mutation: CREAR_CARGO_MUTATION,
 				variables: { titulo, descripcion, estado }
 			})
 			.then(response => {
-				const datos = response.data.createAsesoria.creado;
+				const datos = response.data.createCargo.creado;
 				commit("CREAR_SUCCESS", datos);
 			})
 			.catch(response => {
@@ -50,16 +68,16 @@ const actions = {
 				commit("CREAR_ERROR", response);
 			});
 	},
-	async editarAsesoria({ commit }, credenciales) {
+	async editarCargo({ commit }, credenciales) {
 		commit("EDITAR");
 		const { codigo, titulo, descripcion, estado } = credenciales;
 		await this.$apollo.defaultClient
 			.mutate({
-				mutation: EDITAR_ASESORIA_MUTATION,
+				mutation: EDITAR_CARGO_MUTATION,
 				variables: { codigo, titulo, descripcion, estado }
 			})
 			.then(response => {
-				const datos = response.data.editAsesoria.editado;
+				const datos = response.data.editCargo.editado;
 				commit("EDITAR_SUCCESS", datos);
 			})
 			.catch(response => {
@@ -67,16 +85,16 @@ const actions = {
 				commit("EDITAR_ERROR", response);
 			});
 	},
-	async eliminarAsesoria({ commit }, credenciales) {
+	async eliminarCargo({ commit }, credenciales) {
 		commit("ELIMINAR");
 		const { id } = credenciales;
 		await this.$apollo.defaultClient
 			.mutate({
-				mutation: ELIMINAR_ASESORIA_MUTATION,
+				mutation: ELIMINAR_CARGO_MUTATION,
 				variables: { id }
 			})
 			.then(response => {
-				const datos = response.data.removeAsesoria.eliminado;
+				const datos = response.data.removeCargo.eliminado;
 				commit("ELIMINAR_SUCCESS", datos);
 			})
 			.catch(response => {
@@ -97,6 +115,18 @@ const mutations = {
 	},
 
 	CARGAR_ERROR: (state, err) => {
+		state.error = err;
+	},
+	CARGAR_FILTRO: state => {
+		state.pending = true;
+	},
+	CARGAR_FILTRO_SUCCESS: (state, data) => {
+		state.pending = false;
+		state.error = null;
+		state.dataFP = data;
+	},
+
+	CARGAR_FILTRO_ERROR: (state, err) => {
 		state.error = err;
 	},
 	CREAR: state => {
@@ -137,6 +167,9 @@ const mutations = {
 const getters = {
 	getData: state => {
 		return state.dataGS;
+	},
+	getDataFiltros: state => {
+		return state.dataFP;
 	},
 	getCreado: state => {
 		return state.creado;

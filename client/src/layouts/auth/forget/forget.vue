@@ -1,10 +1,9 @@
 <template>
 	<div class="contenedor_todo">
 		<div
-			class="row q-pa-xl"
-			style="justify-content: center;height: 100vh !important;backdrop-filter: blur(8px) !important;background: #00000045;"
+			class="row q-pa-xl cont-forget"
 		>
-			<div class="col-9 bloq_der_for" style="padding: 2vh;margin: 8vh;">
+			<div class="col-9 bloq_der_for" >
 				<center>
 					<transition
 						appear
@@ -14,7 +13,7 @@
 						<q-card class="sin_fondo">
 							<q-card-section class="q-py-xl">
 								<img :src="avatar_clean" style="width: 8em;" />
-								<div class="text-h3 f_robotto_t q-pb-sm">
+								<div class="f_robotto_t q-pb-sm" style="font-size:2.2em;">
 									Recuperar contraseña
 								</div>
 								<div
@@ -27,24 +26,24 @@
 							</q-card-section>
 							<q-card-section
 								style="padding-bottom: 0px;"
-								class="q-px-xl"
+								class="q-px-xl section-forget"
 							>
 								<q-input
-									style="font-size:1vw;"
+									style="font-size:1em;"
 									dark
 									dense
 									standout
 									required
 									label="Email"
 									v-model="email"
-									class="q-ml-md input-login"
+									class="q-ml-md input-forget"
 								>
 									<template v-slot:before>
 										<q-icon name="email" />
 									</template>
 								</q-input>
 								<span>
-									<p style="font-size:1.2vw;">
+									<p style="font-size:1.2em;">
 										<a
 											@click="$router.push('/login')"
 											style="color: #ff8037;"

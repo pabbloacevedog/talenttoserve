@@ -1,9 +1,21 @@
 @import '../../../css/quasar.variables.styl';
 
-.fondo_inicio{
-    background-image: url("https://mdn.mozillademos.org/files/6457/mdn_logo_only_color.png");
+.fondo_inicio {
+	background-image: url('https://mdn.mozillademos.org/files/6457/mdn_logo_only_color.png');
 }
-.borroso
+
+.borroso {
 	-webkit-backdrop-filter: blur(8px) !important;
 	backdrop-filter: blur(15px) !important;
 	background: #000000cc;
+}
+
+.cont-clientes {
+	padding: 0px 48px;
+}
+
+@media only screen and (max-width: 767px) {
+	.cont-clientes {
+		padding: 8px;
+	}
+}

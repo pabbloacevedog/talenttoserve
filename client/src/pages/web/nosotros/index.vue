@@ -38,7 +38,7 @@
 							horizontal
 							avatar
 							class="row"
-							style="padding-top: 5vh; padding-bottom: 0"
+							style="padding-top: 5vh; padding-bottom: 0;padding-left: 5vw;"
 						>
 							<a class="avatar has-story" >
 								<img :src="item.src" :ratio="1" class="img-nosotros"/>

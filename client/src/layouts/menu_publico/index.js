@@ -94,15 +94,18 @@ export default Vue.component("MenuPublico", {
 		updateScroll() {
 			this.scrollPosition = window.scrollY;
 		},
-		scrollToElement(id, pag) {
-			if (!pag) {
+		scrollToElement(menu) {
+			if (!menu.pag) {
 				this.mostrarDrawer = false;
-				const newID = id.slice(1);
+				const newID = menu.id.slice(1);
 				let el = document.getElementById(newID);
 				const target = getScrollTarget(el);
 				const offset = el.offsetTop - 65;
 				const duration = 0;
 				setScrollPosition(target, offset, duration);
+			}
+			else{
+				this.$router.push(menu.path);
 			}
 		},
 		login() {

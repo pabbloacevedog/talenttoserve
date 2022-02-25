@@ -11,11 +11,11 @@
 			</div>
 		</div>
 		<div class="col-12 col-md-12 col-xs-12">
-			<div class="q-px-xs row">
+			<div class="q-px-xs row cont-clientes">
 				<div
 					class="q-gutter-md q-pa-md row items-start col-md-3"
 					v-for="transition in items"
-					:key="transition"
+					:key="transition.src"
 				>
 					<q-img
 						:src="transition.src"

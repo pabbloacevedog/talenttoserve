@@ -64,8 +64,10 @@
 		</div>
 		<div class="col-5" style="display: table;padding: 2%;"></div>
 	</div>
-	<div v-else class="div_fondo_portada row"
-	style="background-color: #121212  !important;"
+	<div
+		v-else
+		class="div_fondo_portada row"
+		style="background-color: #121212  !important;"
 	>
 		<div class="contenedor" style="width: 100vw;">
 			<transition appear enter-active-class="animated fadeInDown">
@@ -87,11 +89,12 @@
 					>
 						Portal Hotelero
 					</div>
-				</div>
-			</transition>
-			<transition appear enter-active-class="animated fadeInLeft">
-				<div class="column flex-center text-portada titulo_bar">
-					Capacitaciones y asesorías para hoteles
+					<div
+						class="titulo_bar text-white column flex-center"
+						style="font-size: 1.3em;"
+					>
+						Capacitaciones y asesorías para hoteles
+					</div>
 				</div>
 			</transition>
 			<transition appear enter-active-class="animated fadeInUp">

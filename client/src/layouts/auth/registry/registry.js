@@ -13,9 +13,11 @@ export default Vue.component("Registry", {
 			nombre: "",
 			apellido: "",
 			usuario: "",
-			producto_empresa:'',
+			producto_empresa: "",
+			nombre_empresa:'',
 			id_perfil: [],
 			id_pais: "",
+			cargo: "",
 			rut: "",
 			telefono: "",
 			confirm: "",
@@ -49,7 +51,9 @@ export default Vue.component("Registry", {
 			isLogin: "Registry/isLogin",
 			error: "Registry/error",
 			allPass: "Auth/getAllPass",
-			paises: "Pais/getData"
+			paises: "Pais/getData",
+			cargos: "Cargo/getData",
+			filtros: "Cargo/getDataFiltros"
 		})
 	},
 	methods: {
@@ -59,8 +63,34 @@ export default Vue.component("Registry", {
 				.dispatch("Pais/cargarPais")
 				.then(res => {
 					this.$q.loading.hide();
-					console.log('paises', this.paises)
-
+					console.log("paises", this.paises);
+				})
+				.catch(err => {
+					console.log(err);
+				});
+		},
+		async traer_cargos() {
+			this.$q.loading.show();
+			await this.$store
+				.dispatch("Cargo/cargarCargo")
+				.then(res => {
+					this.$q.loading.hide();
+					console.log("Cargos", this.cargos);
+				})
+				.catch(err => {
+					console.log(err);
+				});
+		},
+		async traer_filtros() {
+			this.$q.loading.show();
+			await this.$store
+				.dispatch("Cargo/cargarFiltroProveedores")
+				.then(res => {
+					this.$q.loading.hide();
+					console.log(
+						"cargarFiltroProveedores",
+						this.filtros
+					);
 				})
 				.catch(err => {
 					console.log(err);
@@ -244,6 +274,8 @@ export default Vue.component("Registry", {
 
 	created() {
 		this.iniciar();
+		this.traer_cargos();
+		this.traer_filtros();
 	},
 	mounted() {},
 	updated() {}

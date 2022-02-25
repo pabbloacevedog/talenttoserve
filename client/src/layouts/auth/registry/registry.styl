@@ -1,31 +1,153 @@
-@import url("https://fonts.googleapis.com/css?family=Concert+One");
+@import url('https://fonts.googleapis.com/css?family=Concert+One');
+
 .logo {
-  /* margin:10px 20px; */
-  font-family: 'concert One';
-  color: gray;
+	/* margin:10px 20px; */
+	font-family: 'concert One';
+	color: gray;
 }
-.danger{
-  color: red;
+
+.danger {
+	color: red;
 }
+
 a {
-  text-decoration: none;
-  cursor: pointer;
-  color: gray;
+	text-decoration: none;
+	cursor: pointer;
+	color: gray;
 }
 
-.input-reg
+.bloq_iz_reg {
+	backdrop-filter: blur(60px) !important;
+	background: #1010107a;
+	border-radius: 25px 0px 0px 25px;
+	padding: 1%;
+}
+
+.bloq_iz_reg:before {
+	background: #c7c7c79e;
+}
+
+.bloq_de_reg {
+	backdrop-filter: blur(60px) !important;
+	background: #1010107a;
+	border-radius: 0px 15px 15px 0px;
+}
+
+.bloq_der:before {
+	background: #c7c7c79e;
+}
+
+.input-reg {
 	padding-bottom: 30px !important;
+}
 
-.ultimo-input
+.ultimo-input {
 	padding-bottom: 20px !important;
+}
 
-.namelast
-	padding-left: 20px !important; padding-bottom: 30px !important;
-
-.input-register
-	padding-right: 20px !important;
+.namelast {
+	padding-left: 20px !important;
 	padding-bottom: 30px !important;
+}
 
-.input-register-2
+.input-register {
 	padding-right: 20px !important;
 	padding-bottom: 20px !important;
+}
+
+.input-register-2 {
+	padding-right: 20px !important;
+	padding-bottom: 20px !important;
+}
+
+.center-img-reg {
+	bottom: 8%;
+	right: 23%;
+	position: absolute;
+}
+
+.logo-reg {
+	width: 6em !important;
+}
+
+.section-title {
+	padding-bottom: 0px;
+}
+
+.contenedor_reg_iz {
+	background-image: url('/statics/fondoLogin.png');
+	background-size: cover !important;
+	background-position: inherit !important;
+	height: 100% !important;
+	border-radius: 0 25px 25px 0;
+	padding: 2%;
+}
+
+@media only screen and (max-width: 767px) {
+	.contenedor-login {
+		padding-right: 10px;
+		padding-left: 10px;
+	}
+
+	.titulo-reg {
+		font-size: 2em;
+	}
+
+	.section-title {
+		padding-bottom: 0px;
+		padding-top: 0px;
+	}
+
+	.contenedor_reg_iz {
+		background-image: url('/statics/fondoLogin.png');
+		background-size: cover !important;
+		background-position: inherit !important;
+		height: 100% !important;
+		min-height: 40vw;
+		border-radius: 25px;
+		padding: 2%;
+	}
+
+	.bloq_up_reg {
+		border-radius: 25px 25px 0px 0px;
+		backdrop-filter: blur(60px) !important;
+		background: #1010107a;
+		padding: 1%;
+	}
+
+	.bloq_iz_reg {
+		border-radius: 0px 0px 25px 25px;
+	}
+
+	.bloq_der_reg {
+		border-radius: 15px 15px 0px 0px;
+	}
+
+	.logo-login {
+		display: none;
+	}
+
+	.bienvenido {
+		padding: 5%;
+	}
+
+	.center-img-reg {
+		display: none;
+	}
+
+	.input-register {
+		padding-right: 0px !important;
+		padding-bottom: 20px !important;
+		margin-left: 0px;
+	}
+
+	.input-register-2 {
+		padding-left: 10px !important;
+		padding-right: 0px !important;
+		padding-bottom: 20px !important;
+	}
+
+	.logo-reg {
+		width: 4em !important;
+	}
+}

@@ -1,4 +1,6 @@
 // App Imports
+import seq from "sequelize";
+const { QueryTypes } = seq;
 import models from '../../models'
 // Get users by ID
 export async function getById(parentValue, {codigo}) {
@@ -7,12 +9,33 @@ export async function getById(parentValue, {codigo}) {
 
 // Get all users
 export async function getAll(parentValue, {}) {
-    var as = await models.Cargo.findAll({order: [
-        ['codigo', 'DESC']
-    ]})
-	return as
+	var as = await models.sequelize.query(
+		"   SELECT  " +
+			"       u.nombre as value,   " +
+			"       u.nombre as label    " +
+			"   FROM    " +
+			"       cargo u   ",
+		{
+			type: QueryTypes.SELECT,
+		}
+	);
+	console.log(as);
+	return as;
 }
-
+export async function getAllFiltros(parentValue, {}) {
+	var as = await models.sequelize.query(
+		"   SELECT  " +
+			"       u.nombre as value,   " +
+			"       u.nombre as label    " +
+			"   FROM    " +
+			"       filtro_proveedores u   ",
+		{
+			type: QueryTypes.SELECT,
+		}
+	);
+	console.log(as);
+	return as;
+}
 // Delete user
 export async function remove({codigo}) {
 	return await models.Cargo.destroy({where: {codigo}})
@@ -27,7 +50,7 @@ export async function create(parentValue,{ nombre  }) {
 	}).then(cargo => {
 		codigo = cargo.codigo
         create = true
-        
+
 	}).catch(err => {
 		console.log(err)
 		error = err

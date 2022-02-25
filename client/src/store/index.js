@@ -7,6 +7,7 @@ import Auth from './auth'
 import Registry from './registry'
 import Menu from './menu'
 import Asesoria from './admin/asesoria'
+import Cargo from "./admin/cargo";
 import Capacitacion from './admin/capacitacion'
 import Inscribete from './admin/inscribete'
 import Networking from './admin/networking'
@@ -37,6 +38,7 @@ export default function (/* { ssrContext } */) {
 			Registry: Registry,
 			Menu: Menu,
 			Asesoria,
+			Cargo,
 			Capacitacion,
 			Inscribete,
 			Networking,

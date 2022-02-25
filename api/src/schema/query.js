@@ -9,6 +9,7 @@ import * as capacitacion from './capacitacion/fields/query'
 import * as proveedor from './proveedores/fields/query'
 import * as inscribete from './inscribete/fields/query'
 import * as pais from './pais/fields/query'
+import * as cargo from "./cargo/fields/query";
 import * as perfil from "./perfil/fields/query";
 import * as networking from './networking/fields/query'
 import * as OpPractica from './op_practica/fields/query'
@@ -29,6 +30,7 @@ const query = new GraphQLObjectType({
         ...inscribete,
         ...perfil,
 		...pais,
+		...cargo,
         ...networking,
         ...OpPractica,
         ...OpPrabajo,

@@ -3,29 +3,35 @@ import {GraphQLObjectType, GraphQLString ,GraphQLInt, GraphQLBoolean, GraphQLLis
 
 // Cargo type
 const CargoType = new GraphQLObjectType({
-	name: 'Cargo',
-	description: '...',
+	name: "Cargo",
+	description: "...",
 	fields: () => ({
 		codigo: {
-			type: GraphQLInt
+			type: GraphQLInt,
 		},
 		nombre: {
-			type: GraphQLString
+			type: GraphQLString,
 		},
-        creado:{
-			type: GraphQLBoolean
-        },
-        editado:{
-			type: GraphQLBoolean
-        },
-        eliminado:{
-			type: GraphQLBoolean
-        },
-        id:{
-            type: new GraphQLList(GraphQLString)
-        }
-	})
-})
+		creado: {
+			type: GraphQLBoolean,
+		},
+		label: {
+			type: GraphQLString,
+		},
+		value: {
+			type: GraphQLString,
+		},
+		editado: {
+			type: GraphQLBoolean,
+		},
+		eliminado: {
+			type: GraphQLBoolean,
+		},
+		id: {
+			type: new GraphQLList(GraphQLString),
+		},
+	}),
+});
 
 export default CargoType
 

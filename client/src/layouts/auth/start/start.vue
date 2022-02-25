@@ -2,10 +2,9 @@
 	<div v-if="!isLogin" id="app">
 		<div class="contenedor_todo">
 			<div
-				class="row q-pa-xl"
-				style="padding-right: 150px;height: 100vh !important;padding-left: 150px;backdrop-filter: blur(8px) !important;background: #00000045;"
+				class="row q-pa-xl contenedor-login"
 			>
-				<div class="col-6 bloq_iz">
+				<div class="col-6 bloq_iz col-md-6 col-xs-12">
 					<transition
 						appear
 						enter-active-class="animated slideInRight"
@@ -18,11 +17,11 @@
 						</div>
 					</transition>
 				</div>
-				<div class="col-6 bloq_der">
+				<div class="col-6 col-md-6 col-xs-12 bloq_der">
 					<center>
 						<q-card class="sin_fondo">
-							<q-card-section class="q-py-xl" @click="$router.push('/')">
-								<img :src="avatar_clean" style="width: 8em;" />
+							<q-card-section class="q-py-xl bienvenido" >
+								<img :src="avatar_clean" class="logo-login" @click="$router.push('/')"/>
 								<div
 									bg-color="accent"
 									class="text-h4 f_robotto_t"
@@ -32,7 +31,7 @@
 							</q-card-section>
 							<q-card-section style="padding-bottom: 0px;">
 								<q-input
-									style="font-size:1vw;"
+									style="font-size:1.5em;"
 									dark
 									dense
 									standout
@@ -46,7 +45,7 @@
 									</template>
 								</q-input>
 								<q-input
-									style="font-size:1vw;"
+									style="font-size:1.5em;"
 									dark
 									dense
 									standout
@@ -73,7 +72,7 @@
 								</q-input>
 								<!-- <span class='danger' style="padding: 10px;">{{error}}</span> -->
 								<span style="padding-top: 10px;">
-									<p style="font-size:1.2vw;">
+									<p style="font-size:1.2em;">
 										¿No tienes una cuenta?
 										<a
 											@click="$router.push('/registry')"
@@ -83,7 +82,7 @@
 									</p>
 								</span>
 								<span>
-									<p style="font-size:1.2vw;">
+									<p style="font-size:1.2em;">
 										<a
 											@click="$router.push('/forget')"
 											style="color: #ff8037;"
@@ -93,7 +92,7 @@
 								</span>
 							</q-card-section>
 
-							<q-card-section style="padding-top: 0px;">
+							<q-card-section style="padding-top: 10px;">
 								<q-btn
 									class="btn-inicio"
 									rounded

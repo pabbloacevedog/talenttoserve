@@ -114,7 +114,6 @@
 			:breakpoint="500"
 			color="text"
 			class="drawer_list_public"
-			show-if-above
 			:mini="false"
 		>
 			<q-list class="menu_list_public">
@@ -128,7 +127,7 @@
 						v-ripple
 						:active="link === menuItem.tag"
 						:to="menuItem.tag"
-						@click="scrollToElement(menuItem.tag, menuItem.pag)"
+						@click="scrollToElement(menuItem)"
 					>
 						<q-item-section
 							avatar

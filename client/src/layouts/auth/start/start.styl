@@ -1,132 +1,226 @@
-@import '../../../css/quasar.variables.styl'
-.card-login
-	width: 100%
-	max-width: 500px
+@import '../../../css/quasar.variables.styl';
+
+.card-login {
+	width: 100%;
+	max-width: 500px;
 	padding-top: 1%;
 	box-shadow: none !important;
-.contenedor_todo
-{
-    background-image: url("/statics/sobrenosotros.png");
-	background-color: #000000
-    position: absolute;
-    background-size: cover !important;
-    background-position: inherit !important;
-    height:100vh;
-    width: 100%;
 }
 
-.login
-	min-width : 400px !important;
+.contenedor_todo {
+	background-image: url('/statics/sobrenosotros.png');
+	background-color: #000000;
+	background-size: cover !important;
+	background-position: inherit !important;
+	height: 100%;
+	width: 100%;
+}
+
+.login {
+	min-width: 400px !important;
 	min-height: 450px !important;
-.input-login
+}
+
+.input-login {
 	padding-left: 30px !important;
 	padding-right: 30px !important;
 	padding-bottom: 30px !important;
+	font-size: 1em;
+}
 
-.input-login-2
+.input-login-2 {
 	padding-left: 30px !important;
 	padding-right: 30px !important;
 	padding-bottom: 20px !important;
+	font-size: 1em;
+}
 
-.botron-login
+.botron-login {
 	min-width: 100px !important;
+}
 
-.fondo
+.fondo {
 	// background-image: url('/statics/login.jpg');
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	background-size: cover;
 	min-height: 100vh;
+}
 
-.login-iz
+.login-iz {
 	float: left;
 	background: linear-gradient(180deg, #1c074e, #570758);
 	width: 35% !important;
 	min-height: 450px !important;
 	max-height: 700px !important;
 	border-radius: 20px 0 0 20px !important;
+}
 
-.login-de
+.login-de {
 	float: right;
 	width: 65% !important;
 	min-height: 450px !important;
 	max-height: 700px !important;
+}
 
-.contenedor
-	min-width : 400px !important;
-	max-width : 700px !important;
+.contenedor {
+	min-width: 400px !important;
+	max-width: 700px !important;
 	min-height: 450px !important;
 	max-height: 700px !important;
-.columna-iz
-	padding-top: 100px;
-.texto-top
-	padding-top: 20px;
+}
 
-.texto-bottom
+.columna-iz {
+	padding-top: 100px;
+}
+
+.texto-top {
+	padding-top: 20px;
+}
+
+.texto-bottom {
 	padding-bottom: 50px;
-.inicio
+}
+
+.inicio {
 	min-width: 150px;
 	color: $primary !important;
 	background-color: #ffffff;
+}
 
-.titulo
+.titulo {
 	font-size: 35px;
 	background: -webkit-gradient(linear, left top, left bottom, from(#1c074e), to(#570758));
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
+}
 
-.logo
+.logo {
 	padding: 12px;
 	width: 144px;
 	margin-bottom: 20px;
 	background-color: #fff;
 	border-radius: 50%;
+}
 
 .bloq_iz {
 	backdrop-filter: blur(60px) !important;
-    background: #1010107a;
-    border-radius: 25px 0px 0px 25px;
-    padding: 1%;
+	background: #1010107a;
+	border-radius: 25px 0px 0px 25px;
+	padding: 1%;
 }
 
-.bloq_iz:before{
-    background: #c7c7c79e
+.bloq_iz:before {
+	background: #c7c7c79e;
 }
+
 .bloq_der {
 	backdrop-filter: blur(60px) !important;
-    background: #1010107a;
-    border-radius: 0px 15px 15px 0px;
+	background: #1010107a;
+	border-radius: 0px 15px 15px 0px;
 }
 
-.bloq_der:before{
-    background: #c7c7c79e
+.bloq_der:before {
+	background: #c7c7c79e;
 }
-.sin_fondo{
-    background: #c7c7c700 !important;
-    box-shadow: 0px 0px 0px 0px !important;
+
+.sin_fondo {
+	background: #c7c7c700 !important;
+	box-shadow: 0px 0px 0px 0px !important;
 	color: white;
 }
-.contenedor_login_iz
-{
-    background-image: url("/statics/fondoLogin.png");
-    background-size: cover !important;
-    background-position: inherit !important;
-    height:100% !important;
-    border-radius: 25px;
-    padding: 2%;
+
+.contenedor_login_iz {
+	background-image: url('/statics/fondoLogin.png');
+	background-size: cover !important;
+	background-position: inherit !important;
+	height: 100% !important;
+	border-radius: 25px;
+	padding: 2%;
 }
+
 .center {
-    margin: auto;
-    display: block;
-    height:100% !important;
+	margin: auto;
+	display: block;
+	height: 100% !important;
 }
+
 .center-img {
-    bottom: 5%;
-    right: 32%;
-    position:absolute;
+	bottom: 5%;
+	right: 32%;
+	position: absolute;
 }
-.btn-inicio
+
+.btn-inicio {
 	background: linear-gradient(145deg, #f12711, #f5af19);
 	padding: 2px 23px !important;
+}
 
+.contenedor-login {
+	padding-right: 150px;
+	height: 100% !important;
+	min-height: 100vh !important;
+	padding-left: 150px;
+	backdrop-filter: blur(8px) !important;
+	background: #00000045;
+}
+
+.logo-login {
+	width: 8em;
+}
+
+@media only screen and (max-width: 767px) {
+	.contenedor-login {
+		padding-right: 20px;
+		padding-left: 20px;
+	}
+
+	.contenedor_login_iz {
+		background-image: url('/statics/fondoLogin.png');
+		background-size: cover !important;
+		background-position: inherit !important;
+		height: 100% !important;
+		min-height: 80vw;
+		border-radius: 25px;
+		padding: 2%;
+	}
+
+	.bloq_iz {
+		border-radius: 25px 25px 0px 0px;
+	}
+
+	.bloq_der {
+		border-radius: 0px 0px 15px 15px;
+	}
+
+	.logo-login {
+		display: none;
+	}
+
+	.bienvenido {
+		padding: 5%;
+	}
+
+	.input-login {
+		padding-left: 10px !important;
+		padding-right: 10px !important;
+		padding-bottom: 20px !important;
+		font-size: 1.5em;
+		margin-left: 0px;
+	}
+
+	.input-login-2 {
+		padding-left: 10px !important;
+		padding-right: 10px !important;
+		padding-bottom: 20px !important;
+		font-size: 1.5em;
+		margin-left: 0px;
+	}
+
+	.center-img {
+		bottom: 5%;
+		right: 25%;
+		position: absolute;
+	}
+}
