@@ -13,14 +13,16 @@
         grid
     >
         <template v-slot:top-right>
-            <q-input  
-                dense 
-                standout 
-                required 
+            <q-input
+                dense
+                standout
+                required
                 v-model="parametros.filter"
-                rounded 
+                rounded
+				dark
                 placeholder="Buscar"
                 class="buscar_mobile"
+
             >
                 <template v-slot:append>
                     <q-icon name="search" />
@@ -55,8 +57,8 @@
             :style="props.selected ? 'transform: scale(0.95);' : ''"
         >
             <q-card :class="props.selected ? 'card_tabla_mobile_selected' : 'card_tabla_mobile'" >
-            <q-card-section>
-                <q-checkbox dense v-model="props.selected" :label="'Grosor '+props.row.grosor"></q-checkbox>
+            <q-card-section class="q-py-none q-px-xs">
+                 <q-checkbox size="sm"  color="accent" v-model="props.selected"/>
             </q-card-section>
             <q-separator></q-separator>
             <q-list dense>
@@ -100,13 +102,14 @@
         v-else
     >
         <template v-slot:top-right>
-            <q-input  
-                dense 
-                standout 
-                required 
+            <q-input
+                dense
+                standout
+                required
                 v-model="parametros.filter"
-                rounded 
+                rounded
                 placeholder="Buscar"
+				class="buscar_mobile"
             >
                 <template v-slot:append>
                     <q-icon name="search" />

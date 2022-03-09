@@ -41,7 +41,7 @@
 							style="padding-top: 5vh; padding-bottom: 0;padding-left: 5vw;"
 						>
 							<a class="avatar has-story" >
-								<img :src="item.src" :ratio="1" class="img-nosotros"/>
+								<q-img :src="item.src" :ratio="1" />
 							</a>
 							<q-card-section style="padding: 0 !important; margin:auto" align="center">
 								<div class="nombre_nosotros">

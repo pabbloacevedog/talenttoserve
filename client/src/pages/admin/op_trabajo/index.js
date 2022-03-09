@@ -15,7 +15,7 @@ export default Vue.component('OpTrabajo', {
             nuevo_hotel:'',
             nuevo_web:'',
             nuevo_banner:'',
-            nuevo_estado : 
+            nuevo_estado :
                 {
                 label: 'Activo',
                 value: true
@@ -28,7 +28,7 @@ export default Vue.component('OpTrabajo', {
             editar_hotel:'',
             editar_web:'',
             editar_banner:'',
-            editar_estado : 
+            editar_estado :
                 {
                 label: 'Activo',
                 value: true
@@ -39,7 +39,7 @@ export default Vue.component('OpTrabajo', {
             modal_editar: false,
             modal_banner: false,
             parametros_tabla:{
-                tittle: 'Oportunidades de Trabajo',
+                tittle: 'Empleos',
                 acciones:[
                     { accion: 'Eliminar', icon: 'delete', cmd: 'eliminar'},
                     { accion: 'Editar', icon: 'update', cmd: 'editar' },
@@ -48,9 +48,9 @@ export default Vue.component('OpTrabajo', {
                 filter: '',
                 selected: [],
                 pagination: {
-                    rowsPerPage: 10 
+                    rowsPerPage: 10
                 },
-                selectedkey: 'codigo', 
+                selectedkey: 'codigo',
                 columns: [
                   {
                     name: 'cargo',
@@ -91,12 +91,12 @@ export default Vue.component('OpTrabajo', {
         }
 	},
 	computed: {
-		...mapGetters({ 
-            dataOpTrabajo: "OpTrabajo/getData", 
+		...mapGetters({
+            dataOpTrabajo: "OpTrabajo/getData",
             registro_creado: "OpTrabajo/getCreado",
             registro_editado: "OpTrabajo/getEditado",
             registro_eliminado: "OpTrabajo/getEliminado",
-            error: "OpTrabajo/error" , 
+            error: "OpTrabajo/error" ,
         })
 	},
 	methods: {
@@ -196,15 +196,15 @@ export default Vue.component('OpTrabajo', {
             if( typeof editar_banner == 'object'){
                 fi = editar_banner[0]
             }
-            await this.$store.dispatch("OpTrabajo/editarOpTrabajo", { 
-                codigo : this.editar_codigo, 
-                cargo:editar_cargo, 
+            await this.$store.dispatch("OpTrabajo/editarOpTrabajo", {
+                codigo : this.editar_codigo,
+                cargo:editar_cargo,
                 descripcion:editar_descripcion ,
-                link: editar_link, 
-                hotel: editar_hotel, 
+                link: editar_link,
+                hotel: editar_hotel,
                 web: editar_web,
-                file: fi, 
-                estado:est 
+                file: fi,
+                estado:est
             }).then(res => {
                 console.log(res)
                 this.$q.loading.hide()
@@ -269,7 +269,7 @@ export default Vue.component('OpTrabajo', {
 
         },
         async guardar_nuevo() {
-			
+
             const {nuevo_cargo, nuevo_descripcion , nuevo_link, nuevo_hotel, nuevo_web, nuevo_banner, nuevo_estado} = this
             var est = nuevo_estado.value
             if(nuevo_cargo == ''){
@@ -310,14 +310,14 @@ export default Vue.component('OpTrabajo', {
             }
             else{
                 this.$q.loading.show()
-                await this.$store.dispatch("OpTrabajo/crearOpTrabajo", { 
-                    cargo: nuevo_cargo, 
-                    descripcion:nuevo_descripcion , 
-                    link: nuevo_link, 
-                    hotel: nuevo_hotel,  
-                    web: nuevo_web, 
-                    file: nuevo_banner[0], 
-                    estado:est 
+                await this.$store.dispatch("OpTrabajo/crearOpTrabajo", {
+                    cargo: nuevo_cargo,
+                    descripcion:nuevo_descripcion ,
+                    link: nuevo_link,
+                    hotel: nuevo_hotel,
+                    web: nuevo_web,
+                    file: nuevo_banner[0],
+                    estado:est
                 }).then(res => {
                     this.$q.loading.hide()
                     if(this.error){
@@ -408,42 +408,42 @@ export default Vue.component('OpTrabajo', {
             var especiales = "8-16-20-80-186";
             var valor = especiales.split('-');
             var tecla_especial = false;
-        
+
             for(var j in valor){
                 if(key == valor[j]){
                     tecla_especial = true;
                     break;
                 }
             }
-            
+
             var charStr = String.fromCharCode(key)
 
-            if(letras.indexOf(charStr)==-1 && !tecla_especial){  
+            if(letras.indexOf(charStr)==-1 && !tecla_especial){
                 e.preventDefault()
-                e.stopPropagation()                
+                e.stopPropagation()
             }
         },
         solo_letras(e){
-                    
+
             var key = e.keyCode || e.which;
             var tecla = String.fromCharCode(key).toLowerCase();
             var letras = "aeiouáéíóúabcdefghijklmnñopqrstuvwxyzAEIOUÁÉÍÓÚABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
             var especiales = "8-16-20-32-80-186";
             var valor = especiales.split('-');
             var tecla_especial = false;
-        
+
             for(var j in valor){
                 if(key == valor[j]){
                     tecla_especial = true;
                     break;
                 }
             }
-            
+
             var charStr = String.fromCharCode(key)
 
-            if(letras.indexOf(charStr)==-1 && !tecla_especial){  
+            if(letras.indexOf(charStr)==-1 && !tecla_especial){
                 e.preventDefault()
-                e.stopPropagation()                
+                e.stopPropagation()
             }
 
         },

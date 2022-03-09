@@ -35,7 +35,6 @@ export default Vue.component("Login", {
 				})
 				.then(res => {
 					this.$q.loading.hide();
-					debugger;
 					if (this.error) {
 						var message = this.error.message.replace(
 							"GraphQL error: ",
@@ -73,7 +72,7 @@ export default Vue.component("Login", {
 					console.log(err);
 				});
 		},
-		
+
 		ir_home(){
 
 		}

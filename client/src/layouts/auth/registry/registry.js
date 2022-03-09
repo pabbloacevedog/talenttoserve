@@ -14,11 +14,14 @@ export default Vue.component("Registry", {
 			apellido: "",
 			usuario: "",
 			producto_empresa: "",
-			nombre_empresa:'',
+			nombre_empresa: "",
 			id_perfil: [],
 			id_pais: "",
 			cargo: "",
 			rut: "",
+			se_cargo: [],
+			se_filtro: [],
+			se_pais: [],
 			telefono: "",
 			confirm: "",
 			repassword: "",
@@ -32,15 +35,15 @@ export default Vue.component("Registry", {
 			perfiles: [
 				{
 					label: "Postulante",
-					value: "1"
-				},
-				{
-					label: "Proveedor",
 					value: "3"
 				},
 				{
-					label: "Hotel",
+					label: "Proveedor",
 					value: "4"
+				},
+				{
+					label: "Hotel",
+					value: "2"
 				}
 			]
 		};
@@ -64,6 +67,7 @@ export default Vue.component("Registry", {
 				.then(res => {
 					this.$q.loading.hide();
 					console.log("paises", this.paises);
+					this.se_pais = this.paises;
 				})
 				.catch(err => {
 					console.log(err);
@@ -76,6 +80,7 @@ export default Vue.component("Registry", {
 				.then(res => {
 					this.$q.loading.hide();
 					console.log("Cargos", this.cargos);
+					this.se_cargo = this.cargos;
 				})
 				.catch(err => {
 					console.log(err);
@@ -87,10 +92,8 @@ export default Vue.component("Registry", {
 				.dispatch("Cargo/cargarFiltroProveedores")
 				.then(res => {
 					this.$q.loading.hide();
-					console.log(
-						"cargarFiltroProveedores",
-						this.filtros
-					);
+					console.log("cargarFiltroProveedores", this.filtros);
+					this.se_filtro = this.filtros;
 				})
 				.catch(err => {
 					console.log(err);
@@ -98,28 +101,34 @@ export default Vue.component("Registry", {
 		},
 		async register() {
 			this.$q.loading.show();
-			const {
-				email,
-				password,
-				id_perfil,
-				nombre,
-				telefono,
-				id_pais,
-				nombre_empresa,
-				cargo,
-				producto_empresa,
-				universidad,
-				carrera
-			} = this;
-
-			var perfil = id_perfil.value;
-			var pass = process.env.PASSPHRASE;
-			var encrypted = CryptoJS.AES.encrypt(password, pass);
-			await this.$store
-				.dispatch("Registry/registry", {
+			this.$refs.nombre.validate();
+			this.$refs.email.validate();
+			this.$refs.id_perfil.validate();
+			this.$refs.telefono.validate();
+			this.$refs.password.validate();
+			this.$refs.id_pais.validate();
+			if (
+				this.$refs.nombre.hasError ||
+				this.$refs.email.hasError ||
+				this.id_perfil.length == 0 ||
+				this.id_pais.length == 0 ||
+				this.$refs.telefono.hasError ||
+				this.$refs.password.hasError ||
+				this.$refs.id_pais.haserror
+			) {
+				this.$q.notify({
+					message: "Rellene los campos obligatorios",
+					timeout: 3000,
+					type: "negative", // Available values: 'positive', 'negative', 'warning', 'info'
+					position: "bottom",
+					icon: "report_problem"
+				});
+				this.$q.loading.hide();
+			} else {
+				const {
 					email,
 					password,
-					id_perfil: perfil,
+					id_perfil,
 					nombre,
 					telefono,
 					id_pais,
@@ -127,38 +136,66 @@ export default Vue.component("Registry", {
 					cargo,
 					producto_empresa,
 					universidad,
-					carrera,
-					password: encrypted.toString()
-				})
-				.then(res => {
-					this.$q.loading.hide();
-					if (this.error) {
-						var message = this.error.message.replace(
-							"GraphQL error: ",
-							""
-						);
-						this.$q.notify({
-							message: message,
-							timeout: 3000,
-							type: "negative", // Available values: 'positive', 'negative', 'warning', 'info'
-							position: "bottom",
-							icon: "report_problem"
-						});
-					} else {
-						this.$q.notify({
-							message: "Login success",
-							timeout: 3000,
-							type: "positive", // Available values: 'positive', 'negative', 'warning', 'info'
-							position: "bottom",
-							icon: "done_all"
-						});
-						// location.reload();
-						this.$router.push("/");
-					}
-				})
-				.catch(err => {
-					console.log(err);
-				});
+					carrera
+				} = this;
+				console.log("this", this);
+
+				var perfil = id_perfil.value;
+				var producto;
+				if (producto_empresa){
+					producto = producto_empresa.value;
+				}
+
+				var pass = process.env.PASSPHRASE;
+				var encrypted = CryptoJS.AES.encrypt(
+					password,
+					pass
+				);
+				await this.$store
+					.dispatch("Registry/registry", {
+						email,
+						password,
+						id_perfil: perfil,
+						nombre,
+						telefono,
+						id_pais: id_pais.value,
+						nombre_empresa,
+						cargo: cargo.label,
+						producto_empresa: producto,
+						universidad,
+						carrera,
+						password: encrypted.toString()
+					})
+					.then(res => {
+						this.$q.loading.hide();
+						if (this.error) {
+							var message = this.error.message.replace(
+								"GraphQL error: ",
+								""
+							);
+							this.$q.notify({
+								message: message,
+								timeout: 3000,
+								type: "negative", // Available values: 'positive', 'negative', 'warning', 'info'
+								position: "bottom",
+								icon: "report_problem"
+							});
+						} else {
+							this.$q.notify({
+								message: "Login success",
+								timeout: 3000,
+								type: "positive", // Available values: 'positive', 'negative', 'warning', 'info'
+								position: "bottom",
+								icon: "done_all"
+							});
+							// location.reload();
+							this.$router.push("/");
+						}
+					})
+					.catch(err => {
+						console.log(err);
+					});
+			}
 		},
 		async SetNewPass() {
 			// this.$q.loading.show()

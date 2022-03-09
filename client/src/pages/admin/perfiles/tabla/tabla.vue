@@ -14,12 +14,12 @@
         hide-header
     >
         <template v-slot:top-right>
-            <q-input  
-                dense 
-                standout 
-                required 
+            <q-input
+                dense
+                standout
+                required
                 v-model="parametros.filter"
-                rounded 
+                rounded
                 placeholder="Buscar"
                 class="buscar_mobile"
             >
@@ -96,13 +96,14 @@
         v-else
     >
         <template v-slot:top-right>
-            <q-input  
-                dense 
-                standout 
-                required 
+            <q-input
+                dense
+                standout
+                required
                 v-model="parametros.filter"
-                rounded 
+                rounded
                 placeholder="Buscar"
+				class="buscar_mobile"
             >
                 <template v-slot:append>
                     <q-icon name="search" />

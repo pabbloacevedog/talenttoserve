@@ -24,6 +24,7 @@ import Areas from "./web/areas/areas";
 import Clientes from "./web/clientes/clientes";
 import Contacto from "./web/contacto/contacto";
 import Empleos from "./web/empleos/empleos";
+import Proveedores from "./web/proveedor/proveedor";
 import Asesorias from "./web/asesorias/asesorias";
 import Capacitaciones from "./web/capacitaciones/capacitaciones";
 import Practicas from "./web/practicas/practicas";
@@ -61,6 +62,7 @@ const routes = auxiliar.concat(
 	Contacto,
 	Practicas,
 	Empleos,
+	Proveedores,
 	Asesorias,
 	Capacitaciones,
 	Inicio

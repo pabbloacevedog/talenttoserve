@@ -21,9 +21,9 @@ const UsuarioType = new GraphQLObjectType({
 		path_default: {
 			type: GraphQLString,
 		},
-		avatar: {
-			type: GraphQLString,
-		},
+		// avatar: {
+		// 	type: GraphQLString,
+		// },
 		id_perfil: {
 			type: GraphQLInt,
 		},

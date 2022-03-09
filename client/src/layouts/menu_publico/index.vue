@@ -42,7 +42,7 @@
 						v-if="$q.platform.is.desktop"
 						:active="link === menuItem.tag"
 						:to="menuItem.tag"
-						@click="scrollToElement(menuItem.tag, menuItem.pag)"
+						@click="scrollToElement(menuItem)"
 						class="font_bar"
 					>
 						<q-item-section class="n_usuario font_bar">{{
@@ -52,6 +52,7 @@
 				</div>
 				<div v-if="isLogin" class="n_usuario">
 					<q-chip
+						v-if="isAdmin"
 						outline
 						@click="irAdmin"
 						clickable
@@ -142,7 +143,9 @@
 				</div>
 			</q-list>
 		</q-drawer>
-		<q-page-container style="padding-top: 0px !important;padding-left:0px !important;">
+		<q-page-container
+			style="padding-top: 0px !important;padding-left:0px !important;"
+		>
 			<q-page>
 				<router-view />
 			</q-page>

@@ -46,13 +46,13 @@ export default Vue.component("MenuPublico", {
 					icon: "fas fa-briefcase",
 					tag: "/empleos"
 				},
-				// {
-				// 	name: "Practicas laborales",
-				// 	path: "/practicas",
-				// 	pag: true,
-				// 	icon: "",
-				// 	tag: "/practicas"
-				// },
+				{
+					name: "Proveedores",
+					path: "/Proveedores",
+					pag: true,
+					icon: "",
+					tag: "/Proveedores"
+				},
 				{
 					name: "Clientes",
 					path: "/",
@@ -81,7 +81,7 @@ export default Vue.component("MenuPublico", {
 			scrollPosition: null,
 			miniState: true,
 			mostrarDrawer: false,
-			nombre:'',
+			nombre: ""
 		};
 	},
 	computed: {
@@ -97,16 +97,16 @@ export default Vue.component("MenuPublico", {
 		scrollToElement(menu) {
 			if (!menu.pag) {
 				this.mostrarDrawer = false;
-				const newID = menu.id.slice(1);
+				const newID = menu.tag.slice(1);
 				let el = document.getElementById(newID);
 				const target = getScrollTarget(el);
 				const offset = el.offsetTop - 65;
 				const duration = 0;
 				setScrollPosition(target, offset, duration);
 			}
-			else{
-				this.$router.push(menu.path);
-			}
+			// else{
+			// 	this.$router.push(menu.path);
+			// }
 		},
 		login() {
 			this.$router.push("/login");
@@ -116,14 +116,15 @@ export default Vue.component("MenuPublico", {
 		},
 		mostrar_drawer(){
 			this.mostrarDrawer = !this.mostrarDrawer
-			if (this.mostrarDrawer){
-				const newID = "#portada";
-				let el = document.getElementById(newID);
-				const target = getScrollTarget(el);
-				const offset = el.offsetTop - 65;
-				const duration = 0;
-				setScrollPosition(target, offset, duration);
-			}
+			// if (this.mostrarDrawer){
+			// 	debugger
+			// 	const newID = "#portada";
+			// 	let el = document.getElementById(newID);
+			// 	const target = getScrollTarget(el);
+			// 	const offset = el.offsetTop - 65;
+			// 	const duration = 0;
+			// 	setScrollPosition(target, offset, duration);
+			// }
 		},
 		logout() {
 			this.$q.loading.show();

@@ -37,15 +37,15 @@
         persistent
         transition-show="slide-up"
         transition-hide="slide-down"
-        
+
         >
             <q-card class="modales" style="width: 900px; max-width: 90vw !important;" color="primary">
                 <q-card-section align="center">
                     <div class="text-h6 titulo_crear" color="text">Nuevo Item</div>
                 </q-card-section>
-                <q-card-section class="area_comment">  
+                <q-card-section class="area_comment">
                     <div class="row">
-                        <div class="col-6">                 
+                        <div class="col-6">
                             <q-input  dense standout required label='Titulo' v-model='nuevo_titulo' class="input-reg q-mx-lg">
                             </q-input>
                             <q-input  dense standout required label='Descripción' v-model='nuevo_descripcion' rows="9"  type="textarea"  class="input-reg q-mx-lg">
@@ -81,15 +81,15 @@
         persistent
         transition-show="slide-up"
         transition-hide="slide-down"
-        
+
         >
             <q-card class="modales" style="width: 900px; max-width: 90vw !important;">
                 <q-card-section align="center">
                     <div class="text-h6 titulo_crear" color="text">Editar Registro</div>
                 </q-card-section>
-                <q-card-section class="area_comment"> 
+                <q-card-section class="area_comment">
                     <div class="row">
-                        <div class="col-6">                 
+                        <div class="col-6">
                             <q-input  dense standout required label='Titulo' v-model='editar_titulo' class="input-reg q-mx-lg">
                             </q-input>
                             <q-input  dense standout required label='Descripción' v-model='editar_descripcion' rows="9"  type="textarea" class="input-reg q-mx-lg">
@@ -112,7 +112,7 @@
                             </q-input>
                             <q-select dense standout required v-model="editar_estado" :options="estados" label="Estado" class="input-reg q-mx-lg"/>
                         </div>
-                    </div>                     
+                    </div>
                 </q-card-section>
                 <div class="q-pb-lg" style="text-align: center;">
                     <q-btn rounded @click.native="modal_editar = false" class="cancelar">Cancelar</q-btn>
@@ -134,11 +134,11 @@
                     <div class="text-h6 b_eliminar" color="text">
                         ¿Está seguro que desea eliminar el registro
                         <div class="text-h6 n_eliminar" color="text">
-                            {{parametros_tabla.selected[0].nombre}} 
+                            {{parametros_tabla.selected[0].nombre}}
                         </div>
                         ?
                     </div>
-                    
+
                 </q-card-section>
                 <div class="q-pb-lg" style="text-align: center;">
                     <q-btn rounded @click.native="modal_eliminar = false" class="cancelar">Cancelar</q-btn>
@@ -147,9 +147,9 @@
             </q-card>
         </q-dialog>
         <q-dialog persistent width="800" v-model="modal_banner" >
-            <q-card class="modales" style=" max-width: 80vw; max-height:90vh">
+            <q-card class="modales" style=" max-width: 90vw; max-height:90vh">
                 <q-card-section align="center">
-                    <q-img :src="banner" style="width: 600px;"></q-img>
+                    <q-img :src="banner" style="width: 80vw;max-height:70vh"></q-img>
                 </q-card-section>
                 <div class="q-pb-lg" style="text-align: center;">
                     <q-btn rounded @click.native="modal_banner = false" color="accent">Aceptar</q-btn>

@@ -9,6 +9,9 @@ export default [
 			if (!localStorage.getItem("token")) {
 				next();
 			}
+			else{
+				next('/')
+			}
 		}
 	}
 ];

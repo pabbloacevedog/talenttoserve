@@ -9,13 +9,13 @@
 			<q-card class="my-card text-white card-dialog-empleos">
 				<q-card-section class="q-pb-none q-px-xl">
 					<div class="text-overline">
-						{{ info.hotel }}
+						{{ info.direccion }}
 					</div>
 				</q-card-section>
 				<q-card-section horizontal v-if="$q.platform.is.desktop">
 					<q-card-section class="q-pt-xs q-px-xl">
 						<div class="text-h4 q-mt-sm q-mb-md">
-							{{ info.cargo }}
+							{{ info.proveedor }}
 						</div>
 						<div class="desc_empleo">
 							{{ info.descripcion }}
@@ -52,7 +52,7 @@
 					</q-card-section>
 					<q-card-section class="q-pt-xs q-px-xs">
 						<div class="text-h4 q-mt-sm q-mb-md">
-							{{ info.cargo }}
+							{{ info.proveedor }}
 						</div>
 						<div class="desc_empleo_mobile">
 							{{ info.descripcion }}
@@ -61,7 +61,7 @@
 				</q-card-section>
 				<q-card-section class="q-pt-xs q-px-xl">
 					<div style="color: #8ab4f8;">
-						{{ info.link }}
+						{{ info.email }}
 					</div>
 				</q-card-section>
 				<q-card-section class="q-pt-none q-px-xl" :to="info.web">
@@ -132,11 +132,11 @@
 							dark
 							rounded
 							clearable
-							v-model="filtro_cargo"
-							:options="cargos"
-							label="Cargo"
+							v-model="filtro_proveedor"
+							:options="proveedors"
+							label="Proveedor"
 							class="q-py-md"
-							@input="filtrar(filtro_cargo, 'cargo')"
+							@input="filtrar(filtro_proveedor, 'proveedor')"
 						/>
 						<q-select
 							dense
@@ -144,11 +144,11 @@
 							dark
 							rounded
 							clearable
-							v-model="filtro_hotel"
-							:options="hoteles"
-							label="Hotel"
+							v-model="filtro_direccion"
+							:options="direcciones"
+							label="Direccion"
 							class="q-py-md"
-							@input="filtrar(filtro_hotel, 'hotel')"
+							@input="filtrar(filtro_direccion, 'direccion')"
 						/>
 						<q-space />
 						<q-select
@@ -169,11 +169,11 @@
 							dark
 							rounded
 							clearable
-							v-model="filtro_link"
-							:options="links"
-							label="Link"
+							v-model="filtro_email"
+							:options="emails"
+							label="Email"
 							class="q-py-md"
-							@input="filtrar(filtro_link, 'link')"
+							@input="filtrar(filtro_email, 'email')"
 						/>
 					</template>
 				</div>
@@ -216,13 +216,18 @@
 									/>
 									{{ props.row.color }}
 									<!-- </div> -->
-									<q-card-section class="row">
+									<q-card-section class="row q-px-md q-pb-xs" style="    padding-top: 8px;">
 										<div
-											class="col-12"
+											class="col-12 text-h7"
+											style="font-weight: 600;"
 										>
-											<span >{{ props.row.hotel }} necesita : </span><span style="font-weight: 600;">  {{ props.row.cargo }}</span>
+											{{ truncate_proveedor(props.row.proveedor) }}
 										</div>
-
+										<div
+											class="col-12" style="font-size: 0.8em;"
+										>
+											{{ props.row.direccion }}
+										</div>
 										<div
 											class="col-12 q-py-xs"
 											style="color: #9babc1;"
@@ -235,7 +240,7 @@
 											class="col-12 text-subtitle2"
 											style="font-size: 0.74rem; color: #8ab4f8;"
 										>
-											{{ props.row.link }}
+											{{ props.row.email }}
 										</div>
 									</q-card-section>
 									<q-card-actions align="right">
@@ -277,7 +282,7 @@
 											class="col-12 text-h7"
 											style="font-weight: 600;"
 										>
-											{{ props.row.hotel }}
+											{{ props.row.direccion }}
 										</div>
 										<div
 											class="col-12 q-py-xs"
@@ -291,7 +296,7 @@
 											class="col-12 text-subtitle2"
 											style="font-size: 0.74rem; color: #8ab4f8;"
 										>
-											{{ props.row.link }}
+											{{ props.row.email }}
 										</div>
 									</q-card-section>
 									<q-card-actions align="right">

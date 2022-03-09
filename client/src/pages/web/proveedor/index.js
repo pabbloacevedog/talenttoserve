@@ -1,28 +1,28 @@
 import Vue from "vue";
 import { mapGetters } from "vuex";
 import ColorThief from "color-thief";
-export default Vue.component("Empleos", {
+export default Vue.component("Proveedores", {
 	$validates: 1,
 	components: {
 		// tabla:() => import('./tabla/tabla.vue')
 	},
 	data() {
 		return {
-			src_fondo: "statics/empleos.jpg",
+			src_fondo: "statics/proveedores.jpg",
 			src_persona: "statics/img/cocinero.png",
 			filter: "",
 			info: {},
 			modal_ver_mas: false,
-			cargos: [],
+			proveedors: [],
 			webs: [],
-			links: [],
-			hoteles: [],
-			filtro_cargo: "",
+			emails: [],
+			direcciones: [],
+			filtro_proveedor: "",
 			filtro_web: "",
-			filtro_link: "",
-			filtro_hotel: "",
+			filtro_email: "",
+			filtro_direccion: "",
 			parametros_tabla: {
-				title: "Oportunidades laborales",
+				title: "Proveedores",
 				acciones: [
 					{
 						accion: "Eliminar",
@@ -41,10 +41,10 @@ export default Vue.component("Empleos", {
 				selectedkey: "codigo",
 				columns: [
 					{
-						name: "cargo",
-						label: "cargo",
+						name: "proveedor",
+						label: "proveedor",
 						align: "left",
-						field: "cargo",
+						field: "proveedor",
 						sortable: true
 					},
 					{
@@ -55,17 +55,17 @@ export default Vue.component("Empleos", {
 						sortable: true
 					},
 					{
-						name: "link",
+						name: "email",
 						align: "center",
-						label: "Link",
-						field: "link",
+						label: "Email",
+						field: "email",
 						sortable: true
 					},
 					{
-						name: "hotel",
+						name: "direccion",
 						align: "center",
-						label: "Hotel",
-						field: "hotel",
+						label: "Direccion",
+						field: "direccion",
 						sortable: true
 					},
 					{
@@ -99,7 +99,7 @@ export default Vue.component("Empleos", {
 		...mapGetters({
 			isLogin: "Auth/isLogin",
 			isAdmin: "Auth/isAdmin",
-			dataOpTrabajo: "OpTrabajo/getData"
+			dataProveedor: "Proveedor/getData"
 		}),
 		cardContainerClass() {
 			if (this.$q.screen.gt.xs) {
@@ -113,7 +113,7 @@ export default Vue.component("Empleos", {
 		async iniciar() {
 			this.$q.loading.show();
 			await this.$store
-				.dispatch("OpTrabajo/cargarOpTrabajo")
+				.dispatch("Proveedor/cargarProveedor")
 				.then(res => {
 					this.$q.loading.hide();
 					if (this.error) {
@@ -130,11 +130,11 @@ export default Vue.component("Empleos", {
 						});
 					} else {
 						// this.getColorBanner(
-						// 	this.dataOpTrabajo
+						// 	this.dataProveedor
 						// );
-						// console.log("dataOpTrabajo", this.dataOpTrabajo);
-						this.parametros_tabla.data = this.dataOpTrabajo;
-						this.cargar_filtros(this.dataOpTrabajo);
+						// console.log("dataProveedor", this.dataProveedor);
+						this.parametros_tabla.data = this.dataProveedor;
+						this.cargar_filtros(this.dataProveedor);
 					}
 				})
 				.catch(err => {
@@ -149,36 +149,43 @@ export default Vue.component("Empleos", {
 				return 4;
 			}
 		},
+		// filtrar(filtro, input) {
+		// 	this.clean_filters(input);
+		// 	this.parametros_tabla.data = this.dataProveedor;
+		// 	const data = this.parametros_tabla.data.filter(obj =>
+		// 		Object.keys(obj).some(key => obj[key] == filtro)
+		// 	);
+		// 	this.parametros_tabla.data = data;
+		// },
 		filtrar(filtro, input) {
 			if (filtro) {
 				this.clean_filters(input);
-				this.parametros_tabla.data = this.dataOpTrabajo;
+				this.parametros_tabla.data = this.dataProveedor;
 				const data = this.parametros_tabla.data.filter(obj =>
 					Object.keys(obj).some(key => obj[key] == filtro)
 				);
 				this.parametros_tabla.data = data;
-			}
-			else{
-				this.parametros_tabla.data = this.dataOpTrabajo;
+			} else {
+				this.parametros_tabla.data = this.dataProveedor;
 			}
 		},
 		clean_filters(input) {
-			if (input === "cargo") {
-				this.filtro_link = "";
-				this.filtro_hotel = "";
+			if (input === "proveedor") {
+				this.filtro_email = "";
+				this.filtro_direccion = "";
 				this.filtro_web = "";
-			} else if (input === "hotel") {
-				this.filtro_cargo = "";
-				this.filtro_link = "";
+			} else if (input === "direccion") {
+				this.filtro_proveedor = "";
+				this.filtro_email = "";
 				this.filtro_web = "";
-			} else if (input === "link") {
-				this.filtro_cargo = "";
+			} else if (input === "email") {
+				this.filtro_proveedor = "";
 				this.filtro_web = "";
-				this.filtro_hotel = "";
+				this.filtro_direccion = "";
 			} else {
-				this.filtro_cargo = "";
-				this.filtro_link = "";
-				this.filtro_hotel = "";
+				this.filtro_proveedor = "";
+				this.filtro_email = "";
+				this.filtro_direccion = "";
 			}
 		},
 		rowsPerPage() {
@@ -192,11 +199,13 @@ export default Vue.component("Empleos", {
 			if (input.length > 235) return input.substring(0, 235) + "...";
 			else return input;
 		},
-		truncate_cargo(input) {
-			if (input.length > 27) return input.substring(0, 27) + "...";
-			else return input;
+		truncate_proveedor(input) {
+			var newWord = input.replace(/<b>/g, "");
+			var newW = newWord.replace("</b>", "");
+			if (newW.length > 27) return newW.substring(0, 27) + "...";
+			else return newW;
 		},
-		truncate_hotel(input) {
+		truncate_direccion(input) {
 			if (input.length > 35) return input.substring(0, 35) + "...";
 			else return input;
 		},
@@ -232,14 +241,14 @@ export default Vue.component("Empleos", {
 			}
 		},
 		cargar_filtros(data) {
-			this.cargos = [...new Set(data.map(d => d.cargo))];
-			this.links = [...new Set(data.map(d => d.link))];
-			this.hoteles = [...new Set(data.map(d => d.hotel))];
+			this.proveedors = [...new Set(data.map(d => d.proveedor))];
+			this.emails = [...new Set(data.map(d => d.email))];
+			this.direcciones = [...new Set(data.map(d => d.direccion))];
 			this.webs = [...new Set(data.map(d => d.web))];
 		},
 		filtrar_datos() {
 			return this.parametros_tabla.data.filter(
-				d => (d.cargo = this.filtro_cargo)
+				d => (d.proveedor = this.filtro_proveedor)
 			);
 		}
 		// getColorBanner(data){
@@ -274,7 +283,7 @@ export default Vue.component("Empleos", {
 		// this.$nextTick(() => {
 		// 	const colorThief = new ColorThief();
 		// 	debugger;
-		// 	this.dataOpTrabajo.forEach(element => {
+		// 	this.dataProveedor.forEach(element => {
 		// 		debugger;
 		// 		const color = colorThief.getColor(
 		// 			this.$refs[element.codigo]

@@ -20,7 +20,7 @@
 						@click="ir_home"
 					/>
 				</q-btn>
-				<div class="titulo_bar">Talent to serve</div>
+				<div class="titulo_bar" v-if="$q.platform.is.desktop">Talent to serve</div>
 				<q-toolbar-title
 					v-if="$q.platform.is.desktop"
 					class="row justify-center"

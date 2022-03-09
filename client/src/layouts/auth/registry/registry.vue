@@ -41,7 +41,9 @@
 								standout
 								required
 								label="Nombre y Apellido"
+								ref="nombre"
 								v-model="nombre"
+								:rules="[val => !!val || 'Ingrese un nombre']"
 								class="q-ml-md input-register"
 							>
 								<template v-slot:before>
@@ -56,7 +58,9 @@
 								required
 								label="Email"
 								v-model="email"
+								ref="email"
 								class="q-ml-md input-register"
+								:rules="[val => !!val || 'El email es obligatorio']"
 							>
 								<template v-slot:before>
 									<q-icon name="email" />
@@ -72,7 +76,9 @@
 										v-model="id_perfil"
 										:options="perfiles"
 										label="Tipo Perfil"
+										ref="id_perfil"
 										class="q-ml-md input-register"
+										:rules="[val => !!val || 'Seleccione un perfil']"
 										@change="perfil_view"
 									>
 										<template v-slot:before>
@@ -87,11 +93,13 @@
 										standout
 										required
 										v-model="telefono"
+										ref="telefono"
 										label="Telefono"
 										mask="(#) ##-##-##-##"
 										unmasked-value
 										hint="Ej: (9) 99-99-99-99"
 										class="q-ml-md input-register-2"
+										:rules="[val => !!val || 'Ingrese un teléfono']"
 									>
 										<template v-slot:append>
 											<q-icon name="phone" />
@@ -108,7 +116,7 @@
 								required
 								label="Nombre empresa"
 								v-model="nombre_empresa"
-								v-if="id_perfil.value == '3'"
+								v-if="id_perfil.value == '4'"
 								class="q-ml-md input-register"
 							>
 								<template v-slot:before>
@@ -123,7 +131,7 @@
 								required
 								label="Nombre hotel"
 								v-model="nombre_empresa"
-								v-if="id_perfil.value == '4'"
+								v-if="id_perfil.value == '2'"
 								class="q-ml-md input-register"
 							>
 								<template v-slot:before>
@@ -138,7 +146,7 @@
 								required
 								label="Cargo"
 								v-model="cargo"
-								v-if="id_perfil.value == '4'"
+								v-if="id_perfil.value == '2'"
 								class="q-ml-md input-register"
 							>
 								<template v-slot:before>
@@ -151,8 +159,8 @@
 								standout
 								required
 								v-model="producto_empresa"
-								:options="filtros"
-								v-if="id_perfil.value == '3'"
+								:options="se_filtro"
+								v-if="id_perfil.value == '4'"
 								label="Seleccione producto o servicio"
 								class="q-ml-md input-register"
 								@change="perfil_view"
@@ -167,10 +175,10 @@
 								standout
 								required
 								v-model="cargo"
-								:options="cargos"
+								:options="se_cargo"
 								label="Seleccione actual o último cargo"
 								class="q-ml-md input-register"
-								v-if="id_perfil.value == '1'"
+								v-if="id_perfil.value == '3'"
 								@change="perfil_view"
 							>
 								<template v-slot:before>
@@ -188,6 +196,8 @@
 										label="Password"
 										v-model="password"
 										class="q-ml-md input-register"
+										ref="password"
+										:rules="[val => !!val || 'Ingrese una contraseña']"
 										:type="isPwd ? 'password' : 'text'"
 									>
 										<template v-slot:before>
@@ -215,6 +225,7 @@
 										required
 										label="Repetir password"
 										v-model="repassword"
+										:rules="[val => !!val || 'Repita la contraseña']"
 										class="q-ml-md input-register-2"
 										:type="isPwd ? 'password' : 'text'"
 									>
@@ -239,7 +250,8 @@
 								standout
 								required
 								v-model="id_pais"
-								:options="paises"
+								:options="se_pais"
+								ref="id_pais"
 								label="Selecciones su País"
 								class="q-ml-md input-register"
 								@change="perfil_view"

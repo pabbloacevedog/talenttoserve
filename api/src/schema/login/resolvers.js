@@ -9,7 +9,7 @@ import { QueryTypes } from "sequelize";
 const nodemailer = require("nodemailer");
 
 export async function rutas(id_perfil) {
-	console.log("id_perfil", id_perfil);
+	// console.log("id_perfil", id_perfil);
 	let ruta = await models.sequelize.query(
 		" SELECT  " +
 			"     r.path, " +
@@ -875,7 +875,12 @@ export async function login(parentValue, { email, password }, context) {
 		var passDecryp = decrypted.toString(CryptoJS.enc.Utf8);
 		const datosUsuarioDetalles = usuario_bd.get();
 		const usuario = await buscar_usuario(email);
-		// console.log("usuario", usuario);
+		console.log("usuario", usuario);
+		console.log("passDecryp", passDecryp);
+		console.log(
+			"datosUsuarioDetalles.password_new",
+			datosUsuarioDetalles.password_new
+		);
 		if (datosUsuarioDetalles.estado) {
 			const router = await rutas(usuario.id_perfil);
 			return await bcrypt
@@ -922,14 +927,17 @@ export async function create(
 		carrera,
 	}
 ) {
-	// Users exists with same email check
-	const user = await models.User.findOne({ where: { email } });
+	// Usuarios exists with same email check
+	const user = await models.Usuario.findOne({ where: { email } });
 
 	if (!user) {
-		// User no existe
-		const passwordHashed = await bcrypt.hash(password, config.saltRounds);
+		// Usuario no existe
+		var pass = config.passphrase;
+		var decrypted = CryptoJS.AES.decrypt(password, pass);
+		var passDecryp = decrypted.toString(CryptoJS.enc.Utf8);
+		const passwordHashed = await bcrypt.hash(passDecryp, config.saltRounds);
 
-		await models.User.create({
+		await models.Usuario.create({
 			email,
 			id_perfil,
 			nombre,
@@ -941,9 +949,11 @@ export async function create(
 			universidad,
 			carrera,
 			password_new: passwordHashed,
+			estado: true,
 		});
-		const router = await rutas(usuario.id_perfil);
+
 		const usuario = await buscar_usuario(email);
+		const router = await rutas(usuario.id_perfil);
 		var data = {
 			datosUsuario: usuario,
 			routers: router,
@@ -952,7 +962,7 @@ export async function create(
 			token: jwt.sign(data, config.secret),
 		};
 	} else {
-		// User existe
+		// Usuario existe
 		throw new Error(
 			`El email ${email} ya esta registrado. Intenta iniciar sesión.`
 		);

@@ -31,7 +31,7 @@
 							</q-card-section>
 							<q-card-section style="padding-bottom: 0px;">
 								<q-input
-									style="font-size:1.5em;"
+									style="font-size:1em;"
 									dark
 									dense
 									standout
@@ -45,7 +45,7 @@
 									</template>
 								</q-input>
 								<q-input
-									style="font-size:1.5em;"
+									style="font-size:1em;"
 									dark
 									dense
 									standout
@@ -72,7 +72,7 @@
 								</q-input>
 								<!-- <span class='danger' style="padding: 10px;">{{error}}</span> -->
 								<span style="padding-top: 10px;">
-									<p style="font-size:1.2em;">
+									<p style="font-size:1em;">
 										¿No tienes una cuenta?
 										<a
 											@click="$router.push('/registry')"
@@ -82,7 +82,7 @@
 									</p>
 								</span>
 								<span>
-									<p style="font-size:1.2em;">
+									<p style="font-size:1em;">
 										<a
 											@click="$router.push('/forget')"
 											style="color: #ff8037;"
